@@ -6,7 +6,7 @@ echo " "
  cd /.workspace
  mkdir twrp
  cd twrp
- echo "Manifest Branch AVAILABLE : \
+ echo "Manifest AOSP Branch AVAILABLE : \
  - 11 \
  - 12.1 \ "
  echo "Pilih Manifest branch : "
@@ -27,9 +27,9 @@ read Device_Name
 echo "Build Target (recovery,boot,vendorboot) : "
 read Build_Target
  
-sleep 1
+
 echo " "
-echo " START BUILD ENVIRONMENT "
+echo "  Build Environment "
 echo " "
 
   apt update
@@ -49,11 +49,11 @@ echo " "
         
         repo sync
         echo " "
-        echo "CLONE DEVICE TREE"
+        echo " Cloning Device Tree "
         echo " "
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " "
-        echo " BUILDING TWRP "
+        echo " Building Recovery "
         echo " "
         sleep 1
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
