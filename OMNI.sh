@@ -9,11 +9,11 @@ current_directory=$(pwd)
  cd twrp
  
  echo "Manifest Omni branch AVAILABLE : \
- 1) 5.1 \
- 2) 6.0 \
- 3) 7.1 \
- 4) 8.1 \
- 5) 9.0 "
+ - 5.1 \
+ - 6.0 \
+ - 7.1 \
+ - 8.1 \
+ - 9.0 "
  echo "Pilih Manifest branch : "
 read Manifest_branch
 
