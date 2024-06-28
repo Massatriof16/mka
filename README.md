@@ -10,9 +10,9 @@ Cara penggunaan
 - bash TWRP.sh (untuk Aosp Manifest)
 - bash OMNI.sh (untuk Omni Manifest)
 
-Jika terjad error build karena kesalahan device tree cukup lakukan ini
-agar Tidak perlu dari awal melakukan sync manifest dam langsung
-Build recovery nya
+Jika terjad error build karena kesalahan device tree 
+cukup lakukan ini agar Tidak perlu dari awal melakukan 
+sync manifest dan langsung Build recovery nya
 
 - bash RETWRP.sh (untuk Aosp Manifest)
 - bash REOMNI.sh (untuk Omni Manifest)
