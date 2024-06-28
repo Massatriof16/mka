@@ -103,3 +103,12 @@ mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 fi
+echo " "
+echo "Done Build"
+echo " "
+if [ "${Build_Target}" = "vendorboot" ]; then
+chmod a+x TWRP_${Device_Name}_vendor_boot.img
+else
+chmod a+x TWRP_${Device_Name}_${Build_Target}.img
+fi
+
