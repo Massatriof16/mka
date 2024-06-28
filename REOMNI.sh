@@ -1,7 +1,15 @@
 current_directory = ${pwd}
- 
-  
-echo "Link Device tree twrp : "
+
+echo "Memanggil Konfigurasi yang Tersimpan"
+
+echo "Ingin ubah konfigurasi tersimpan?"
+echo "1. Ya"
+echo "2. Tidak"
+echo "Pilih: "
+read settings
+
+if [ "${settings}" = 1 ]; then
+    echo "Link Device tree twrp : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
     echo "Input Device tree Kosong !"
@@ -32,8 +40,22 @@ read Build_Target
     exit 1
 fi
 
+    sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" save_settings.txt
+ 
+sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" save_settings.txt
 
-rm -rf /.workspace/twrp/device
+
+sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" save_settings.txt
+
+sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" save_settings.txt
+
+sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" save_settings.txt
+echo " Dipeebarui!"
+sleep 1
+
+    source save_settings.txt
+    
+    rm -rf /.workspace/twrp/device
 
 cd /.workspace/twrp
 echo " "
@@ -52,3 +74,34 @@ sleep 1
 
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+
+elif [ "${settings}" = 2 ]; then
+    source save_settings.txt
+    rm -rf /.workspace/twrp/device
+
+cd /.workspace/twrp
+echo " "
+echo "Cloning Device Tree "
+echo " "
+git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+echo " "
+echo " Building recovery "
+echo " "
+sleep 1
+        
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+        
+   
+         cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
+
+        cd ${current_directory}
+mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+
+else
+    echo "Input tidak valid. Perintah dibatalkan."
+    exit 1
+fi
+
+
+
+# Menampilkan nilai variabel Device_tree
