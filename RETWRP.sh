@@ -110,6 +110,7 @@ mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 fi
+cd ${current_directory}
 echo " "
 echo "Done Build"
 echo " "
