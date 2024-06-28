@@ -30,4 +30,4 @@ sleep 1
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
 
         cd ${current_directory}
-mv recovery.img TWRP_${Device_Name}.img
+mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
