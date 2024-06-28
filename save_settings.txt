@@ -1,4 +1,3 @@
-Manifest_branch=
 Device_tree=
 Branch_dt_twrp=
 Device_Path=
