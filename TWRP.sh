@@ -52,3 +52,5 @@ read Build_Target
          else
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         fi
+cd ${current_directory}
+mv recovery.img TWRP_${Device_Name}.img
