@@ -45,9 +45,9 @@ read Build_Target
     echo "Input Build Target Kosong!"
     exit 1
 fi
-
-
-
+echo " "
+echo "Konfigurasi Tersimpan"
+echo " "
 sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" save_settings.txt
  
 sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" save_settings.txt
