@@ -44,7 +44,7 @@ if [ -z "{$Device_Name}" ]; then
     echo "Input Device Name Kosong!"
     exit 1
 fi
-echo "Build Target (recovery,boot,vendorboot) : "
+echo "Build Target (recovery,boot) : "
 read Build_Target
  if [ -z "${Build_Target}" ]; then
     echo "Input Build Target Kosong!"
