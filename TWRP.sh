@@ -4,7 +4,7 @@ current_directory=$(pwd)
  cd /.workspace
  mkdir twrp
  cd twrp
- echo "Manifest Branch : \n 1) 11 \n 2) 12.1"
+ echo "Manifest Branch : 1) 11 , 2) 12.1"
  echo "Pilih Manifest branch : "
 read Manifest_branch
 
