@@ -28,10 +28,12 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
        if [ "${Build_Target}" = "vendorboot" ]; then
-    Build_Target = vendor_boot
-         cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+         cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         fi
 cd ${current_directory}
-mv recovery.img TWRP_${Device_Name}.img
+if [ "${Build_Target}" = "vendorboot" ]; then
+mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
+else
+mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
