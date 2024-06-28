@@ -40,20 +40,20 @@ read Build_Target
     exit 1
 fi
 
-    sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" save_settings.txt
+    sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" ${current_directory}/save_settings.txt
  
-sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" save_settings.txt
+sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" ${current_directory}/save_settings.txt
 
 
-sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" save_settings.txt
+sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" ${current_directory}/save_settings.txt
 
-sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" save_settings.txt
+sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" ${current_directory}/save_settings.txt
 
-sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" save_settings.txt
+sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save_settings.txt
 echo " Dipeebarui!"
 sleep 1
 
-    source save_settings.txt
+    source ${current_directory}/save_settings.txt
     
     rm -rf /.workspace/twrp/device
 
@@ -76,7 +76,7 @@ sleep 1
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 
 elif [ "${settings}" = 2 ]; then
-    source save_settings.txt
+    source ${current_directory}/save_settings.txt
     rm -rf /.workspace/twrp/device
 
 cd /.workspace/twrp
