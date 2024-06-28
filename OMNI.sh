@@ -103,3 +103,4 @@ echo " "
         
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+chmod a+x TWRP_${Device_Name}_${Build_Target}.img
