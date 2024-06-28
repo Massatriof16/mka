@@ -48,16 +48,16 @@ fi
 echo " "
 echo "Konfigurasi Tersimpan"
 echo " "
-sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" save_settings.txt
+sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" ${current_directory}/save_settings.txt
  
-sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" save_settings.txt
+sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" ${current_directory}/save_settings.txt
 
 
-sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" save_settings.txt
+sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" ${current_directory}/save_settings.txt
 
-sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" save_settings.txt
+sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" ${current_directory}/save_settings.txt
 
-sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" save_settings.txt
+sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save_settings.txt
 
 
 
