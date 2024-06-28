@@ -17,7 +17,7 @@ rm -rf /.workspace/twrp/device
 cd /.workspace/twrp
 
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        
+        sleep 2
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
        if [ "${Build_Target}" = "vendorboot" ]; then
