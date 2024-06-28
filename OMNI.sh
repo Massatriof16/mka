@@ -1,12 +1,19 @@
  
 current_directory=$(pwd)
- 
+
+ echo " "
+ echo " BUILD CONFIGURATION TWRP "
+ echo " "
  cd /.workspace
  mkdir twrp
  cd twrp
  
- echo "Manifest Omni branch: 1) 5.1 , 2) 6.0 , 3) 7.1 , 4) 8.1 , 5) 9.0 "
- 
+ echo "Manifest Omni branch AVAILABLE : \
+ 1) 5.1 \
+ 2) 6.0 \
+ 3) 7.1 \
+ 4) 8.1 \
+ 5) 9.0 "
  echo "Pilih Manifest branch : "
 read Manifest_branch
 
@@ -25,7 +32,9 @@ read Device_Name
 echo "Build Target (recovery,boot) : "
 read Build_Target
  
-
+echo " "
+echo " Build Environment... "
+echo " "
 
   apt update
   apt -y upgrade
@@ -43,10 +52,15 @@ read Build_Target
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
         
         repo sync
-        
+        echo " "
+
+        echo " Cloning Device Tree "
+        echo " "
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        
-        sleep 2
+        echo " "
+        echo " Building recovery..."
+        echo " "
+        sleep 1
         
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
