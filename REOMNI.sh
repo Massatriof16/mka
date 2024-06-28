@@ -15,10 +15,14 @@ current_directory = ${pwd}
 rm -rf /.workspace/twrp/device
 
 cd /.workspace/twrp
-
+echo " "
+echo "Cloning Device Tree "
+echo " "
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-
-sleep 2
+echo " "
+echo " Building recovery "
+echo " "
+sleep 1
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
