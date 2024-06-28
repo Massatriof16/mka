@@ -46,8 +46,8 @@ echo " "
    apt -y install repo
    
    
-        git config --global user.name "Massatrio16"
-        git config --global user.email "dimassetosatrio@gmail.com"
+        git config --global user.name "Nico170420"
+        git config --global user.email "b170420nc@gmail.com"
         
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
         
