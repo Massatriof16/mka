@@ -5,7 +5,7 @@ current_directory=$(pwd)
  mkdir twrp
  cd twrp
  
- echo "Manifest Omni branch: \n 1) 5.1 \n 2) 6.0 \n 3) 7.1 \n 4) 8.1 \n 5) 9.0 "
+ echo "Manifest Omni branch: 1) 5.1 , 2) 6.0 , 3) 7.1 , 4) 8.1 , 5) 9.0 "
  
  echo "Pilih Manifest branch : "
 read Manifest_branch
