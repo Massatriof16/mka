@@ -1,0 +1,6 @@
+Manifest_branch=
+Device_tree=
+Branch_dt_twrp=
+Device_Path=
+Device_Name=
+Build_Target=
