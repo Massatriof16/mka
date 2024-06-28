@@ -562,7 +562,7 @@ chmod a+x TWRP_${Device_Name}_${Build_Target}.img
 
 
 
-
+echo " "
 echo "--------------Building TWRP-----------"
 main
 exit 0
