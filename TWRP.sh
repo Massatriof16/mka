@@ -4,8 +4,8 @@ current_directory=$(pwd)
  cd /.workspace
  mkdir twrp
  cd twrp
- 
- echo "Manifest_branch : "
+ echo "Manifest Branch : \n 1) 11 \n 2) 12.1"
+ echo "Pilih Manifest branch : "
 read Manifest_branch
 
 echo "Link Device tree twrp : "
@@ -14,13 +14,13 @@ read Device_tree
 echo "Branch Device_tree_twrp : "
 read Branch_dt_twrp
 
-echo "Device_Path : "
+echo "Device Path : "
 read Device_Path
 
-echo "Device_Name : "
+echo "Device Name : "
 read Device_Name
 
-echo "Build_Target (recovery,boot,vendorboot) : "
+echo "Build Target (recovery,boot,vendorboot) : "
 read Build_Target
  
 
@@ -43,7 +43,7 @@ read Build_Target
         repo sync
         
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        
+        sleep 2
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
        if [ "${Build_Target}" = "vendorboot" ]; then
