@@ -102,6 +102,6 @@ else
     exit 1
 fi
 
-
+chmod a+x TWRP_${Device_Name}_${Build_Target}.img
 
 # Menampilkan nilai variabel Device_tree
