@@ -7,7 +7,7 @@ current_directory=$(pwd)
 
 bot() {
 cd ${current_directory}
-current_directory=${pwd}
+#current_directory=${pwd}
 source save_settings.txt
 
 if [ "${Build_Target}" = "vendorboot" ]; then
