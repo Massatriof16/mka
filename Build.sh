@@ -183,8 +183,9 @@ sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save
 
 
 # Menginstall Package yang diperlikan
-
+cd ${current_directory}
 bot_notif
+cd /.workspace/twrp
 echo " "
 echo "  Build Environment "
 echo " "
@@ -219,7 +220,9 @@ echo " "
         echo " "
 
         # Start Building 
+        cd ${current_directory}
         bot_notif2
+        cd /.workspace/twrp
         echo " Building Recovery "
         echo " "
         sleep 1
@@ -348,7 +351,9 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " BUILDING TWRP "
         echo " "
         sleep 1
+        cd ${current_directory}
         bot_notif2
+        cd /.workspace/twrp
         # Start Building 
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
@@ -396,7 +401,9 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " BUILDING TWRP "
         echo " "
         sleep 1
+        cd ${current_directory}
 bot_notif2
+cd /.workspace/twrp
         # start building
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
@@ -448,12 +455,12 @@ current_directory=$(pwd)
  mkdir twrp
  cd twrp
  
- echo "Manifest Omni branch AVAILABLE : \
- - 5.1 \
- - 6.0 \
- - 7.1 \
- - 8.1 \
- - 9.0 "
+ echo "Manifest Omni branch AVAILABLE : "
+ echo "5.1 "
+ echo "6.0 "
+ echo "7.1 "
+ echo "8.1 "
+ echo "9.0 "
  echo "Pilih Manifest branch : "
 read Manifest_branch
 if [ -z "$Manifest_branch" ]; then
@@ -509,8 +516,9 @@ sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_se
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 
 
-
+cd ${current_directory}
  bot_notif
+ cd /.workspace/twrp
 echo " "
 echo " Build Environment... "
 echo " "
@@ -540,8 +548,9 @@ echo " "
         echo " Building recovery..."
         echo " "
         sleep 1
+        cd ${current_directory}
         bot_notif2
-        
+        cd /.workspace/twrp
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
        
      
@@ -635,7 +644,9 @@ echo " "
 echo "Cloning Device Tree "
 echo " "
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+cd ${current_directory}
 bot_notif2
+cd /.workspace/twrp
 echo " "
 echo " Building recovery "
 echo " "
@@ -669,7 +680,9 @@ echo " "
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 echo " "
 echo " Building recovery "
+cd ${current_directory}
 bot_notif2
+cd /.workspace/twrp
 echo " "
 sleep 1
         
