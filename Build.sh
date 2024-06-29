@@ -197,11 +197,11 @@ cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
-sleep 3
+
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
-sleep 3
+
 fi
 
 
@@ -325,11 +325,11 @@ cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
-sleep 3
+
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
-sleep 3
+
     fi
     bot
     ## Akhir dari Pilihan 1 ##
@@ -372,11 +372,11 @@ cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
-sleep 3
+
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
-sleep 3
+
 fi
 bot
     ## Akhir Dari pilihan 2 ##
@@ -511,7 +511,7 @@ echo " "
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
-sleep 3
+
 bot
 main
 }
@@ -609,7 +609,7 @@ sleep 1
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
-sleep 3
+
 bot
 main
 
@@ -640,7 +640,7 @@ sleep 1
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
-sleep 3
+
 bot
 main
 #end of 2
