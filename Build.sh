@@ -109,16 +109,16 @@ fi
 echo " "
 echo "Konfigurasi Tersimpan"
 echo " "
-sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" ${current_directory}/save_settings.txt
+sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
-sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" ${current_directory}/save_settings.txt
+sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
 
 
-sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" ${current_directory}/save_settings.txt
+sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
 
-sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" ${current_directory}/save_settings.txt
+sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
-sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save_settings.txt
+sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 
 
 # Menginstall Package yang diperlikan
@@ -251,29 +251,30 @@ read Build_Target
 fi
 
  # Menyimpan dan Memperbarui Konfigurasi saat pengguna pilih 1
+sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
-    sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" ${current_directory}/save_settings.txt
+sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
+
+
+sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
+
+sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
+
+sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+
  
-sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" ${current_directory}/save_settings.txt
-
-
-sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" ${current_directory}/save_settings.txt
-
-sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" ${current_directory}/save_settings.txt
-
-sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save_settings.txt
-echo " Diperbarui!"
+    echo " Diperbarui!"
 sleep 1
 
 
 
-    # Memanggil Konfigurasi Yang tersimpan
-    source ${current_directory}/save_settings.txt
     
     # Menghapus Sumber daya yang telah dibuat sebelumnya
     rm -rf /.workspace/twrp/${Device_Path}
-    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
-
+   rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+# Memanggil Konfigurasi Yang tersimpan
+    source ${current_directory}/save_settings.txt
+    
 # Cloning Device tree
 
 cd /.workspace/twrp
@@ -281,6 +282,7 @@ echo " "
 echo " Cloning Device tree "
 echo " "
 
+# Clone device tree
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " "
         echo " BUILDING TWRP "
@@ -435,16 +437,16 @@ read Build_Target
     main
 fi
 
-sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" ${current_directory}/save_settings.txt
+sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
-sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" ${current_directory}/save_settings.txt
+sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
 
 
-sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" ${current_directory}/save_settings.txt
+sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
 
-sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" ${current_directory}/save_settings.txt
+sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
-sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save_settings.txt
+sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 
 
 
@@ -546,25 +548,27 @@ read Build_Target
     main
 fi
 
-    sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" ${current_directory}/save_settings.txt
+    sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
-sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" ${current_directory}/save_settings.txt
+sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
 
 
-sed -i "s/Device_Path=.*/Device_Path=$Device_Path/" ${current_directory}/save_settings.txt
+sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
 
-sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" ${current_directory}/save_settings.txt
+sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
-sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save_settings.txt
+sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+
+
 echo " Dipeebarui!"
 sleep 1
 
-    source ${current_directory}/save_settings.txt
+    
     
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
 
-
+source ${current_directory}/save_settings.txt
 cd /.workspace/twrp
 echo " "
 echo "Cloning Device Tree "
