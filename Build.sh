@@ -6,9 +6,8 @@ current_directory=$(pwd)
 ###########################################################
 
 bot() {
-cd ${current_directory}
-#current_directory=${pwd}
-source save_settings.txt
+cd $current_directory
+source ${current_directory}/save_settings.txt
 
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
