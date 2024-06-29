@@ -6,14 +6,15 @@ current_directory=$(pwd)
 ###########################################################
 
 bot() {
+cd ${current_directory}
 current_directory=${pwd}
-source ${current_directory}/save_settings.txt
-
+source save_settings.txt
 
 if [ "${Build_Target}" = "vendorboot" ]; then
-curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
+chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
+curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
 else
-curl -F document=@"${current_directory}/TWRP_${Device_Name}_${Build_Target}.img" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
+curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
 fi
 
 }
