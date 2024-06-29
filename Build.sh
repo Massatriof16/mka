@@ -713,6 +713,7 @@ main
 else
 sed -i "s|Token=.*|Token=$Token|" ${current_directory}/save_settings.txt
 echo "Token Telah disimpan!"
+main
 fi
 elif [ "${setcon}" = 2 ]; then
 echo " "
@@ -725,6 +726,7 @@ main
 else
 sed -i "s|id_chat=.*|id_chat=$id_chat|" ${current_directory}/save_settings.txt
 echo " Id chat disimpan!"
+main
 fi
 else
 echo " Invalid Input ! "
