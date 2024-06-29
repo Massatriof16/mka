@@ -234,7 +234,9 @@ sleep 1
 
     source ${current_directory}/save_settings.txt
     
-    rm -rf /.workspace/twrp/device
+    rm -rf /.workspace/twrp/${Device_Path}
+    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+
 
 cd /.workspace/twrp
 echo " "
@@ -266,7 +268,9 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 main
 elif [ "${settings}" = 2 ]; then #Begin of 2 Aosp
     source ${current_directory}/save_settings.txt
-    rm -rf /.workspace/twrp/device
+    
+    rm -rf /.workspace/twrp/${Device_Path}
+    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
 
 cd /.workspace/twrp
 echo " "
@@ -502,7 +506,9 @@ sleep 1
 
     source ${current_directory}/save_settings.txt
     
-    rm -rf /.workspace/twrp/device
+    rm -rf /.workspace/twrp/${Device_Path}
+    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+
 
 cd /.workspace/twrp
 echo " "
@@ -528,7 +534,9 @@ main
 
 elif [ "${settings}" = 2 ]; then #Start of 2
     source ${current_directory}/save_settings.txt
-    rm -rf /.workspace/twrp/device
+    rm -rf /.workspace/twrp/${Device_Path}
+    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+
 
 cd /.workspace/twrp
 echo " "
