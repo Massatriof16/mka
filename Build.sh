@@ -95,7 +95,7 @@ elif [ "${Main}" = 7 ]; then ## jika pengguna input 7 $#
 exit 0
 else ## Jika pengguna Memasukkan selain pilihan ##
 echo " "
-echo " Invalid Karakter !!!!"
+echo " Invalid Input !!!!"
 echo " "
 main
 fi
@@ -190,14 +190,6 @@ echo " "
 echo "  Build Environment "
 echo " "
 
-  apt update
-  apt -y upgrade
-  apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5
-   #add-apt-repository universe
-   apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd  make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu -y &&  apt install build-essential -y &&  apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc -y &&  apt install pigz -y &&  apt install python2 -y &&  apt install python3 -y &&  apt install cpio -y &&  apt install lld -y &&  apt install llvm -y
-   apt -y install libncurses5
-   apt -y install rsync
-   apt -y install repo
    
 
 
@@ -223,8 +215,10 @@ echo " "
         cd ${current_directory}
         bot_notif2
         cd /.workspace/twrp
+        clear
         echo " Building Recovery "
         echo " "
+        
         sleep 1
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
@@ -245,7 +239,6 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 xz TWRP_${Device_Name}_${Build_Target}.img
 
 fi
-
 
 bot_file
 main #kembali ke menu
@@ -354,6 +347,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         cd ${current_directory}
         bot_notif2
         cd /.workspace/twrp
+        clear
         # Start Building 
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
@@ -404,6 +398,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         cd ${current_directory}
 bot_notif2
 cd /.workspace/twrp
+clear
         # start building
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
@@ -431,7 +426,7 @@ bot_file
 main  #Kembali Ke menu
 
 else ## Jika Pengguna Memasukkan Tidak sesuai dengan pilihan ##
-echo "Invalid karakter"
+echo "Invalid Input!"
 echo " "
 main
 fi
@@ -523,14 +518,7 @@ echo " "
 echo " Build Environment... "
 echo " "
 
-  apt update
-  apt -y upgrade
-  apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5
-   #add-apt-repository universe
-   apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd  make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu -y &&  apt install build-essential -y &&  apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc -y &&  apt install pigz -y &&  apt install python2 -y &&  apt install python3 -y &&  apt install cpio -y &&  apt install lld -y &&  apt install llvm -y
-   apt -y install libncurses5
-   apt -y install rsync
-   apt -y install repo
+  
    
    
         git config --global user.name "Nico170420"
@@ -551,6 +539,7 @@ echo " "
         cd ${current_directory}
         bot_notif2
         cd /.workspace/twrp
+        clear
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
        
      
@@ -630,7 +619,7 @@ sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_se
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 
 
-echo " Dipeebarui!"
+echo " Diperbarui!"
 sleep 1
 
     
@@ -647,6 +636,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 cd ${current_directory}
 bot_notif2
 cd /.workspace/twrp
+clear
 echo " "
 echo " Building recovery "
 echo " "
@@ -683,6 +673,7 @@ echo " Building recovery "
 cd ${current_directory}
 bot_notif2
 cd /.workspace/twrp
+clear
 echo " "
 sleep 1
         
@@ -794,6 +785,19 @@ fi
 ###########################################################
 
 # Menjalankan Fungsi Main 
+
+clear
+
+echo " ---Memulai Install package yang diperlukan---
+sleep 1
+apt update
+  apt -y upgrade
+  apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5
+   #add-apt-repository universe
+   apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd  make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu -y &&  apt install build-essential -y &&  apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc -y &&  apt install pigz -y &&  apt install python2 -y &&  apt install python3 -y &&  apt install cpio -y &&  apt install lld -y &&  apt install llvm -y
+   apt -y install libncurses5
+   apt -y install rsync
+   apt -y install repo
 clear
 main
 exit 0
