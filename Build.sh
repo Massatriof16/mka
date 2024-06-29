@@ -168,7 +168,7 @@ echo " "
         
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
         
-        repo sync
+        repo sync --force-sync
 
 
 
@@ -491,7 +491,7 @@ echo " "
         
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
         
-        repo sync
+        repo sync --force-sync
         echo " "
 
         echo " Cloning Device Tree "
