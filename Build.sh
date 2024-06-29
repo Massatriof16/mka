@@ -1,8 +1,10 @@
 # BAGIAN FUNGSI
 
-
+# Memanggil Direktori saat ini file dijalankan
+current_directory=$(pwd)
 ###########################################################
-
+###########################################################
+# Fungsi Main
 main() {
 
 
@@ -15,21 +17,22 @@ echo " "
 echo "Pilih ( 1 - 5 )"
 read Main
 
-if [ "${Main}" = 1 ]; then
+# Mendeteksi Input pengguna
+if [ "${Main}" = 1 ]; then ## Jika Pengguna Input 1 ##
 Aosp
 main
-elif [ "${Main}" = 2 ]; then
+elif [ "${Main}" = 2 ]; then ## Jika Pengguna Input 2 ##
 ReAosp
 main
-elif [ "${Main}" = 3 ]; then
+elif [ "${Main}" = 3 ]; then ## jika Pengguna Input 3 ##
 Omni
 main
-elif [ "${Main}" = 4 ]; then
+elif [ "${Main}" = 4 ]; then ## Jika Pengguna input 4 ##
 ReOmni
 main
-elif [ "${Main}" = 5 ]; then
+elif [ "${Main}" = 5 ]; then ## Jika pengguna input 5 ##
 exit 0
-else
+else ## Jika pengguna Memasukkan selain pilihan ##
 echo " "
 echo " Invalid Karakter !!!!"
 echo " "
@@ -38,8 +41,9 @@ fi
 }
 
 ###########################################################
+###########################################################
 
-
+# Fungsi Dari Build Aosp
 Aosp()
 {
 
@@ -48,13 +52,16 @@ current_directory=$(pwd)
 echo " "
 echo " TWRP BUILD CONFIGURATION "
 echo " "
+# Membuat Folder twrp
  cd /.workspace
  mkdir twrp
  cd twrp
- echo "Manifest AOSP Branch AVAILABLE : \
- - 11 \
- - 12.1 \ "
- echo "Pilih Manifest branch : "
+
+ # Input Konfigurasi
+ echo "Manifest AOSP Branch AVAILABLE : 
+ echo " 11 "
+ echo " 12.1 "
+ echo "Pilih Manifest branch (11 , 12,1) : "
 read Manifest_branch
 if [ -z "$Manifest_branch" ]; then
     echo "Input Manifest branch kosong!."
@@ -96,6 +103,9 @@ read Build_Target
     echo " "
     main
 fi
+
+# menyimpan konfigurasi
+
 echo " "
 echo "Konfigurasi Tersimpan"
 echo " "
@@ -111,7 +121,7 @@ sed -i "s/Device_Name=.*/Device_Name=$Device_Name/" ${current_directory}/save_se
 sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save_settings.txt
 
 
-
+# Menginstall Package yang diperlikan
 
 echo " "
 echo "  Build Environment "
@@ -126,6 +136,9 @@ echo " "
    apt -y install rsync
    apt -y install repo
    
+
+
+   # Sync Minimal Manifest
    
         git config --global user.name "Nico170420"
         git config --global user.email "b170420nc@gmail.com"
@@ -133,15 +146,24 @@ echo " "
         repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
         
         repo sync
+
+
+
+        # Cloning Device tree
         echo " "
         echo " Cloning Device Tree "
         echo " "
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " "
+
+        # Start Building 
+        
         echo " Building Recovery "
         echo " "
         sleep 1
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+
+        # Menyalin Hasil Build Ke direktori saat ini 
         
        if [ "${Build_Target}" = "vendorboot" ]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
@@ -164,16 +186,20 @@ chmod a+x TWRP_${Device_Name}_vendor_boot.img
 else
 chmod a+x TWRP_${Device_Name}_${Build_Target}.img
 fi
-main
+main #kembali ke menu
 }
 
-
 ###########################################################
+###########################################################
+
+#Fungsi Rebuild 
 
 ReAosp()
 {
 current_directory = ${pwd}
 
+
+# Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
 
 echo "Ingin ubah konfigurasi tersimpan?"
@@ -182,7 +208,12 @@ echo "2. Tidak"
 echo "Pilih: "
 read settings
 
-if [ "${settings}" = 1 ]; then  #Begin of 1#
+# Mendeteksi Pilihan dari Perubahan konfigurasi
+
+
+if [ "${settings}" = 1 ]; then  # Jika Pilihan 1 dijalan kan #
+  
+  # Membuat Masukkan Ulang Konfigurasi
     echo "Link Device tree twrp : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
@@ -219,6 +250,8 @@ read Build_Target
     main
 fi
 
+ # Menyimpan dan Memperbarui Konfigurasi saat pengguna pilih 1
+ 
     sed -i "s/Device_tree=.*/Device_tree=$Device_tree/" ${current_directory}/save_settings.txt
  
 sed -i "s/Branch_dt_twrp=.*/Branch_dt_twrp=$Branch_dt_twrp/" ${current_directory}/save_settings.txt
@@ -232,11 +265,16 @@ sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save
 echo " Diperbarui!"
 sleep 1
 
+
+
+    # Memanggil Konfigurasi Yang tersimpan
     source ${current_directory}/save_settings.txt
     
+    # Menghapus Sumber daya yang telah dibuat sebelumnya
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
 
+# Cloning Device tree
 
 cd /.workspace/twrp
 echo " "
@@ -249,7 +287,11 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " "
         sleep 1
         
+        # Start Building 
+        
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+
+        # Menyalin hasil ke direktori saat ini
         
        if [ "${Build_Target}" = "vendorboot" ]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
@@ -263,14 +305,20 @@ else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
     fi
     
-    #End of 1 Aosp
+    ## Akhir dari Pilihan 1 ##
     
 main
-elif [ "${settings}" = 2 ]; then #Begin of 2 Aosp
+elif [ "${settings}" = 2 ]; then ## Awal Dari Pilihan 2 ##
+
+# Memanggil konfigurasi yang tersimpan
+
     source ${current_directory}/save_settings.txt
-    
+
+    # Menghapus sumber daya yang telah dibuat 
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+
+# Cloning Device tree
 
 cd /.workspace/twrp
 echo " "
@@ -282,8 +330,11 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " BUILDING TWRP "
         echo " "
         sleep 1
-        
+
+        # start building
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+
+        # Menyalin Hasil build ke direktori saat ini
         
        if [ "${Build_Target}" = "vendorboot" ]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
@@ -296,9 +347,12 @@ mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 fi
-#End of 2 Aosp
-main
-else #Else of Aosp
+    ## Akhir Dari pilihan 2 ##
+
+
+main  #Kembali Ke menu
+
+else ## Jika Pengguna Memasukkan Tidak sesuai dengan pilihan ##
 echo "Invalid karakter"
 echo " "
 main
@@ -318,7 +372,8 @@ main
 
 
 ###########################################################
-
+###########################################################
+#Fungsi Omni
 Omni()
 {
  
@@ -438,9 +493,9 @@ main
 }
 
 ###########################################################
+###########################################################
 
-
-
+# Fungsi Reomni
 ReOmni()
 {
 
@@ -568,7 +623,11 @@ chmod a+x TWRP_${Device_Name}_${Build_Target}.img
 
 }
 
+###########################################################
+###########################################################
 
+
+# Menjalankan Fungsi Main 
 
 echo " "
 echo "--------------Building TWRP-----------"
