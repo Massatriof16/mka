@@ -214,6 +214,7 @@ main #kembali ke menu
 
 ReAosp()
 {
+
 current_directory = ${pwd}
 
 
