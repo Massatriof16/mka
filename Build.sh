@@ -5,7 +5,7 @@ current_directory=$(pwd)
 ###########################################################
 ###########################################################
 
-bot_notif() {j
+bot_notif() {
 current_directory=$(pwd)
 source ${current_directory}/save_settings.txt
 if [ -z "${id_chat}" ]; then
