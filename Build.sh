@@ -8,13 +8,13 @@ current_directory=$(pwd)
 bot_notif() {
 cd $current_directory
 source ${current_directory}/save_settings.txt
-curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text=Start Creat Environment For Building TWRP_${Device_Name}..."
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building TWRP_${Device_Name}..."
 }
 
 bot_notif2() {
 cd $current_directory
 source ${current_directory}/save_settings.txt
-curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text= Start Building TWRP_${Device_Name}..."
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building TWRP_${Device_Name}..."
 }
 
 
@@ -24,8 +24,8 @@ source ${current_directory}/save_settings.txt
 
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
-curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text= NEW BUILD TWRP_${Device_Name}!"
-curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
+curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
 else
 chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
 curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text= NEW BUILD TWRP_${Device_Name}!"
