@@ -110,13 +110,12 @@ Aosp()
 
  
 current_directory=$(pwd)
+
 echo " "
 echo " TWRP BUILD CONFIGURATION "
 echo " "
 # Membuat Folder twrp
- cd /.workspace
- mkdir twrp
- cd twrp
+ 
 
  # Input Konfigurasi
  echo "Manifest AOSP Branch AVAILABLE : "
@@ -181,7 +180,10 @@ sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_se
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 
-
+cd /.workspace
+ mkdir twrp
+ cd twrp
+ 
 # Menginstall Package yang diperlikan
 cd ${current_directory}
 bot_notif
@@ -446,9 +448,7 @@ current_directory=$(pwd)
  echo " "
  echo " BUILD CONFIGURATION TWRP "
  echo " "
- cd /.workspace
- mkdir twrp
- cd twrp
+ 
  
  echo "Manifest Omni branch AVAILABLE : "
  echo "5.1 "
@@ -509,7 +509,9 @@ sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_se
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
-
+cd /.workspace
+ mkdir twrp
+ cd twrp
 
 cd ${current_directory}
  bot_notif
