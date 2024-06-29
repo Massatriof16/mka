@@ -55,7 +55,9 @@ sleep 1
 
     source ${current_directory}/save_settings.txt
     
-    rm -rf /.workspace/twrp/device
+    rm -rf /.workspace/twrp/${Device_Path}
+    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+
 
 cd /.workspace/twrp
 echo " "
@@ -84,7 +86,9 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 
 elif [ "${settings}" = 2 ]; then
     source ${current_directory}/save_settings.txt
-    rm -rf /.workspace/twrp/device
+    rm -rf /.workspace/twrp/${Device_Path}
+    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+
 
 cd /.workspace/twrp
 echo " "
