@@ -1,11 +1,21 @@
- 
+ # memanggil direktori saat ini
 current_directory=$(pwd)
+
+
+
+
 echo " "
 echo " TWRP BUILD CONFIGURATION "
 echo " "
+
+# Membuat Folder twrp
  cd /.workspace
  mkdir twrp
  cd twrp
+
+
+# Input Konfigurasi Pengguna 
+ 
  echo "Manifest AOSP Branch AVAILABLE : \
  - 11 \
  - 12.1 \ "
@@ -45,6 +55,9 @@ read Build_Target
     echo "Input Build Target Kosong!"
     exit 1
 fi
+
+
+# Menyimpan Konfigurasi ke File save settings
 echo " "
 echo "Konfigurasi Tersimpan"
 echo " "
@@ -61,6 +74,7 @@ sed -i "s/Build_Target=.*/Build_Target=$Build_Target/" ${current_directory}/save
 
 
 
+# Menginstall Package Yang diperlukan
 
 echo " "
 echo "  Build Environment "
@@ -74,14 +88,20 @@ echo " "
    apt -y install libncurses5
    apt -y install rsync
    apt -y install repo
+
+
+   # Sync Minimal Manifest
    
    
         git config --global user.name "Nico170420"
         git config --global user.email "b170420nc@gmail.com"
         
-        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch} 
         
         repo sync
+
+
+        # Clone Device tree Twrp
         echo " "
         echo " Cloning Device Tree "
         echo " "
@@ -90,7 +110,13 @@ echo " "
         echo " Building Recovery "
         echo " "
         sleep 1
+
+
+        # Build Twrp
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+
+
+        # Menyalin Hasil Build Ke Folder saat ini 
         
        if [ "${Build_Target}" = "vendorboot" ]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
