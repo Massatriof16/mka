@@ -727,7 +727,7 @@ sed -i "s|id_chat=.*|id_chat=$id_chat|" ${current_directory}/save_settings.txt
 echo " Id chat disimpan!"
 fi
 else
-" Invalid Input ! "
+echo " Invalid Input ! "
 main
 fi
 
