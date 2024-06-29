@@ -7,7 +7,8 @@ current_directory=$(pwd)
 # Fungsi Main
 main() {
 
-
+echo " "
+echo "--------------Building TWRP-----------"
 echo "1. New Build Aosp (sync minimal manifest)"
 echo "2. Rebuild Aosp (don't sync minimal manifest)"
 echo "3. New Build Omni (sync minimal manifest)"
@@ -614,8 +615,6 @@ fi
 
 
 # Menjalankan Fungsi Main 
-
-echo " "
-echo "--------------Building TWRP-----------"
+clear
 main
 exit 0
