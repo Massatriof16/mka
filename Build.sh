@@ -5,15 +5,30 @@ current_directory=$(pwd)
 ###########################################################
 ###########################################################
 
-bot() {
+bot_notif() {
+cd $current_directory
+source ${current_directory}/save_settings.txt
+curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text=Start Creat Environment For Building TWRP_${Device_Name}..."
+}
+
+bot_notif2() {
+cd $current_directory
+source ${current_directory}/save_settings.txt
+curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text= Start Building TWRP_${Device_Name}..."
+}
+
+
+bot_file() {
 cd $current_directory
 source ${current_directory}/save_settings.txt
 
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
+curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text= NEW BUILD TWRP_${Device_Name}!"
 curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
 else
 chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
+curl -X POST "https://api.telegram.org/bot7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ/sendMessage" -d "chat_id=6561499315&text= NEW BUILD TWRP_${Device_Name}!"
 curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
 fi
 
@@ -145,7 +160,7 @@ sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save
 
 
 # Menginstall Package yang diperlikan
-
+bot_notif
 echo " "
 echo "  Build Environment "
 echo " "
@@ -180,7 +195,7 @@ echo " "
         echo " "
 
         # Start Building 
-        
+        bot_notif2
         echo " Building Recovery "
         echo " "
         sleep 1
@@ -205,7 +220,7 @@ tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 fi
 
 
-bot
+bot_file
 main #kembali ke menu
 }
 
@@ -309,7 +324,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " BUILDING TWRP "
         echo " "
         sleep 1
-        
+        bot_notif2
         # Start Building 
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
@@ -331,7 +346,7 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 
     fi
-    bot
+    bot_file
     ## Akhir dari Pilihan 1 ##
     
 main
@@ -357,7 +372,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " BUILDING TWRP "
         echo " "
         sleep 1
-
+bot_notif2
         # start building
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
@@ -378,7 +393,7 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 
 fi
-bot
+bot_file
     ## Akhir Dari pilihan 2 ##
 
 
@@ -471,7 +486,7 @@ sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save
 
 
 
- 
+ bot_notif
 echo " "
 echo " Build Environment... "
 echo " "
@@ -501,7 +516,7 @@ echo " "
         echo " Building recovery..."
         echo " "
         sleep 1
-        
+        bot_notif2
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
        
@@ -512,7 +527,7 @@ cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 
-bot
+bot_file
 main
 }
 
@@ -596,6 +611,7 @@ echo " "
 echo "Cloning Device Tree "
 echo " "
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+bot_notif2
 echo " "
 echo " Building recovery "
 echo " "
@@ -610,7 +626,7 @@ sleep 1
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 
-bot
+bot_file
 main
 
 
@@ -629,6 +645,7 @@ echo " "
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 echo " "
 echo " Building recovery "
+bot_notif2
 echo " "
 sleep 1
         
@@ -641,7 +658,7 @@ sleep 1
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 
-bot
+bot_file
 main
 #end of 2
 else #else of Reomni
