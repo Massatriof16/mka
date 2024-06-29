@@ -66,9 +66,10 @@ echo "1. New Build Aosp (sync minimal manifest)"
 echo "2. Rebuild Aosp (don't sync minimal manifest)"
 echo "3. New Build Omni (sync minimal manifest)"
 echo "4. Rebuild Omni (don't sync minimal manifest"
-echo "5. Exit "
+echo "5. Setting Configuration Notification Telegram Bot "
+echo "6. Exit "
 echo " "
-echo "Pilih ( 1 - 5 )"
+echo "Pilih ( 1 - 6)"
 read Main
 
 # Mendeteksi Input pengguna
@@ -85,6 +86,8 @@ elif [ "${Main}" = 4 ]; then ## Jika Pengguna input 4 ##
 ReOmni
 main
 elif [ "${Main}" = 5 ]; then ## Jika pengguna input 5 ##
+botconfig
+elif [ "${Main}" = 6 ]; then ## Jika pengguna input 6 ##
 exit 0
 else ## Jika pengguna Memasukkan selain pilihan ##
 echo " "
