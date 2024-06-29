@@ -177,15 +177,7 @@ else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 fi
 
-cd ${current_directory}
-echo " "
-echo "Done Build"
-echo " "
-if [ "${Build_Target}" = "vendorboot" ]; then
-chmod a+x TWRP_${Device_Name}_vendor_boot.img
-else
-chmod a+x TWRP_${Device_Name}_${Build_Target}.img
-fi
+
 main #kembali ke menu
 }
 
@@ -360,15 +352,6 @@ echo " "
 main
 fi
 
-cd ${current_directory}
-echo " "
-echo "Done Build"
-echo " "
-if [ "${Build_Target}" = "vendorboot" ]; then
-chmod a+x TWRP_${Device_Name}_vendor_boot.img
-else
-chmod a+x TWRP_${Device_Name}_${Build_Target}.img
-fi
 main
 }
 
@@ -489,7 +472,7 @@ echo " "
         
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
-chmod a+x TWRP_${Device_Name}_${Build_Target}.img
+
 
 main
 }
@@ -622,7 +605,6 @@ else #else of Reomni
     main
 fi
 
-chmod a+x TWRP_${Device_Name}_${Build_Target}.img
 
 
 }
@@ -636,4 +618,11 @@ chmod a+x TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 echo "--------------Building TWRP-----------"
 main
+
+cd ${current_directory}
+if [ "${Build_Target}" = "vendorboot" ]; then
+chmod a+x TWRP_${Device_Name}_vendor_boot.img
+else
+chmod a+x TWRP_${Device_Name}_${Build_Target}.img
+fi
 exit 0
