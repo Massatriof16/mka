@@ -1,7 +1,7 @@
 # BAGIAN FUNGSI
 
 # Memanggil Direktori saat ini file dijalankan
-current_directory=$(pwd)
+
 ###########################################################
 ###########################################################
 
@@ -789,8 +789,13 @@ fi
 # Menjalankan Fungsi Main 
 
 clear
-
+echo " "
+echo " Menyimpan Folder saat ini... "
+current_directory=$(pwd)
+sed -i "s|current_directory=.*|current_directory=$current_directory" save_settings.txt
+ 
 echo " ---Memulai Install package yang diperlukan---"
+echo " "
 sleep 1
 apt update
   apt -y upgrade
