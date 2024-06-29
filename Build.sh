@@ -788,7 +788,7 @@ fi
 
 clear
 
-echo " ---Memulai Install package yang diperlukan---
+echo " ---Memulai Install package yang diperlukan---"
 sleep 1
 apt update
   apt -y upgrade
