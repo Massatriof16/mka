@@ -757,8 +757,10 @@ if [ -e "/.workspace/twrp" ]; then
 echo "Menghapus sync manifest..."
 rm -rf /.workspace/twrp
 echo "Done!"
+main
 else
 echo "File sync Tidak ada! apakah kamu sudah melakukan sync. Manifest?"
+main
 fi
 elif [ "${del}" = 2 ]; then
 main
