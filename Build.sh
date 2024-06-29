@@ -5,8 +5,8 @@ current_directory=$(pwd)
 ###########################################################
 ###########################################################
 
-bot_notif() {
-cd $current_directory
+bot_notif() {j
+current_directory=$(pwd)
 source ${current_directory}/save_settings.txt
 if [ -z "${id_chat}" ]; then
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
@@ -16,6 +16,7 @@ fi
 }
 
 bot_notif2() {
+current_directory=$(pwd)
 cd $current_directory
 source ${current_directory}/save_settings.txt
 if [ -z "${id_chat}" ]; then
@@ -182,6 +183,7 @@ sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save
 
 
 # Menginstall Package yang diperlikan
+
 bot_notif
 echo " "
 echo "  Build Environment "
@@ -753,7 +755,7 @@ read del
 if [ "${del}" = 1 ]; then
 echo " "
 
-if [ -e "/.workspace/twrp" ]; then
+if [ -d "/.workspace/twrp" ]; then
 echo "Menghapus sync manifest..."
 rm -rf /.workspace/twrp
 echo "Done!"
