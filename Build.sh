@@ -58,7 +58,7 @@ echo " "
  cd twrp
 
  # Input Konfigurasi
- echo "Manifest AOSP Branch AVAILABLE : 
+ echo "Manifest AOSP Branch AVAILABLE : "
  echo " 11 "
  echo " 12.1 "
  echo "Pilih Manifest branch (11 , 12,1) : "
