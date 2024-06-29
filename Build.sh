@@ -5,7 +5,7 @@ current_directory=$(pwd)
 ###########################################################
 ###########################################################
 
-bot () {
+bot() {
 current_directory=${pwd}
 source ${current_directory}/save_settings.txt
 
