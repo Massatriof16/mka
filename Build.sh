@@ -4,7 +4,28 @@
 current_directory=$(pwd)
 ###########################################################
 ###########################################################
+
+bot () {
+current_directory=${pwd}
+source ${current_directory}/save_settings.txt
+
+
+if [ "${Build_Target}" = "vendorboot" ]; then
+curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
+else
+curl -F document=@"${current_directory}/TWRP_${Device_Name}_${Build_Target}.img" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
+fi
+
+}
+
+
+
+
+
+
 # Fungsi Main
+
+
 main() {
 
 echo " "
@@ -174,11 +195,14 @@ echo " "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 fi
 
 
+bot
 main #kembali ke menu
 }
 
@@ -296,10 +320,12 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
     fi
-    
+    bot
     ## Akhir dari Pilihan 1 ##
     
 main
@@ -339,9 +365,12 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
 fi
+bot
     ## Akhir Dari pilihan 2 ##
 
 
@@ -473,8 +502,8 @@ echo " "
         
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
-
-
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+bot
 main
 }
 
@@ -570,6 +599,8 @@ sleep 1
 
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+bot
 main
 
 
@@ -598,6 +629,8 @@ sleep 1
 
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+bot
 main
 #end of 2
 else #else of Reomni
