@@ -13,6 +13,7 @@ if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
 curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
 else
+chmod a+x ${current_directory}/TWRP_${Device_Name}.tar.gz
 curl -F document=@"${current_directory}/TWRP_${Device_Name}.tar.gz" https://api.telegram.org/bot6788930639:AAHpp3siVn8wnWp3SGOM_uC2EDFaXWjyE6I/sendDocument?chat_id=6561499315
 fi
 
@@ -196,9 +197,11 @@ cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
+sleep 3
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+sleep 3
 fi
 
 
@@ -322,9 +325,11 @@ cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
+sleep 3
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+sleep 3
     fi
     bot
     ## Akhir dari Pilihan 1 ##
@@ -367,9 +372,11 @@ cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_vendor_boot.img
+sleep 3
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+sleep 3
 fi
 bot
     ## Akhir Dari pilihan 2 ##
@@ -504,6 +511,7 @@ echo " "
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+sleep 3
 bot
 main
 }
@@ -601,6 +609,7 @@ sleep 1
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+sleep 3
 bot
 main
 
@@ -631,6 +640,7 @@ sleep 1
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 tar -czvf TWRP_${Device_Name}.tar.gz TWRP_${Device_Name}_${Build_Target}.img
+sleep 3
 bot
 main
 #end of 2
