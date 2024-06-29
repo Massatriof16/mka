@@ -728,9 +728,10 @@ sorce save_settings.txt
 
 echo " ---- Telegram Bot Configuration ---- "
 echo " "
-echo " Token Bot Telah diatur default tetapi chat id belum diatur ingin mengaturnya?"
-echo "1. Atur Token"
-echo "2. Atur Chat id"
+echo " Token Bot Telah diatur default sebagai bot owner script"
+echo "tetapi chat id belum diatur ingin mengaturnya?"
+echo "1. Atur Ulang Token"
+echo "2. Atur Ulang Chat id"
 echo " Pilih ( 1-2 ) : "
 read setcon
 
@@ -773,7 +774,8 @@ fi
 
 deletesync() {
 echo " "
-echo " Yakin Menghapus sync manifest? Kamu harus melakukan sync upang jika ingin Rebuild/Reomni!"
+echo " Yakin Menghapus sync manifest? "
+echo "Kamu harus melakukan sync manifest ulang jika ingin Rebuild/Reomni!"
 echo "1. Ya"
 echo "2. Tidak"
 echo "pilih (1-2) :"
