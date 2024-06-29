@@ -67,9 +67,10 @@ echo "2. Rebuild Aosp (don't sync minimal manifest)"
 echo "3. New Build Omni (sync minimal manifest)"
 echo "4. Rebuild Omni (don't sync minimal manifest"
 echo "5. Setting Configuration Notification Telegram Bot "
-echo "6. Exit "
+echo "6. Delete All Resources Sync Manifest "
+echo "7. Exit "
 echo " "
-echo "Pilih ( 1 - 6)"
+echo "Pilih ( 1 - 7)"
 read Main
 
 # Mendeteksi Input pengguna
@@ -88,6 +89,8 @@ main
 elif [ "${Main}" = 5 ]; then ## Jika pengguna input 5 ##
 botconfig
 elif [ "${Main}" = 6 ]; then ## Jika pengguna input 6 ##
+deletesync
+elif [ "${Main}" = 7 ]; then ## jika pengguna input 7 $#
 exit 0
 else ## Jika pengguna Memasukkan selain pilihan ##
 echo " "
@@ -700,6 +703,7 @@ echo " "
 echo " Token Bot Telah diatur default tetapi chat id belum diatur ingin mengaturnya?"
 echo "1. Atur Token"
 echo "2. Atur Chat id"
+echo " Pilih ( 1-2 ) : "
 read setcon
 
 if [ "${setcon}" = 1 ]; then
@@ -712,6 +716,7 @@ echo " Token kosong ! "
 main
 else
 sed -i "s|Token=.*|Token=$Token|" ${current_directory}/save_settings.txt
+echo " "
 echo "Token Telah disimpan!"
 main
 fi
@@ -725,6 +730,7 @@ echo " Id chat kosong ! "
 main
 else
 sed -i "s|id_chat=.*|id_chat=$id_chat|" ${current_directory}/save_settings.txt
+echo " "
 echo " Id chat disimpan!"
 main
 fi
@@ -737,6 +743,32 @@ fi
 
 }
 
+deletesync() {
+echo " "
+echo " Yakin Menghapus sync manifest? Kamu harus melakukan sync upang jika ingin Rebuild/Reomni!"
+echo "1. Ya"
+echo "2. Tidak"
+echo "pilih (1-2) :"
+read del
+if [ "${del}" = 1 ]; then
+echo " "
+
+if [ -e "/.workspace/twrp" ]; then
+echo "Menghapus sync manifest..."
+rm -rf /.workspace/twrp
+echo "Done!"
+else
+echo"File sync Tidak ada! apakah kamu sudah melakukan sync. Manifest?"
+fi
+elif [ "${del}" = 2 ]; then
+main
+else
+echo " "
+echo " Invalid input "
+main
+fi
+
+}
 
 
 
