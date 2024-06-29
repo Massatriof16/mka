@@ -229,12 +229,17 @@ echo " "
          else
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         fi
+        echo " DONE !!! "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
+echo " "
+echo " Mengkompress File menjadi lebih kecil..."
 xz TWRP_${Device_Name}_vendor_boot.img
-
+echo " "
 else
+echo " "
+echo " Mengkompress File menjadi lebih kecil..."
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 xz TWRP_${Device_Name}_${Build_Target}.img
 
@@ -313,7 +318,7 @@ sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory
 
 
 sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
-
+ggj
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
@@ -359,13 +364,18 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          else
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         fi
+        echo " Done ! "
+        echo " "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
+echo " "
+echo " Mengkompress file menjadi lebih kecil... "
 xz TWRP_${Device_Name}_vendor_boot.img
 
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo " Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
 
     fi
@@ -409,13 +419,18 @@ clear
          else
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         fi
+        echo " Done ! "
+        echo " "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
+
+echo "Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_vendor_boot.img
 
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo "Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
 
 fi
@@ -542,11 +557,13 @@ echo " "
         clear
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
        
-     
+     echo " Done ! "
+     echo " "
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo " Mengkompress file menjadi lebih kecil "
 xz TWRP_${Device_Name}_${Build_Target}.img
 
 bot_file
@@ -644,11 +661,13 @@ sleep 1
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
-   
+   echo " Done !"
+   echo " "
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
 
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo " Mengkompress file menjadi lebih kecil "
 xz TWRP_${Device_Name}_${Build_Target}.img
 
 bot_file
@@ -679,11 +698,13 @@ sleep 1
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
-   
+   echo " Done ! "
+   echo " "
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
 
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo "Mengkompress file menjadi lebih kecil"
 xz TWRP_${Device_Name}_${Build_Target}.img
 
 bot_file
