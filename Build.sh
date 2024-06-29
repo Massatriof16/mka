@@ -6,8 +6,9 @@
 ###########################################################
 
 bot_notif() {
-current_directory=$(pwd)
+
 source ${current_directory}/save_settings.txt
+
 if [ -z "${id_chat}" ]; then
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 else
@@ -16,8 +17,6 @@ fi
 }
 
 bot_notif2() {
-current_directory=$(pwd)
-cd $current_directory
 source ${current_directory}/save_settings.txt
 if [ -z "${id_chat}" ]; then
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
@@ -28,7 +27,6 @@ fi
 
 
 bot_file() {
-cd $current_directory
 source ${current_directory}/save_settings.txt
 
 if [ "${Build_Target}" = "vendorboot" ]; then
@@ -37,7 +35,7 @@ if [ -z "${id_chat}" ]; then
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 else
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
-curl -F document=@"${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
 fi
 else
 chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
@@ -109,7 +107,7 @@ Aosp()
 {
 
  
-current_directory=$(pwd)
+source save_settings.txt
 
 echo " "
 echo " TWRP BUILD CONFIGURATION "
@@ -254,7 +252,7 @@ main #kembali ke menu
 ReAosp()
 {
 
-current_directory = ${pwd}
+source save_settings.txt
 
 
 # Permintaan Pilihan ke Pengguna
@@ -443,7 +441,7 @@ main
 Omni()
 {
  
-current_directory=$(pwd)
+source save_settings.txt
 
  echo " "
  echo " BUILD CONFIGURATION TWRP "
@@ -562,7 +560,7 @@ main
 ReOmni()
 {
 
-current_directory = ${pwd}
+source save_settings.txt
 
 echo "Memanggil Konfigurasi yang Tersimpan"
 
@@ -705,6 +703,7 @@ fi
 ###########################################################
 
 botconfig() {
+sorce save_settings.txt
 
 echo " ---- Telegram Bot Configuration ---- "
 echo " "
