@@ -618,11 +618,4 @@ fi
 echo " "
 echo "--------------Building TWRP-----------"
 main
-
-cd ${current_directory}
-if [ "${Build_Target}" = "vendorboot" ]; then
-chmod a+x TWRP_${Device_Name}_vendor_boot.img
-else
-chmod a+x TWRP_${Device_Name}_${Build_Target}.img
-fi
 exit 0
