@@ -791,8 +791,7 @@ clear
 echo " "
 echo " Menyimpan Folder saat ini... "
 current_directory=$(pwd)
-sed -i "s|current_directory=.*|current_directory=$current_directory" save_settings.txt
- 
+sed -i "s|current_directory=.*|current_directory=$current_directory|" save_settings.txt
 echo " ---Memulai Install package yang diperlukan---"
 echo " "
 sleep 1
