@@ -364,6 +364,14 @@ sleep 1
 
     
     # Menghapus Sumber daya yang telah dibuat sebelumnya
+   if [ "${Build_Target}" = "vendorboot" ]; then
+     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img
+    rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
+else
+rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img
+rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
+fi
+    
     rm -rf /.workspace/twrp/${Device_Path}
    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
 # Memanggil Konfigurasi Yang tersimpan
@@ -442,7 +450,13 @@ elif [ "${settings}" = 2 ]; then ## Awal Dari Pilihan 2 ##
 # Memanggil konfigurasi yang tersimpan
 
     source ${current_directory}/save_settings.txt
-
+if [ "${Build_Target}" = "vendorboot" ]; then
+     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img
+    rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
+else
+rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img
+rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
+fi
     # Menghapus sumber daya yang telah dibuat 
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
@@ -727,6 +741,8 @@ echo " Diperbarui!"
 sleep 1
 
     
+rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img
+rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
     
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
@@ -771,6 +787,9 @@ main
 
 elif [ "${settings}" = 2 ]; then #Start of 2
     source ${current_directory}/save_settings.txt
+    rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img
+rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
+   
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
 
