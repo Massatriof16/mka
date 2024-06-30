@@ -1,6 +1,4 @@
-# BAGIAN FUNGSI
 
-# Memanggil Direktori saat ini file dijalankan
 
 ###########################################################
 ###########################################################
@@ -10,18 +8,26 @@ bot_notif() {
 source ${current_directory}/save_settings.txt
 
 if [ -z "${id_chat}" ]; then
+echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
 else
+echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building TWRP_${Device_Name}..."
+echo " "
 fi
 }
 
 bot_notif2() {
 source ${current_directory}/save_settings.txt
 if [ -z "${id_chat}" ]; then
+echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
 else
+echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building TWRP_${Device_Name}..."
+echo " "
 fi
 }
 
@@ -30,9 +36,13 @@ bot_error() {
 source ${current_directory}/save_settings.txt
 
 if [ -z "${id_chat}" ]; then
+echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
 else
+echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR BUILD! COBA CEK YANG ERROR!"
+echo " "
 fi
 
 }
@@ -43,18 +53,28 @@ source ${current_directory}/save_settings.txt
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 if [ -z "${id_chat}" ]; then
+echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
 else
+echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
+echo " "
 curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+echo " "
 fi
 else
 chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 if [ -z "${id_chat}" ]; then
+echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
 else
+echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
+echo " "
 curl -F document=@"${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+echo " "
 fi
 fi
 
@@ -243,6 +263,7 @@ echo " "
          else
          echo " "
          echo " SEPERTINYA KAMU ERROR BUILD "
+         echo " "
          bot_error
          main
          fi
@@ -255,12 +276,14 @@ echo " "
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
          
            else
+           echo " "
            echo "SEPERTINYA KAMU ERROR BUILD "
+           echo " "
            bot_error
             main
             fi   
         fi
-        echo " DONE !!! "
+        echo " DONE BUILD!!! "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
@@ -273,7 +296,7 @@ echo " "
 echo " Mengkompress File menjadi lebih kecil..."
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 xz TWRP_${Device_Name}_${Build_Target}.img
-
+echo " "
 fi
 
 bot_file
@@ -386,14 +409,15 @@ echo " "
 
 # Clone device tree
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        echo " "
-        echo " BUILDING TWRP "
-        echo " "
+        
         sleep 1
         cd ${current_directory}
         bot_notif2
         cd /.workspace/twrp
         clear
+        echo " "
+        echo " BUILDING TWRP "
+        echo " "
         # Start Building 
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
@@ -409,6 +433,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          else
          echo " "
          echo " SEPERTINYA KAMU ERROR BUILD "
+         echo " "
          bot_error
          main
          fi
@@ -421,12 +446,14 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
          
            else
+           echo " "
            echo "SEPERTINYA KAMU ERROR BUILD "
+           echo " "
            bot_error
             main
             fi   
         fi
-        echo " Done ! "
+        echo " DONE BUILD ! "
         echo " "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
@@ -434,12 +461,13 @@ mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
 echo " "
 echo " Mengkompress file menjadi lebih kecil... "
 xz TWRP_${Device_Name}_vendor_boot.img
-
+echo " "
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo " "
 echo " Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
-
+echo " "
     fi
     bot_file
     ## Akhir dari Pilihan 1 ##
@@ -469,14 +497,15 @@ echo " Cloning Device tree "
 echo " "
 
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        echo " "
-        echo " BUILDING TWRP "
-        echo " "
+        
         sleep 1
         cd ${current_directory}
 bot_notif2
 cd /.workspace/twrp
 clear
+echo " "
+        echo " BUILDING TWRP "
+        echo " "
         # start building
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
@@ -491,6 +520,7 @@ clear
          else
          echo " "
          echo " SEPERTINYA KAMU ERROR BUILD "
+         echo " "
          bot_error
          main
          fi
@@ -503,7 +533,9 @@ clear
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
          
            else
+           echo " "
            echo "SEPERTINYA KAMU ERROR BUILD "
+           echo " "
            bot_error
             main
             fi   
@@ -513,15 +545,16 @@ clear
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
-
+echo " "
 echo "Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_vendor_boot.img
-
+echo " "
 else
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo " "
 echo "Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
-
+echo " "
 fi
 bot_file
     ## Akhir Dari pilihan 2 ##
@@ -532,11 +565,13 @@ main  #Kembali Ke menu
 
 
 else ## Jika Pengguna Memasukkan Tidak sesuai dengan pilihan ##
+echo " "
 echo "Invalid Input!"
 echo " "
 main
 fi
 else
+echo " "
 echo "TIDAK DAPAT MENEMUKAN FILE SYNC MANIFEST! APAKAH KAMU SUDAH SYNC MANIFEST?"
 main
 fi
@@ -641,18 +676,18 @@ echo " "
         echo " Cloning Device Tree "
         echo " "
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        echo " "
-        echo " Building recovery..."
-        echo " "
+        
         sleep 1
         cd ${current_directory}
         bot_notif2
         cd /.workspace/twrp
         clear
+        echo " "
+        echo " Building recovery..."
+        echo " "
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
        
-     echo " Done ! "
-     echo " "
+     
      
      if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
@@ -661,11 +696,16 @@ echo " "
         bot_error
         main
         fi
+        
+        echo " DONE BUILD !"
+     echo " "
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+echo " "
 echo " Mengkompress file menjadi lebih kecil "
-xz TWRP_${Device_Name}_${Build_Target}.img
 
+xz TWRP_${Device_Name}_${Build_Target}.img
+echo " "
 bot_file
 main
 }
@@ -761,11 +801,11 @@ echo " "
 echo " Building recovery "
 echo " "
 sleep 1
+
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
-   echo " Done !"
-   echo " "
+   
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
@@ -773,12 +813,14 @@ sleep 1
         bot_error
         main
         fi    
-
+echo " DONE BUILD !"
+   echo " "
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
+
 echo " Mengkompress file menjadi lebih kecil "
 xz TWRP_${Device_Name}_${Build_Target}.img
-
+echo " "
 bot_file
 main
 
@@ -799,19 +841,20 @@ echo " "
 echo "Cloning Device Tree "
 echo " "
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-echo " "
-echo " Building recovery "
+
 cd ${current_directory}
 bot_notif2
 cd /.workspace/twrp
 clear
 echo " "
 sleep 1
+echo " "
+echo " Building recovery "
+echo " "
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
-   echo " Done ! "
-   echo " "
+   
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
@@ -819,16 +862,18 @@ sleep 1
         bot_error
         main
         fi  
-
+echo " DONE BUILD ! "
+   echo " "
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo "Mengkompress file menjadi lebih kecil"
 xz TWRP_${Device_Name}_${Build_Target}.img
-
+echo " "
 bot_file
 main
 #end of 2
 else #else of Reomni
+echo " "
     echo "Input tidak valid. Perintah dibatalkan."
     echo " "
     main
@@ -939,14 +984,12 @@ sed -i "s|current_directory=.*|current_directory=$current_directory|" save_setti
 echo " ---Memulai Install package yang diperlukan---"
 echo " "
 sleep 1
-apt update
-  apt -y upgrade
-  apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5
-   #add-apt-repository universe
-   apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd  make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu -y &&  apt install build-essential -y &&  apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc -y &&  apt install pigz -y &&  apt install python2 -y &&  apt install python3 -y &&  apt install cpio -y &&  apt install lld -y &&  apt install llvm -y
-   apt -y install libncurses5
-   apt -y install rsync
-   apt -y install repo
+if ! dpkg -l gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5 &>/dev/null; then
+    # Jika paket belum terinstal, jalankan perintah instalasi
+    apt update
+    apt -y upgrade
+    apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5
+fi
 clear
 main
 exit 0
