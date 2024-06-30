@@ -225,9 +225,21 @@ echo " "
         # Menyalin Hasil Build Ke direktori saat ini 
         
        if [ "${Build_Target}" = "vendorboot" ]; then
+         if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
+         echo "SEPERTINYA KAMU GAGAL Build "
+         bot_error
+         main
+         fi
+         else
+         if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
+        else
+        echo "Sepertinya Kamu gagal Build"
+        bot_error
+        main
+        fi
         fi
         echo " DONE !!! "
 cd ${current_directory}
@@ -359,10 +371,21 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 
         # Menyalin hasil ke direktori saat ini
         
-       if [ "${Build_Target}" = "vendorboot" ]; then
+         if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
+         echo "SEPERTINYA KAMU GAGAL Build "
+         bot_error
+         main
+         fi
+         else
+         if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
+        else
+        echo "Sepertinya Kamu gagal Build"
+        bot_error
+        main
+        fi
         fi
         echo " Done ! "
         echo " "
@@ -414,10 +437,21 @@ clear
 
         # Menyalin Hasil build ke direktori saat ini
         
-       if [ "${Build_Target}" = "vendorboot" ]; then
+         if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
+         echo "SEPERTINYA KAMU GAGAL Build "
+         bot_error
+         main
+         fi
+         else
+         if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
+        else
+        echo "Sepertinya Kamu gagal Build"
+        bot_error
+        main
+        fi
         fi
         echo " Done ! "
         echo " "
@@ -559,8 +593,13 @@ echo " "
        
      echo " Done ! "
      echo " "
+     if [ -e "cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
-        
+        else
+        echo " sepertinya Kamu gagal build "
+        bot_error
+        main
+        fi
 cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo " Mengkompress file menjadi lebih kecil "
@@ -663,8 +702,13 @@ sleep 1
         
    echo " Done !"
    echo " "
+   if [ -e "cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
-
+        else
+        echo " sepertinya Kamu gagal build "
+        bot_error
+        main
+        fi
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo " Mengkompress file menjadi lebih kecil "
@@ -700,8 +744,13 @@ sleep 1
         
    echo " Done ! "
    echo " "
+         if [ -e "cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
-
+        else
+        echo " sepertinya Kamu gagal build "
+        bot_error
+        main
+        fi
         cd ${current_directory}
 mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo "Mengkompress file menjadi lebih kecil"
