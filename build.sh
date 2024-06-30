@@ -91,7 +91,7 @@ fi
 main() {
 
 echo " "
-echo "--------------Building TWRP-----------"
+echo "--------------Builder TWRP-----------"
 echo "1. New Build for Aosp (sync minimal manifest)"
 echo "2. Rebuild for Aosp (don't sync minimal manifest)"
 echo "3. New Build for Omni (sync minimal manifest)"
@@ -314,15 +314,15 @@ ReAosp()
 
 
 if [ -d "/.workspace/twrp" ]; then
-source save_settings.txt
+
 
 # Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
-
+source save_settings.txt
 echo "Ingin ubah konfigurasi tersimpan?"
 echo "1. Ya"
 echo "2. Tidak"
-echo "Pilih: "
+echo "Pilih (1-2): "
 read settings
 
 # Mendeteksi Pilihan dari Perubahan konfigurasi
@@ -386,7 +386,7 @@ sleep 1
 
 
     
-    # Menghapus Sumber daya yang telah dibuat sebelumnya
+    # Menghapus Cloning device tree yang telah ada sebelumnya
    if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 fi
