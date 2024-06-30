@@ -477,7 +477,7 @@ clear
          
          else
          
-         echo "Mengcopy ${Build_Target} "
+         echo "Mengcopy ${Build_Target}.img "
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
