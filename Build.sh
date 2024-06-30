@@ -288,6 +288,8 @@ ReAosp()
 source save_settings.txt
 
 
+if [ -d "/.workspace/twrp" ]; then
+
 # Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
 
@@ -510,6 +512,7 @@ bot_file
 
 main  #Kembali Ke menu
 
+
 else ## Jika Pengguna Memasukkan Tidak sesuai dengan pilihan ##
 echo "Invalid Input!"
 echo " "
@@ -517,6 +520,15 @@ main
 fi
 
 main
+
+else
+echo " TIDAK MENEMUKAN SYNC MANIFEST ! KAMU HARUS SYNC TERLEBIH DAHULU "
+main
+fi
+
+
+
+
 }
 
 
@@ -654,6 +666,7 @@ ReOmni()
 {
 
 source save_settings.txt
+if [ -d "/.workspace/twrp" ]; then
 
 echo "Memanggil Konfigurasi yang Tersimpan"
 
@@ -804,7 +817,10 @@ else #else of Reomni
     main
 fi
 
-
+else
+echo " TIDAK MENEMUKAN SYNC MANIFEST ! KAMU HARUS SYNC TERLEBIH DAHULU "
+main
+fi
 
 }
 
