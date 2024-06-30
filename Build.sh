@@ -225,6 +225,7 @@ echo " "
         # Menyalin Hasil Build Ke direktori saat ini 
         
        if [ "${Build_Target}" = "vendorboot" ]; then
+       echo " Mencopy vendor_boot"
          if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
@@ -232,7 +233,10 @@ echo " "
          bot_error
          main
          fi
+         
          else
+         echo "Mengcopy ${Build_Target}.img"
+         
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
@@ -240,6 +244,7 @@ echo " "
         bot_error
         main
         fi
+        
         fi
         echo " DONE !!! "
 cd ${current_directory}
@@ -370,7 +375,9 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
         # Menyalin hasil ke direktori saat ini
+        if [ "${Build_Target}" = "vendorboot" ]; then
         
+        echo "Mengcopy Vendor_boot.img"
          if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
@@ -378,7 +385,10 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          bot_error
          main
          fi
+         
          else
+         
+         echo " Mengcopy ${Build_Target}.img"
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
@@ -386,7 +396,11 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         bot_error
         main
         fi
+
+        
         fi
+
+        
         echo " Done ! "
         echo " "
 cd ${current_directory}
@@ -436,6 +450,8 @@ clear
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
         # Menyalin Hasil build ke direktori saat ini
+        if [ "${Build_Target}" = "vendorboot" ]; then
+        echo "Mengcopy vendor_boot.img"
         
          if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
@@ -444,7 +460,10 @@ clear
          bot_error
          main
          fi
+         
          else
+         
+         echo "Mengcopy ${Build_Target} "
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
@@ -452,6 +471,8 @@ clear
         bot_error
         main
         fi
+
+        
         fi
         echo " Done ! "
         echo " "
