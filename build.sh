@@ -91,12 +91,12 @@ fi
 main() {
 
 echo " "
-echo "--------------Builder TWRP-----------"
+echo "--------------Builder TWRP by Massatrio16 -----------"
 echo "1. New Build for Aosp (sync minimal manifest)"
 echo "2. Rebuild for Aosp (don't sync minimal manifest)"
 echo "3. New Build for Omni (sync minimal manifest)"
 echo "4. Rebuild for Omni (don't sync minimal manifest)"
-echo "5. ADD NOTIFICATION TELEGRAM BOT "
+echo "5. ADD NOTIFICATION TELEGRAM BOT (Adding Notification is recommended) "
 echo "6. Delete All Resources Sync Manifest "
 echo "7. Exit "
 echo " "
@@ -723,7 +723,7 @@ echo "Memanggil Konfigurasi yang Tersimpan"
 echo "Ingin ubah konfigurasi tersimpan?"
 echo "1. Ya"
 echo "2. Tidak"
-echo "Pilih: "
+echo "Pilih (1-2): "
 read settings
 
 if [ "${settings}" = 1 ]; then
@@ -898,8 +898,8 @@ sorce save_settings.txt
 
 echo " ---- Telegram Bot Configuration ---- "
 echo " "
-echo " Token Bot Telah diatur default sebagai bot owner script"
-echo "tetapi chat id belum diatur ingin mengaturnya?"
+echo "Token Bot Telah diatur default sebagai bot owner script"
+echo "tetapi chat id belum diatur, ngin mengaturnya?"
 echo "1. Atur Ulang Token"
 echo "2. Atur Ulang Chat id"
 echo " Pilih ( 1-2 ) : "
@@ -959,7 +959,7 @@ rm -rf /.workspace/twrp
 echo "Done!"
 main
 else
-echo "File sync Tidak ada! apakah kamu sudah melakukan sync. Manifest?"
+echo "File sync Tidak ada! apakah kamu sudah melakukan sync Manifest?"
 main
 fi
 elif [ "${del}" = 2 ]; then
