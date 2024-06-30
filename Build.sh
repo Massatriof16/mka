@@ -49,7 +49,16 @@ fi
 
 }
 
+bot_error() {
+source ${current_directory}/save_settings.txt
 
+if [ -z "${id_chat}" ]; then
+echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+else
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR BUILD! COBA CEK YANG ERROR!"
+fi
+
+}
 
 
 
@@ -229,6 +238,7 @@ echo " "
          if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
+         cd ${current_directory}
          echo "SEPERTINYA KAMU GAGAL Build "
          bot_error
          main
@@ -240,6 +250,7 @@ echo " "
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
+        cd ${current_directory}
         echo "Sepertinya Kamu gagal Build"
         bot_error
         main
@@ -381,6 +392,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
+         cd ${current_directory}
          echo "SEPERTINYA KAMU GAGAL Build "
          bot_error
          main
@@ -392,6 +404,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
+        cd ${current_directory}
         echo "Sepertinya Kamu gagal Build"
         bot_error
         main
@@ -456,6 +469,7 @@ clear
          if [ -e "../../../out/target/product/${Device_Name}/vendor_boot.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          else
+         cd ${current_directory}
          echo "SEPERTINYA KAMU GAGAL Build "
          bot_error
          main
@@ -467,6 +481,7 @@ clear
          if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
+        cd ${current_directory}
         echo "Sepertinya Kamu gagal Build"
         bot_error
         main
@@ -617,6 +632,7 @@ echo " "
      if [ -e "cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
+        cd ${current_directory}
         echo " sepertinya Kamu gagal build "
         bot_error
         main
@@ -726,6 +742,7 @@ sleep 1
    if [ -e "cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
+        cd ${current_directory}
         echo " sepertinya Kamu gagal build "
         bot_error
         main
@@ -768,6 +785,7 @@ sleep 1
          if [ -e "cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img"]; then
          cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
+        cd ${current_directory}
         echo " sepertinya Kamu gagal build "
         bot_error
         main
