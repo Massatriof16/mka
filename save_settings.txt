@@ -4,5 +4,5 @@ Branch_dt_twrp=
 Device_Path=
 Device_Name=
 Build_Target=
-Token=7042411875:AAGA4wveyLvXM89CMrrItQbtIh_n350HjPk
+Token=7158353974:AAGsmJmfMHXIK9Pj2GIdo6u1eTH2HTR_HHQ
 id_chat=
