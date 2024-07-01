@@ -185,7 +185,7 @@ if [ -z "${Device_Path}" ]; then
 fi
 echo "Device Name [wajib]: "
 read Device_Name
-if [ -z "{$Device_Name}" ]; then
+if [ -z "${Device_Name}" ]; then
     echo "Input Device Name Kosong!"
     echo " "
     main
@@ -381,7 +381,7 @@ if [ -z "${Device_Path}" ]; then
 fi
 echo "Device Name : "
 read Device_Name
-if [ -z "{$Device_Name}" ]; then
+if [ -z "${Device_Name}" ]; then
     echo "Input Device Name Kosong!"
     echo " "
     main
@@ -653,7 +653,7 @@ if [ -z "${Device_Path}" ]; then
 fi
 echo "Device Name : "
 read Device_Name
-if [ -z "{$Device_Name}" ]; then
+if [ -z "${Device_Name}" ]; then
     echo "Input Device Name Kosong!"
     echo " "
     main
@@ -777,7 +777,7 @@ if [ -z "${Device_Path}" ]; then
 fi
 echo "Device Name : "
 read Device_Name
-if [ -z "{$Device_Name}" ]; then
+if [ -z "$Device_Name}" ]; then
     echo "Input Device Name Kosong!"
     echo " "
     main
