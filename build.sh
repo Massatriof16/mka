@@ -269,20 +269,11 @@ echo " "
         
         git clone https://github.com/${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         
-        if [ -d "/.workspace/twrp/${Device_Path}" ]; then
-        echo " "
-        echo " folder device path tidak ditemukan! apakah sudah diclone dengan benar?"
-        echo " "
-        main
-        fi
+        
 
         if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
        git clone https://github.com/${Common} -b ${Branch_dt_twrp} ${Path_Common}
-       if [ -d "/.workspace/twrp/${Path_Common}" ]; then
-       echo " "
-       echo " Folder Common Path tidak ditemukan! apakah sudah diclone dengan benar?"
-       main
-fi
+      
 fi
         echo " "
 
@@ -375,46 +366,63 @@ read settings
 if [ "${settings}" = 1 ]; then  # Jika Pilihan 1 dijalan kan #
   
   # Membuat Masukkan Ulang Konfigurasi
-    echo "Link Device tree twrp : "
+    
+
+
+ # Menyimpan dan Memperbarui Konfigurasi saat pengguna pilih 1
+sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.echo " "
+echo " Username_Github/Nama_Repo_DT_twrp ( contoh : Masaatrio16/X657B_Unencr) [wajib] : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
     echo "Input Device tree Kosong !"
     echo " "
     main
-fi
-echo "Branch Device_tree_twrp : "
+    fi
+echo " "
+echo "Branch Device_tree_twrp [wajib]: "
 read Branch_dt_twrp
 if [ -z "${Branch_dt_twrp}" ]; then
     echo "Input branch device tree Kosong !"
     echo " "
     main
 fi
-echo "Device Path : "
+echo " "
+echo "Device Path [wajib]: "
 read Device_Path
 if [ -z "${Device_Path}" ]; then
     echo "Input Device path Kosong!"
     echo " "
     main
 fi
-echo "Device Name : "
+echo " "
+echo "Device Name [wajib]: "
 read Device_Name
 if [ -z "${Device_Name}" ]; then
     echo "Input Device Name Kosong!"
     echo " "
     main
 fi
-echo "Build Target (recovery,boot,vendorboot) : "
+echo " "
+echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
 read Build_Target
  if [ -z "${Build_Target}" ]; then
     echo "Input Build Target Kosong!"
     echo " "
     main
+    
+fi
+echo " "
+echo " Username_Github/Nama_Repo_DT_commom "
+read Common
+echo " Device_Path_Common "
+read Path_Common
+if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
+echo " "
+echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+main
 fi
 
-
-
- # Menyimpan dan Memperbarui Konfigurasi saat pengguna pilih 1
-sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
+ sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
 sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
 
@@ -424,6 +432,11 @@ sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_se
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+
+if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
+sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
+fi
 
  
     echo " Diperbarui!"
@@ -454,7 +467,10 @@ echo " "
 
 # Clone device tree
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        
+        if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+       git clone https://github.com/${Common} -b ${Branch_dt_twrp} ${Path_Common}
+      
+fi
         sleep 1
         cd ${current_directory}
         bot_notif2
@@ -551,7 +567,7 @@ echo " "
         echo " BUILDING TWRP "
         echo " "
         # start building
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
         # Menyalin Hasil build ke direktori saat ini
         
