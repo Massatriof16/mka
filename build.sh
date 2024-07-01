@@ -435,9 +435,9 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         
           
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e " ../../../out/target/product/${Device_Name}/vendor_boot.img " ]; then
+         if [ -e " /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img " ]; then
        
-         cp -r ../../../out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+         cp -r /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          
          else
          echo " "
@@ -451,8 +451,8 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
          
          else
          
-         if [ -e "../../../out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r ../../../out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
+         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
          
            else
            echo " "
