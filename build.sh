@@ -401,6 +401,18 @@ if [ -z "${Device_Name}" ]; then
     main
 fi
 echo " "
+echo " Run Lunch target Twrp (Isi nama setelah twrp_ (x657b untuk twrp_x657b)"
+read Lunch
+if [ -z "${Lunch}" ]; then
+    echo "Input Lunch Kosong!"
+    echo " "
+    main
+    
+fi
+
+
+
+echo " "
 echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
 read Build_Target
  if [ -z "${Build_Target}" ]; then
@@ -430,6 +442,8 @@ sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_se
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+
+sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
 
 if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
 sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
@@ -479,7 +493,7 @@ fi
         echo " "
         # Start Building 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
 
         # Menyalin hasil ke direktori saat ini
         
