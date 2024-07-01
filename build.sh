@@ -479,7 +479,7 @@ fi
         echo " "
         # Start Building 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
         # Menyalin hasil ke direktori saat ini
         
