@@ -478,7 +478,7 @@ echo " Cloning Device tree "
 echo " "
 
 # Clone device tree
-git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+git clone https://github.com/${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
        git clone https://github.com/${Common} -b ${Branch_dt_twrp} ${Path_Common}
       
@@ -568,7 +568,7 @@ echo " "
 echo " Cloning Device tree "
 echo " "
 
-git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+git clone https://github.com/${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         
         sleep 1
         cd ${current_directory}
@@ -579,7 +579,7 @@ echo " "
         echo " BUILDING TWRP "
         echo " "
         # start building
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
 
         # Menyalin Hasil build ke direktori saat ini
         
