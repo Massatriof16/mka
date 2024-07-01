@@ -145,7 +145,6 @@ echo " TWRP BUILD CONFIGURATION "
 echo "  "
 echo " : CATATAN : "
 echo "[Wajib] = tidak boleh skip"
-echo "[Optional] = Boleh skip(tekan enter)"
 echo "Jika terjadi salah kamu bisa ulangi dengan skip(tekan enter) pada Konfigurasi berlabel wajib"
 echo " "
 # Membuat Folder twrp
@@ -190,16 +189,6 @@ if [ -z "${Device_Name}" ]; then
     echo " "
     main
 fi
-
-echo "Link Common device tree (Jika build common) [Opsional] :"
-read Common
-echo "Device Path Common (Jika build common [opsional&wajib]: "
-read Path_Common
-
-if [ -n "$Common" ] && [ -z "$Path_Common" ]; then
-    echo "Common Device Tree Terisi, Tetapi Device Path Common Kosong!."
-    main
-    fi
 echo "Build Target (recovery,boot,vendorboot) [wajib]: "
 read Build_Target
  if [ -z "${Build_Target}" ]; then
@@ -225,10 +214,6 @@ sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_se
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 
 
-if [ -n "$Common" ] && [ -n "$Path_Common" ]; then
-sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
-sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
-fi
 
 cd /.workspace
  mkdir twrp
@@ -261,9 +246,7 @@ echo " "
         echo " Cloning Device Tree "
         echo " "
         
-        if [ -n "$Common" ] && [ -n "$Path_Common" ]; then
-git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
-fi
+        
 
 
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
