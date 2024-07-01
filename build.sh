@@ -368,9 +368,7 @@ if [ "${settings}" = 1 ]; then  # Jika Pilihan 1 dijalan kan #
   # Membuat Masukkan Ulang Konfigurasi
     
 
-
- # Menyimpan dan Memperbarui Konfigurasi saat pengguna pilih 1
-sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.echo " "
+echo " "
 echo " Username_Github/Nama_Repo_DT_twrp ( contoh : Masaatrio16/X657B_Unencr) [wajib] : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
