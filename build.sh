@@ -142,6 +142,11 @@ source save_settings.txt
 
 echo " "
 echo " TWRP BUILD CONFIGURATION "
+echo "  "
+echo " : CATATAN : "
+echo "[Wajib] = tidak boleh skip"
+echo "[Optional] = Boleh skip(tekan enter)"
+echo "Jika terjadi salah kamu bisa ulangi dengan skip(tekan enter) pada Konfigurasi berlabel wajib"
 echo " "
 # Membuat Folder twrp
  
@@ -150,42 +155,50 @@ echo " "
  echo "Manifest AOSP Branch AVAILABLE : "
  echo " 11 "
  echo " 12.1 "
- echo "Pilih Manifest branch (11 , 12,1) : "
+ echo "Pilih Manifest branch (11 , 12,1) [wajib] : "
 read Manifest_branch
 if [ -z "$Manifest_branch" ]; then
     echo "Input Manifest branch kosong!."
     echo " "
     main
 fi
-echo "Link Device tree twrp : "
+echo "Link Device tree twrp [wajib] : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
     echo "Input Device tree Kosong !"
     echo " "
     main
 fi
-echo "Branch Device_tree_twrp : "
+echo "Branch Device_tree_twrp [wajib]: "
 read Branch_dt_twrp
 if [ -z "${Branch_dt_twrp}" ]; then
     echo "Input branch device tree Kosong !"
     echo " "
     main
 fi
-echo "Device Path : "
+echo "Device Path [wajib]: "
 read Device_Path
 if [ -z "${Device_Path}" ]; then
     echo "Input Device path Kosong!"
     echo " "
     main
 fi
-echo "Device Name : "
+echo "Device Name [wajib]: "
 read Device_Name
 if [ -z "{$Device_Name}" ]; then
     echo "Input Device Name Kosong!"
     echo " "
     main
 fi
-echo "Build Target (recovery,boot,vendorboot) : "
+echo "Link Common device tree (Jika build common) [Opsional] :"
+read Common
+echo "Device Path Common (Jika build common [opsional&wajib]: "
+read Path_Common
+if [ -n "$Common" ] && [ -z "$Path_Common" ]; then
+    echo "Common Device Tree Terisi, Tetapi Device Path Common Kosong!."
+    main
+    fi
+echo "Build Target (recovery,boot,vendorboot) [wajib]: "
 read Build_Target
  if [ -z "${Build_Target}" ]; then
     echo "Input Build Target Kosong!"
@@ -208,6 +221,12 @@ sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_se
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+
+
+if [ -n "$Common" ] && [ -n "$Path_Common" ]; then
+sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
+sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
+fi
 
 cd /.workspace
  mkdir twrp
@@ -239,6 +258,12 @@ echo " "
         echo " "
         echo " Cloning Device Tree "
         echo " "
+        
+        if [ -n "$Common" ] && [ -n "$Path_Common" ]; then
+git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
+fi
+
+
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         echo " "
 
