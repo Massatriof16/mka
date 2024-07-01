@@ -161,13 +161,14 @@ if [ -z "$Manifest_branch" ]; then
     echo " "
     main
 fi
-echo "Link Device tree twrp [wajib] : "
+echo " "
+echo " Username_Github/Nama_Repo_DT_twrp ( contoh : Masaatrio16/X657B_Unencr) [wajib] : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
     echo "Input Device tree Kosong !"
     echo " "
     main
-fi
+echo " "
 echo "Branch Device_tree_twrp [wajib]: "
 read Branch_dt_twrp
 if [ -z "${Branch_dt_twrp}" ]; then
@@ -175,6 +176,7 @@ if [ -z "${Branch_dt_twrp}" ]; then
     echo " "
     main
 fi
+echo " "
 echo "Device Path [wajib]: "
 read Device_Path
 if [ -z "${Device_Path}" ]; then
@@ -182,6 +184,7 @@ if [ -z "${Device_Path}" ]; then
     echo " "
     main
 fi
+echo " "
 echo "Device Name [wajib]: "
 read Device_Name
 if [ -z "${Device_Name}" ]; then
@@ -189,12 +192,24 @@ if [ -z "${Device_Name}" ]; then
     echo " "
     main
 fi
-echo "Build Target (recovery,boot,vendorboot) [wajib]: "
+echo " "
+echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
 read Build_Target
  if [ -z "${Build_Target}" ]; then
     echo "Input Build Target Kosong!"
     echo " "
     main
+    
+fi
+echo " "
+echo " Username_Github/Nama_Repo_DT_commom "
+read Common
+echo " Device_Path_Common "
+read Path_Common
+if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
+echo " "
+echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+main
 fi
 
 # menyimpan konfigurasi
@@ -213,6 +228,10 @@ sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_se
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 
+if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
+sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
+fi
 
 
 cd /.workspace
@@ -247,9 +266,23 @@ echo " "
         echo " "
         
         
+        git clone https://github.com/${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+        
+        if [ -d "/.workspace/twrp/${Device_Path}" ]; then
+        echo " "
+        echo " folder device path tidak ditemukan! apakah sudah diclone dengan benar?"
+        echo " "
+        main
+        fi
 
-
-        git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+        if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+       git clone https://github.com/${Common} -b ${Branch_dt_twrp} ${Path_Common}
+       if [ -d "/.workspace/twrp/${Path_Common}" ]; then
+       echo " "
+       echo " Folder Common Path tidak ditemukan! apakah sudah diclone dengan benar?"
+       main
+fi
+fi
         echo " "
 
         # Start Building 
@@ -261,7 +294,7 @@ echo " "
         echo " "
         
         sleep 1
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
 
         # Menyalin Hasil Build Ke direktori saat ini 
         
@@ -376,6 +409,8 @@ read Build_Target
     echo " "
     main
 fi
+
+
 
  # Menyimpan dan Memperbarui Konfigurasi saat pengguna pilih 1
 sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
