@@ -168,6 +168,7 @@ if [ -z "${Device_tree}" ]; then
     echo "Input Device tree Kosong !"
     echo " "
     main
+    fi
 echo " "
 echo "Branch Device_tree_twrp [wajib]: "
 read Branch_dt_twrp
