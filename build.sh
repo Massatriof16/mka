@@ -435,7 +435,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         
           
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e " /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img " ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
        
          cp -r /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
          
