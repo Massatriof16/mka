@@ -301,9 +301,9 @@ fi
         # Menyalin Hasil Build Ke direktori saat ini 
         
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+         cp -r /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
          
          else
          echo " "
@@ -317,8 +317,8 @@ fi
          
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
+         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}   
          
            else
            echo " "
@@ -478,7 +478,7 @@ fi
 rm -rf /.workspace/twrp/${Path_Common}
 fi
     rm -rf /.workspace/twrp/${Device_Path}
-   rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+   rm -rf /.workspace/twrp/out/target/product/${Lunch}
 # Memanggil Konfigurasi Yang tersimpan
     source ${current_directory}/save_settings.txt
     
@@ -511,9 +511,9 @@ fi
         
           
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+         cp -r /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
          
          else
          echo " "
@@ -527,8 +527,8 @@ fi
          
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
+         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}   
          
            else
            echo " "
@@ -575,7 +575,7 @@ rm -rf /.workspace/twrp/${Path_Common}
 fi
     # Menghapus sumber daya yang telah dibuat 
     rm -rf /.workspace/twrp/${Device_Path}
-    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+    rm -rf /.workspace/twrp/out/target/product/${Lunch}
 
 # Cloning Device tree
 
@@ -608,9 +608,9 @@ echo " "
         
        
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+         cp -r /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
          
          else
          echo " "
@@ -624,8 +624,8 @@ echo " "
          
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}   
+         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}   
          
            else
            echo " "
