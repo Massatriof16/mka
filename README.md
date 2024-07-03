@@ -1,6 +1,6 @@
-# SCRIPT FOR BUILD TWRP from GITPOD
+# TWRP Builder Using Gitpod
 
-Cara penggunaan
+Cara penggunaan :
 - git clone https://github.com/Massatrio16/mka
 - cd mka
 - sudo passwd (buat dan konfirmasi password baru untuk su)
@@ -10,5 +10,5 @@ Cara penggunaan
 
 
 Gambar Fitur :
-
+![Menu](https://github.com/Massatrio16/mk/blob/main/Screenshot_20240701-091114_1.jpg)
 
