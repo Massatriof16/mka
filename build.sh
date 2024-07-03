@@ -162,7 +162,7 @@ if [ -z "$Manifest_branch" ]; then
     main
 fi
 echo " "
-echo " Username_Github/Nama_Repo_DT_twrp ( contoh : Masaatrio16/X657B_Unencr) [wajib] : "
+echo " Link Device Tree TWRP [wajib] : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
     echo "Input Device tree Kosong !"
@@ -212,8 +212,9 @@ read Build_Target
     
 fi
 echo " "
-echo " Username_Github/Nama_Repo_DT_commom "
+echo " Link_Device_Tree_Common "
 read Common
+echo " "
 echo " Device_Path_Common "
 read Path_Common
 if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
@@ -277,12 +278,12 @@ echo " "
         echo " "
         
         
-        git clone https://github.com/${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+        git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         
         
 
         if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
-       git clone https://github.com/${Common} -b ${Branch_dt_twrp} ${Path_Common}
+       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
       
 fi
         echo " "
@@ -307,7 +308,7 @@ fi
          
          else
          echo " "
-         echo " SEPERTINYA KAMU ERROR BUILD "
+         echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
          echo " "
          bot_error
          main
@@ -322,7 +323,7 @@ fi
          
            else
            echo " "
-           echo "SEPERTINYA KAMU ERROR BUILD "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
            echo " "
            bot_error
             main
@@ -379,7 +380,7 @@ if [ "${settings}" = 1 ]; then  # Jika Pilihan 1 dijalan kan #
     
 
 echo " "
-echo " Username_Github/Nama_Repo_DT_twrp ( contoh : Masaatrio16/X657B_Unencr) [wajib] : "
+echo " Link Device Tree TWRP [wajib] : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
     echo "Input Device tree Kosong !"
@@ -434,6 +435,7 @@ fi
 echo " "
 echo " Username_Github/Nama_Repo_DT_commom "
 read Common
+echo " "
 echo " Device_Path_Common "
 read Path_Common
 if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
@@ -490,9 +492,9 @@ echo " Cloning Device tree "
 echo " "
 
 # Clone device tree
-git clone https://github.com/${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
-       git clone https://github.com/${Common} -b ${Branch_dt_twrp} ${Path_Common}
+       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
       
 fi
         sleep 1
@@ -517,7 +519,7 @@ fi
          
          else
          echo " "
-         echo " SEPERTINYA KAMU ERROR BUILD "
+         echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH "
          echo " "
          bot_error
          main
@@ -532,7 +534,7 @@ fi
          
            else
            echo " "
-           echo "SEPERTINYA KAMU ERROR BUILD "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAHD "
            echo " "
            bot_error
             main
@@ -584,10 +586,10 @@ echo " "
 echo " Cloning Device tree "
 echo " "
 
-git clone https://github.com/${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 
 if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
-       git clone https://github.com/${Common} -b ${Branch_dt_twrp} ${Path_Common}
+       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
       
 fi
 
@@ -614,7 +616,7 @@ echo " "
          
          else
          echo " "
-         echo " SEPERTINYA KAMU ERROR BUILD "
+         echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH "
          echo " "
          bot_error
          main
@@ -629,7 +631,7 @@ echo " "
          
            else
            echo " "
-           echo "SEPERTINYA KAMU ERROR BUILD "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH "
            echo " "
            bot_error
             main
@@ -780,14 +782,14 @@ echo " "
         echo " "
         echo " Building recovery..."
         echo " "
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
        
      
      
      if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
-        echo "SEPERTINYA KAMU ERROR BUILD"
+        echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
         bot_error
         main
         fi
@@ -901,13 +903,13 @@ echo " "
 sleep 1
 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
    
          if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
-        echo "SEPERTINYA KAMU ERROR BUILD"
+        echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
         bot_error
         main
         fi    
@@ -953,13 +955,13 @@ echo " "
 echo " Building recovery "
 echo " "
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Device_Name}-eng; mka ${Build_Target}image
         
    
          if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
-        echo "SEPERTINYA KAMU ERROR BUILD"
+        echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
         bot_error
         main
         fi  
@@ -1082,11 +1084,12 @@ echo " "
 echo " Menyimpan Folder saat ini... "
 current_directory=$(pwd)
 sed -i "s|current_directory=.*|current_directory=$current_directory|" save_settings.txt
-echo " ---Memulai Install package yang diperlukan---"
+echo " --- Memeriksa Package ---"
 echo " "
-sleep 1
 if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma repo rsync ncftp qemu-user-static libstdc++-10-dev libtinfo5 &>/dev/null; then
     # Jika paket belum terinstal, jalankan perintah instalasi
+    echo " Beberapa Package belum terinstall! "
+    sleep 1
     apt update
     apt -y upgrade
     apt -y install gperf python3 gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma repo rsync ncftp qemu-user-static libstdc++-10-dev libtinfo5
