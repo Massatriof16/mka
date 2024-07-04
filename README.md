@@ -1,10 +1,21 @@
 # TWRP Builder Using Gitpod
 
-Cara penggunaan :
+UPDATE DATE 1 Jul 24 :
+- Now support Build using Common device tree TWRP
+
+RELEASE DATE 29 Jun 24 :
+- Build TWRP Aosp 12.1 / 11 (Tested √)
+- Build TWRP Omni ( WIP )
+- Cannot Build TWRP using Common Device tree (WIP)
+- Send notifications & files to your Telegram using chat ID ( Tested √)
+
+
+
+how to use :
 - git clone https://github.com/Massatrio16/mka
 - cd mka
-- sudo passwd (buat dan konfirmasi password baru untuk su)
-- su (Masukkan passwrod baru yang telah dibuat)
+- sudo passwd (creat and confirm new password for superuser)
+- su (Enter the password you created)
 - bash build.sh
 
 
