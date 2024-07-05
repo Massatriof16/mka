@@ -1100,6 +1100,7 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
    sudo apt -y install rsync
   sudo apt -y install repo
   sudo apt -y install default-jre
+  sudo apt -y install default-jdk
   fi
 clear
 cd /usr/bin
