@@ -2,7 +2,7 @@
 
 UPDATE DATE 6 JUL 24 :
 - Optimasi Pengecekan File Hasil Build Agar Lebih Akurat
-- Menambahkan Dukungan Upload ke PIXELDRAIN ( HARAP ATUR APIKEY ANDA! )
+- Menambahkan Dukungan Upload ke Pixeldrain ( HARAP ATUR APIKEY ANDA! )
  
 
 UPDATE DATE 1 Jul 24 :
