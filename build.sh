@@ -4,7 +4,7 @@
 ###########################################################
 
 upload() {
-source ${current_durectory}/save_settings.txt
+source ${current_directory}/save_settings.txt
 
 if [ -z "${api}" ]; then
 echo " "
