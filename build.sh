@@ -76,26 +76,19 @@ fi
 bot_file() {
 source ${current_directory}/save_settings.txt
 
-if [ "${Build_Target}" = "vendorboot" ]; then
-chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 if [ -z "${id_chat}" ]; then
 echo " "
-echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " id chat tidak diatur, Melewati kirim Notifikasi ! "
 echo " "
 else
-echo " "
+if [ "${Build_Target}" = "vendorboot" ]; then
+chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
 echo " "
 curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
 echo " "
-fi
 else
 chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
-if [ -z "${id_chat}" ]; then
-echo " "
-echo " id chat Tidak diatur, Melewati kirim notifikasi !"
-echo " "
-else
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
 echo " "
@@ -122,7 +115,7 @@ echo "1. New Build for Aosp (sync minimal manifest)"
 echo "2. Rebuild for Aosp (don't sync minimal manifest)"
 echo "3. New Build for Omni (sync minimal manifest)"
 echo "4. Rebuild for Omni (don't sync minimal manifest)"
-echo "5. ADD NOTIFICATION TELEGRAM BOT (Adding Notification is recommended) "
+echo "5. Setting Notification Telegram & Upload File (Recommended)"
 echo "6. Delete All Resources Sync Manifest "
 echo "7. Exit "
 echo " "
