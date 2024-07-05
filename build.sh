@@ -400,7 +400,7 @@ if [ -d "/.workspace/twrp" ]; then
 
 # Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
-source ${current_directory}save_settings.txt
+source ${current_directory}/save_settings.txt
 echo "Ingin ubah konfigurasi tersimpan?"
 echo "1. Ya"
 echo "2. Tidak"
