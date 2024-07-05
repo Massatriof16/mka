@@ -194,7 +194,7 @@ if [ -z "${Device_Name}" ]; then
     main
 fi
 echo " "
-echo " Run Lunch target Twrp (Isi nama setelah twrp_ (x657b untuk twrp_x657b)"
+echo " Run Lunch target Twrp (Isi nama lunch setelah twrp_ (contoh : x657b untuk twrp_x657b)"
 read Lunch
 if [ -z "${Lunch}" ]; then
     echo "Input Lunch Kosong!"
@@ -223,10 +223,16 @@ echo " Device tree common Terisi!, Tetapi Path Common Kosong"
 main
 fi
 
+echo " "
+echo " Mendeteksk Out Target File... "
+Out=$(basename "$Device_Path")
+sed -i "s|Out=.*|Out=$Out|" ${current_directory}/save_settings.txt
+sleep 1
+
 # menyimpan konfigurasi
 
 echo " "
-echo "Konfigurasi Tersimpan"
+echo "Menyimpan Konfigurasi..."
 echo " "
 sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
@@ -240,11 +246,14 @@ sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_se
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
 
+
+
 if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
 sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
 sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
 fi
-
+echo " "
+echo " Tersimpan! "
 
 cd /.workspace
  mkdir twrp
@@ -302,9 +311,9 @@ fi
         # Menyalin Hasil Build Ke direktori saat ini 
         
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+         cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
          
          else
          echo " "
@@ -318,8 +327,8 @@ fi
          
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}   
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
          
            else
            echo " "
@@ -444,6 +453,12 @@ echo " Device tree common Terisi!, Tetapi Path Common Kosong"
 main
 fi
 
+echo " "
+echo " Mendeteksk Out Target File... "
+Out=$(basename "$Device_Path")
+sed -i "s|Out=.*|Out=$Out|" ${current_directory}/save_settings.txt
+sleep 1
+
  sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
 sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
@@ -480,7 +495,7 @@ fi
 rm -rf /.workspace/twrp/${Path_Common}
 fi
     rm -rf /.workspace/twrp/${Device_Path}
-   rm -rf /.workspace/twrp/out/target/product/${Lunch}
+   rm -rf /.workspace/twrp/out/target/product/${Out}
 # Memanggil Konfigurasi Yang tersimpan
     source ${current_directory}/save_settings.txt
     
@@ -513,9 +528,9 @@ fi
         
           
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+         cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
          
          else
          echo " "
@@ -529,8 +544,8 @@ fi
          
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}   
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
          
            else
            echo " "
@@ -577,7 +592,7 @@ rm -rf /.workspace/twrp/${Path_Common}
 fi
     # Menghapus sumber daya yang telah dibuat 
     rm -rf /.workspace/twrp/${Device_Path}
-    rm -rf /.workspace/twrp/out/target/product/${Lunch}
+    rm -rf /.workspace/twrp/out/target/product/${Out}
 
 # Cloning Device tree
 
@@ -610,9 +625,9 @@ echo " "
         
        
        if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+         cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
          
          else
          echo " "
@@ -626,8 +641,8 @@ echo " "
          
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}   
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
          
            else
            echo " "
@@ -682,7 +697,7 @@ fi
 Omni()
 {
  
-source save_settings.txt
+source ${current_directory}/save_settings.txt
 
  echo " "
  echo " BUILD CONFIGURATION TWRP "
@@ -815,7 +830,7 @@ ReOmni()
 {
 if [ -d "/.workspace/twrp" ]; then
 
-source save_settings.txt
+source ${current_directory}/save_settings.txt
 
 echo "Memanggil Konfigurasi yang Tersimpan"
 
