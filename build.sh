@@ -336,11 +336,17 @@ fi
 
         # Menyalin Hasil Build Ke direktori saat ini 
         
-       if [ "${Build_Target}" = "vendorboot" ]; then
+              if [ "${Build_Target}" = "vendorboot" ]; then
          if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
        
          cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
          
+        cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+        
+          
          else
          echo " "
          echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
@@ -355,7 +361,11 @@ fi
          
          if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          
+        cp /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -554,14 +564,20 @@ fi
         # Menyalin hasil ke direktori saat ini
         
           
-       if [ "${Build_Target}" = "vendorboot" ]; then
+              if [ "${Build_Target}" = "vendorboot" ]; then
          if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
        
          cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
          
+        cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+        
+          
          else
          echo " "
-         echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH "
+         echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
          echo " "
          bot_error
          main
@@ -573,10 +589,14 @@ fi
          
          if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          
+        cp /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
            else
            echo " "
-           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAHD "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
            echo " "
            bot_error
             main
@@ -652,14 +672,20 @@ echo " "
         # Menyalin Hasil build ke direktori saat ini
         
        
-       if [ "${Build_Target}" = "vendorboot" ]; then
+              if [ "${Build_Target}" = "vendorboot" ]; then
          if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
        
          cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
          
+        cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+        
+          
          else
          echo " "
-         echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH "
+         echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
          echo " "
          bot_error
          main
@@ -671,16 +697,20 @@ echo " "
          
          if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          
+        cp /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
            else
            echo " "
-           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
            echo " "
            bot_error
             main
             fi   
         fi
-        echo " Done ! "
+        echo " Done Build! "
         echo " "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
