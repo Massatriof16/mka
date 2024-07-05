@@ -1102,5 +1102,8 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
   sudo apt -y install default-jre
   fi
 clear
+cd /usr/bin
+sudo ln -sf python2 python
+cd ${current_directory}
 main
 exit 0
