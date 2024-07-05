@@ -164,7 +164,7 @@ Aosp()
 {
 
  
-source ${current_directory}save_settings.txt
+source ${current_directory}/save_settings.txt
 
 echo " "
 echo " TWRP BUILD CONFIGURATION "
