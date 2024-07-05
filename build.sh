@@ -3,6 +3,32 @@
 ###########################################################
 ###########################################################
 
+upload() {
+source ${current_durectory}/save_settings.txt
+
+if [ -z "${api}" ]; then
+echo " "
+echo " Kamu Tidak mengatur Api Key pixeldrain, Skip Upload! "
+echo " "
+else
+echo " "
+echo " Mengupload Ke Pixeldrain "
+echo " "
+if [ "${Build_Target}" = "vendorboot" ]; then
+chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
+curl -T "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" -u:${api} https://pixeldrain.com/api/file/
+else
+echo " "
+chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
+curl -T "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" -u:${api} https://pixeldrain.com/api/file/
+fi
+fi
+
+}
+
+
+
+
 bot_notif() {
 
 source ${current_directory}/save_settings.txt
@@ -355,6 +381,7 @@ echo " "
 fi
 
 bot_file
+upload
 main #kembali ke menu
 }
 
@@ -572,6 +599,7 @@ xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
     fi
     bot_file
+    upload
     ## Akhir dari Pilihan 1 ##
     
 main
@@ -669,6 +697,7 @@ xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 fi
 bot_file
+upload
     ## Akhir Dari pilihan 2 ##
 
 
@@ -1010,13 +1039,14 @@ fi
 botconfig() {
 sorce save_settings.txt
 
-echo " ---- Telegram Bot Configuration ---- "
+echo " ---- Notification / Upload Configuration ---- "
 echo " "
-echo "Token Bot Telah diatur default sebagai bot owner script"
-echo "tetapi chat id belum diatur, ngin mengaturnya?"
+echo "Token Bot Telegram Telah diatur default sebagai bot owner script"
+echo "Chat id dan Apikey Pixeldrain blum di Atur!"
 echo "1. Atur Ulang Token"
-echo "2. Atur Ulang Chat id"
-echo " Pilih ( 1-2 ) : "
+echo "2. Atur Chat id"
+echo "3. Atur Apikey "
+echo " Pilih ( 1-3 ) : "
 read setcon
 
 if [ "${setcon}" = 1 ]; then
@@ -1047,6 +1077,21 @@ echo " "
 echo " Id chat disimpan!"
 main
 fi
+elif [ "${setcon}" = 3 ]; then
+echo " "
+echo " Ketik Apikey "
+read api
+if [ -z "${api}" ]; then
+echo " "
+echo " Apikey kosong ! "
+main
+else
+sed -i "s|api=.*|api=$api|" ${current_directory}/save_settings.txt
+echo " "
+echo " Apikey disimpan! "
+main
+fi
+
 else
 echo " Invalid Input ! "
 main
