@@ -164,7 +164,7 @@ Aosp()
 {
 
  
-source save_settings.txt
+source ${current_directory}save_settings.txt
 
 echo " "
 echo " TWRP BUILD CONFIGURATION "
@@ -400,7 +400,7 @@ if [ -d "/.workspace/twrp" ]; then
 
 # Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
-source save_settings.txt
+source ${current_directory}save_settings.txt
 echo "Ingin ubah konfigurasi tersimpan?"
 echo "1. Ya"
 echo "2. Tidak"
