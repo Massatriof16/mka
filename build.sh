@@ -1509,7 +1509,7 @@ fi
 
 
 Ofox() {
-source save_settings.txt
+source ${current_directory}/save_settings.txt
 
 echo " "
 echo " OFOX BUILD CONFIGURATION "
