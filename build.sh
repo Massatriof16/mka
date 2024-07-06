@@ -176,7 +176,7 @@ elif [ "${Main}" = 4 ]; then ## Jika Pengguna input 4 ##
 ReOmni
 main
 elif [ "${Main}" = 5 ]; then ## Jika pengguna input 5 ##
-ofox
+Ofox
 main
 elif [ "${Main}" = 6 ]; then ## Jika pengguna input 6 ##
 reofox
