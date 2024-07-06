@@ -2,6 +2,44 @@
 
 ###########################################################
 ###########################################################
+bot_offox() {
+source ${current_directory}/save_settings.txt
+if [ -z "${id_chat}" ]; then
+echo " "
+echo "id chat belum diatur, Melewati kirim Notifikasi"
+echo " "
+else
+echo " "
+curl -F document=@"${current_directory}/OrangeFox-Unofficial.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+echo " "
+fi
+
+
+}
+
+
+pix_ofox()
+ {
+source ${current_directory}/save_settings.txt
+
+if [ -z "${api}" ]; then
+echo " "
+echo " ApiKey tidak diatur File tidak akan diUpload! "
+echo " "
+else
+echo " "
+echo " Mengupload ke Pixeldrain... "
+echo " "
+chmod a+x ${current_directory}/OrangeFox-Unofficial.img.xz
+curl -T "${current_directory}/OrangeFox-Unofficial.img.xz" -u:${api} https://pixeldrain.com/api/file/
+fi
+}
+
+
+
+
+
+
 
 upload() {
 source ${current_directory}/save_settings.txt
@@ -99,8 +137,8 @@ fi
 
 }
 
-
-
+##############################################################
+##############################################################
 
 
 
@@ -115,11 +153,13 @@ echo "1. New Build for Aosp (sync minimal manifest)"
 echo "2. Rebuild for Aosp (don't sync minimal manifest)"
 echo "3. New Build for Omni (sync minimal manifest)"
 echo "4. Rebuild for Omni (don't sync minimal manifest)"
-echo "5. Setting Notification Telegram & Upload File (Recommended)"
-echo "6. Delete All Resources Sync Manifest "
-echo "7. Exit "
+echo "5. New Build For Ofox (Sync Minimal Manifest) "
+echo "6. Rebuild for ofox (Don't sync Minimal Manifest)"
+echo "7. Setting Notification Telegram & Upload File (Recommended)"
+echo "8. Delete All Resources Sync Manifest "
+echo "9. Exit "
 echo " "
-echo "Pilih ( 1 - 7)"
+echo "Pilih ( 1 - 9)"
 read Main
 
 # Mendeteksi Input pengguna
@@ -136,10 +176,16 @@ elif [ "${Main}" = 4 ]; then ## Jika Pengguna input 4 ##
 ReOmni
 main
 elif [ "${Main}" = 5 ]; then ## Jika pengguna input 5 ##
-botconfig
+ofox
+main
 elif [ "${Main}" = 6 ]; then ## Jika pengguna input 6 ##
+reofox
+main
+elif [ "${Main}" = 7 ]; then ## Jika pengguna input 7 ##
+botconfig
+elif [ "${Main}" = 8 ]; then ## Jika pengguna input 8 ##
 deletesync
-elif [ "${Main}" = 7 ]; then ## jika pengguna input 7 $#
+elif [ "${Main}" = 9 ]; then ## jika pengguna input 9 $#
 exit 0
 else ## Jika pengguna Memasukkan selain pilihan ##
 echo " "
@@ -1159,6 +1205,534 @@ fi
 
 ###########################################################
 ###########################################################
+
+
+reofox() {
+
+if [ -d "/.workspace/ofox" ]; then
+
+
+# Permintaan Pilihan ke Pengguna
+echo "Memanggil Konfigurasi yang Tersimpan"
+source ${current_directory}/save_settings.txt
+echo "Ingin ubah konfigurasi tersimpan?"
+echo "1. Ya"
+echo "2. Tidak"
+echo "Pilih (1-2): "
+read settings
+
+# Mendeteksi Pilihan dari Perubahan konfigurasi
+
+
+if [ "${settings}" = 1 ]; then  # Jika Pilihan 1 dijalan kan #
+  
+  # Membuat Masukkan Ulang Konfigurasi
+    
+
+echo " "
+echo " Link Device Tree TWRP [wajib] : "
+read Device_tree
+if [ -z "${Device_tree}" ]; then
+    echo "Input Device tree Kosong !"
+    echo " "
+    main
+    fi
+echo " "
+echo "Branch Device_tree_twrp [wajib]: "
+read Branch_dt_twrp
+if [ -z "${Branch_dt_twrp}" ]; then
+    echo "Input branch device tree Kosong !"
+    echo " "
+    main
+fi
+echo " "
+echo "Device Path [wajib]: "
+read Device_Path
+if [ -z "${Device_Path}" ]; then
+    echo "Input Device path Kosong!"
+    echo " "
+    main
+fi
+echo " "
+echo "Device Name [wajib]: "
+read Device_Name
+if [ -z "${Device_Name}" ]; then
+    echo "Input Device Name Kosong!"
+    echo " "
+    main
+fi
+echo " "
+echo " Run Lunch target Twrp (Isi nama setelah twrp_ (x657b untuk twrp_x657b)"
+read Lunch
+if [ -z "${Lunch}" ]; then
+    echo "Input Lunch Kosong!"
+    echo " "
+    main
+    
+fi
+
+
+
+echo " "
+echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
+read Build_Target
+ if [ -z "${Build_Target}" ]; then
+    echo "Input Build Target Kosong!"
+    echo " "
+    main
+    
+fi
+echo " "
+echo " Username_Github/Nama_Repo_DT_commom "
+read Common
+echo " "
+echo " Device_Path_Common "
+read Path_Common
+if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
+echo " "
+echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+main
+fi
+
+ sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
+ 
+sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
+
+
+sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
+
+sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
+
+sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+
+sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
+
+if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
+sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
+fi
+
+ 
+    echo " Diperbarui!"
+sleep 1
+
+
+
+    
+    # Menghapus Cloning device tree yang telah ada sebelumnya
+   if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
+    rm -rf ${current_directory}/OrangeFox*.xz
+    rm -rf ${current_directory}/OrangeFox*.zip
+fi
+
+
+    if [ -e "/.workspace/ofox/fox_${Manifest_branch}/${Path_Common}" ]; then
+rm -rf /.workspace/ofox/fox_${Manifest_branch}/${Path_Common}
+fi
+    rm -rf /.workspace/ofox/fox_${Manifest_branch}/${Device_Path}
+   rm -rf /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Lunch}
+   rm -rf /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}
+   rm -rf /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}
+   
+   
+   
+   
+# Memanggil Konfigurasi Yang tersimpan
+    source ${current_directory}/save_settings.txt
+    
+# Cloning Device tree
+
+cd /.workspace/ofox/fox_${Manifest_branch}
+echo " "
+echo " Cloning Device tree "
+echo " "
+
+# Clone device tree
+git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+        if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
+      
+fi
+        sleep 1
+        cd ${current_directory}
+        bot_notif2
+        cd /.workspace/ofox/fox_${Manifest_branch}
+        clear
+        echo " "
+        echo " BUILDING TWRP "
+        echo " "
+        # Start Building 
+        
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
+
+        # Menyalin hasil ke direktori saat ini
+        
+          
+       if [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+            
+         elif [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         
+        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+           else
+           echo " "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
+           echo " "
+           bot_error
+            main
+            fi   
+echo " "
+        echo " DONE BUILD!!! "
+cd ${current_directory}
+echo " "
+echo " Kompresi File menjadi lebih kecil ..."
+xz OrangeFox*.img
+mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
+echo " "
+
+ofox_bot
+pix_ofox
+main
+
+######### END OF 1  ########
+
+
+elif [ "${settings}" = 2 ]; then ## Awal Dari Pilihan 2 ##
+
+# Memanggil konfigurasi yang tersimpan
+
+    source ${current_directory}/save_settings.txt
+    
+if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
+    rm -rf ${current_directory}/OrangeFox*.xz
+    rm -rf ${current_directory}/OrangeFox*.zip
+fi
+
+
+    if [ -e "/.workspace/ofox/fox_${Manifest_branch}/${Path_Common}" ]; then
+rm -rf /.workspace/ofox/fox_${Manifest_branch}/${Path_Common}
+fi
+    rm -rf /.workspace/ofox/fox_${Manifest_branch}/${Device_Path}
+   rm -rf /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Lunch}
+   rm -rf /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}
+   rm -rf /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}
+
+# Cloning Device tree
+
+cd /.workspace/ofox/fox_${Manifest_branch}
+echo " "
+echo " Cloning Device tree "
+echo " "
+
+git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+
+if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
+      
+fi
+
+
+        
+        sleep 1
+        cd ${current_directory}
+bot_notif2
+cd /.workspace/ofox/fox_${Manifest_branch}
+clear
+echo " "
+        echo " BUILDING TWRP "
+        echo " "
+        # start building
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
+
+        # Menyalin Hasil build ke direktori saat ini
+        
+       
+              if [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+            
+         elif [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         
+        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+           else
+           echo " "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
+           echo " "
+           bot_error
+            main
+            fi   
+echo " "
+        echo " DONE BUILD!!! "
+cd ${current_directory}
+echo " "
+echo " Kompresi File menjadi lebih kecil ..."
+xz OrangeFox*.img
+mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
+echo " "
+
+ofox_bot
+pix_ofox
+main
+
+
+####### END OF 2 ###########
+
+
+else ## Jika Pengguna Memasukkan Tidak sesuai dengan pilihan ##
+echo " "
+echo "Invalid Input!"
+echo " "
+main
+fi
+else
+echo " "
+echo "TIDAK DAPAT MENEMUKAN FILE SYNC MANIFEST! APAKAH KAMU SUDAH SYNC MANIFEST?"
+main
+fi
+
+}
+
+
+#######################################################################################
+
+
+
+Ofox() {
+source save_settings.txt
+
+echo " "
+echo " OFOX BUILD CONFIGURATION "
+echo "  "
+echo " : CATATAN : "
+echo "[Wajib] = tidak boleh skip"
+echo "Jika terjadi salah kamu bisa ulangi dengan skip(tekan enter) pada Konfigurasi berlabel wajib"
+echo " "
+# Membuat Folder twrp
+ 
+
+ # Input Konfigurasi
+ echo "Manifest AOSP Branch AVAILABLE : "
+ echo " 11.0 "
+ echo " 12.1 "
+ echo "Pilih Manifest branch (11 , 12,1) [wajib] : "
+read Manifest_branch
+if [ -z "$Manifest_branch" ]; then
+    echo "Input Manifest branch kosong!."
+    echo " "
+    main
+fi
+echo " "
+echo " Link Device Tree TWRP [wajib] : "
+read Device_tree
+if [ -z "${Device_tree}" ]; then
+    echo "Input Device tree Kosong !"
+    echo " "
+    main
+    fi
+echo " "
+echo "Branch Device_tree_twrp [wajib]: "
+read Branch_dt_twrp
+if [ -z "${Branch_dt_twrp}" ]; then
+    echo "Input branch device tree Kosong !"
+    echo " "
+    main
+fi
+echo " "
+echo "Device Path [wajib]: "
+read Device_Path
+if [ -z "${Device_Path}" ]; then
+    echo "Input Device path Kosong!"
+    echo " "
+    main
+fi
+echo " "
+echo "Device Name [wajib]: "
+read Device_Name
+if [ -z "${Device_Name}" ]; then
+    echo "Input Device Name Kosong!"
+    echo " "
+    main
+fi
+echo " "
+echo " Run Lunch target Twrp (Isi nama setelah twrp_ (x657b untuk twrp_x657b)"
+read Lunch
+if [ -z "${Lunch}" ]; then
+    echo "Input Lunch Kosong!"
+    echo " "
+    main
+    
+fi
+echo " "
+echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
+read Build_Target
+ if [ -z "${Build_Target}" ]; then
+    echo "Input Build Target Kosong!"
+    echo " "
+    main
+    
+fi
+echo " "
+echo " Link_Device_Tree_Common "
+read Common
+echo " "
+echo " Device_Path_Common "
+read Path_Common
+if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
+echo " "
+echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+main
+fi
+
+# menyimpan konfigurasi
+
+echo " "
+echo "Konfigurasi Tersimpan"
+echo " "
+sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_durectory}/save_settings.txt
+
+sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
+ 
+sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
+
+
+sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
+
+sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
+
+sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
+
+if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
+sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
+fi
+
+
+cd /.workspace
+ mkdir ofox
+ cd ofox
+ 
+# Menginstall Package yang diperlikan
+cd ${current_directory}
+bot_notif
+cd /.workspace/ofox
+echo " "
+echo "  Build Environment "
+echo " "
+
+   
+
+
+   # Sync Minimal Manifest
+   
+        git config --global user.name "Nico170420"
+        git config --global user.email "b170420nc@gmail.com"
+        
+        git clone https://gitlab.com/OrangeFox/misc/scripts.git
+        cd scripts
+        sudo bash setup/android_build_env.sh
+        cd /.workspace/ofox
+        
+                
+        
+        
+        
+        git clone https://gitlab.com/OrangeFox/sync.git
+        cd sync
+        ./orangefox_sync.sh --branch ${Manifest_branch} --path /.workspace/ofox/fox_${Manifest_branch}
+        
+cd /.workspace/ofox/fox_${Manifest_branch}
+
+        # Cloning Device tree
+        echo " "
+        echo " Cloning Device Tree "
+        echo " "
+        
+        
+        git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+        
+        
+
+        if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
+      
+fi
+        echo " "
+
+        # Start Building 
+        cd ${current_directory}
+        bot_notif2
+        cd /.workspace/ofox/fox_${Manifest_branch}
+        clear
+        echo " Building Recovery "
+        echo " "
+        
+        sleep 1
+        
+        
+        
+        
+        
+        
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
+
+        # Menyalin Hasil Build Ke direktori saat ini 
+        
+       
+         
+         
+         if [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+            
+         elif [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         
+        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+           else
+           echo " "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
+           echo " "
+           bot_error
+            main
+            fi   
+        echo " "
+        echo " DONE BUILD!!! "
+cd ${current_directory}
+echo " "
+echo " Kompresi File menjadi lebih kecil ..."
+xz OrangeFox*.img
+mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
+echo " "
+
+ofox_bot
+pix_ofox
+main
+
+
+}
+
+
+
+#############################################################################
+#############################################################################
+
+
 
 # Menjalankan Fungsi Main 
 
