@@ -1763,11 +1763,12 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
    sudo apt -y install rsync
   sudo apt -y install repo
   sudo apt -y install default-jre
-  sudo apt -y install default-jdk
+  sudo apt-get install openjdk-8-jdk
   fi
 clear
 cd /usr/bin
 sudo ln -sf python2 python
+cp -r /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar /usr/lib/jvm/java-11-openjdk-amd64/lib
 cd ${current_directory}
 main
 exit 0
