@@ -1599,7 +1599,7 @@ fi
 echo " "
 echo "Konfigurasi Tersimpan"
 echo " "
-sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_durectory}/save_settings.txt
+sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
 
 sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
  
@@ -1650,9 +1650,9 @@ echo " "
         
         git clone https://gitlab.com/OrangeFox/sync.git
         cd sync
-        ./orangefox_sync.sh --branch ${Manifest_branch} --path /.workspace/ofox/fox_${Manifest_branch}
+        ./orangefox_sync.sh --branch ${Manifest_branch}
         
-cd /.workspace/ofox/fox_${Manifest_branch}
+cd /.workspace/ofox/sync/fox_${Manifest_branch}
 
         # Cloning Device tree
         echo " "
@@ -1673,7 +1673,7 @@ fi
         # Start Building 
         cd ${current_directory}
         bot_notif2
-        cd /.workspace/ofox/fox_${Manifest_branch}
+        cd /.workspace/ofox/sync/fox_${Manifest_branch}
         clear
         echo " Building Recovery "
         echo " "
@@ -1685,25 +1685,25 @@ fi
         
         
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
 
         # Menyalin Hasil Build Ke direktori saat ini 
         
        
          
          
-         if [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+         if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
             
-         elif [ -e "/.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
          
-        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp /.workspace/ofox/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
         
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp /.workspace/twrp/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+        elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
