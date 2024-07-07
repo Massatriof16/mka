@@ -1106,7 +1106,7 @@ fi
 ###########################################################
 
 botconfig() {
-sorce save_settings.txt
+source ${current_directory}/save_settings.txt
 
 echo " ---- Notification / Upload Configuration ---- "
 echo " "
