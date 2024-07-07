@@ -77,7 +77,7 @@ echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
 echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building TWRP_${Device_Name}..."
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..."
 echo " "
 fi
 }
@@ -90,7 +90,7 @@ echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
 echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building TWRP_${Device_Name}..."
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building ${Build_Status}_${Device_Name}..."
 echo " "
 fi
 }
@@ -204,7 +204,7 @@ Aosp()
 
  
 source ${current_directory}/save_settings.txt
-
+sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
 echo " "
 echo " TWRP BUILD CONFIGURATION "
 echo "  "
@@ -1516,7 +1516,7 @@ fi
 
 Ofox() {
 source ${current_directory}/save_settings.txt
-
+sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
 echo " "
 echo " OFOX BUILD CONFIGURATION "
 echo "  "
