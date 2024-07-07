@@ -1402,7 +1402,7 @@ xz OrangeFox*.img
 mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
 echo " "
 
-ofox_bot
+bot_offox
 pix_ofox
 main
 
@@ -1487,7 +1487,7 @@ xz OrangeFox*.img
 mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
 echo " "
 
-ofox_bot
+bot_offox
 pix_ofox
 main
 
@@ -1726,7 +1726,7 @@ xz OrangeFox*.img
 mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
 echo " "
 
-ofox_bot
+bot_offox
 pix_ofox
 main
 
