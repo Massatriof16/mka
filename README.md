@@ -1,11 +1,17 @@
 # TWRP Builder Using Gitpod
 
-UPDATE DATE 6 JUL 24 :
+UPDATE DATE 07 JUL
+- Menambahkan Dukungan Build OrangeFox Recovery
+
+
+
+UPDATE DATE 06 JUL 24 :
 - Optimasi Pengecekan File Hasil Build Agar Lebih Akurat
-- Menambahkan Dukungan Upload ke Pixeldrain ( HARAP ATUR APIKEY ANDA! )
+- Menambahkan Dukungan Upload ke Pixeldrain ( Harap Atur ApiKey pixeldrain Anda!)
+-  | Daftar pixeldrain dan dapatkan apikey disini : https://pixeldrain.com/user/api_keys |
  
 
-UPDATE DATE 1 Jul 24 :
+UPDATE DATE 01 Jul 24 :
 - Now support Build using Common device tree TWRP
 
  
