@@ -1,4 +1,4 @@
-
+l
 
 ###########################################################
 ###########################################################
@@ -902,7 +902,7 @@ echo " "
         echo " "
          export ALLOW_MISSING_DEPENDENCIES=true
          source build/envsetup.sh
-         cd /.workspace/twrp/${Device_Path}
+         cd /.workspace/twrp
          lunch omni_${Device_Name}-eng
          make ${Build_Target}image
        
@@ -1025,7 +1025,7 @@ echo " "
 sleep 1
 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/twrp ; lunch omni_${Device_Name}-eng; make ${Build_Target}image
         
    
          if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
@@ -1077,7 +1077,7 @@ echo " "
 echo " Building recovery "
 echo " "
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch omni_${Device_Name}-eng; mka ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/twrp; lunch omni_${Device_Name}-eng; make ${Build_Target}image
         
    
          if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
