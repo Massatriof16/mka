@@ -1777,7 +1777,12 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
 clear
 cd /usr/bin
 sudo ln -sf python2 python
-cp -r /usr/lib/jvm/java-8-openjdk-amd64/lib/tools.jar /usr/lib/jvm/java-11-openjdk-amd64/lib
+rm -rf /usr/lib/jvm/java-11-openjdk-amd64
+rm -rf /usr/lib/jvm/java-1.11.0-openjdk-amd64
+rm -rf /etc/profile
+cp -r ${current_directory}/profile /etc
+cd
+source /etc/profile
 cd ${current_directory}
 main
 exit 0
