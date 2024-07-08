@@ -1771,18 +1771,17 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
    sudo apt -y install libncurses5
    sudo apt -y install rsync
   sudo apt -y install repo
-  sudo apt -y install default-jre
+  sudo apt -y install openjdk-8-jre
   sudo apt-get install openjdk-8-jdk
+JAVA_8_PATH="/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
+sudo update-alternatives --install /usr/bin/java java $JAVA_8_PATH 1
+sudo update-alternatives --set java $JAVA_8_PATH
+java -version
+sleep 2
   fi
 clear
 cd /usr/bin
-sudo ln -sf python2 python
-rm -rf /usr/lib/jvm/java-11-openjdk-amd64
-rm -rf /usr/lib/jvm/java-1.11.0-openjdk-amd64
-rm -rf /etc/profile
-cp -r ${current_directory}/profile /etc
-cd
-source /etc/profile
+sudo ln -sf python3 python
 cd ${current_directory}
 main
 exit 0
