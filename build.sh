@@ -571,9 +571,11 @@ fi
 if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; then
 rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi
-    if [ -e "/.workspace/twrp/${Path_Common}" ]; then
+
+if [ -n "${Path_Common}" ]; then   
 rm -rf /.workspace/twrp/${Path_Common}
 fi
+
     rm -rf /.workspace/twrp/${Device_Path}
    rm -rf /.workspace/twrp/out/target/product/${Out}
 # Memanggil Konfigurasi Yang tersimpan
@@ -663,7 +665,8 @@ echo " "
     fi
     bot_file
     upload
-    ## Akhir dari Pilihan 1 ##
+   
+   ####### Akhir dari Pilihan 1 #######
     
 main
 elif [ "${settings}" = 2 ]; then ## Awal Dari Pilihan 2 ##
@@ -678,9 +681,10 @@ if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; the
 rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi
 
-if [ -e "/.workspace/twrp/${Path_Common}" ]; then
+if [ -n "${Path_Common}" ]; then
 rm -rf /.workspace/twrp/${Path_Common}
 fi
+
     # Menghapus sumber daya yang telah dibuat 
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Out}
@@ -1341,7 +1345,7 @@ sleep 1
 fi
 
 
-    if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/${Path_Common}" ]; then
+    if [ -n "${Path_Common}" ]; then
 rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Path_Common}
 fi
     rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}
@@ -1430,9 +1434,10 @@ if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
 fi
 
 
-    if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/${Path_Common}" ]; then
+    if [ -n "${Path_Common}" ]; then
 rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Path_Common}
 fi
+
     rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}
