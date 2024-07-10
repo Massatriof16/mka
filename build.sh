@@ -10,7 +10,8 @@ echo "id chat belum diatur, Melewati kirim Notifikasi"
 echo " "
 else
 echo " "
-curl -F document=@"${current_directory}/OrangeFox-Unofficial.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+curl -F document=@"${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+curl -F document=@"${current_directory}/OrangeFox_Installer_${Device_Name}.zip" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
 echo " "
 fi
 
@@ -1412,7 +1413,8 @@ cd ${current_directory}
 echo " "
 echo " Kompresi File menjadi lebih kecil ..."
 xz OrangeFox*.img
-mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
+mv OrangeFox*.xz OrangeFox-Unofficial_${Device_Name}.img.xz
+mv OrangeFox*.zip OrangeFox_Installer_${Device_Name}.zip
 echo " "
 
 bot_offox
@@ -1498,7 +1500,8 @@ cd ${current_directory}
 echo " "
 echo " Kompresi File menjadi lebih kecil ..."
 xz OrangeFox*.img
-mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
+mv OrangeFox*.xz OrangeFox-Unofficial_${Device_Name}.img.xz
+mv OrangeFox*.zip OrangeFox_Installer_${Device_Name}.zip
 echo " "
 
 bot_offox
@@ -1737,7 +1740,8 @@ cd ${current_directory}
 echo " "
 echo " Kompresi File menjadi lebih kecil ..."
 xz OrangeFox*.img
-mv OrangeFox*.xz OrangeFox-Unofficial.img.xz
+mv OrangeFox*.xz OrangeFox-Unofficial_${Device_Name}.img.xz
+mv OrangeFox*.zip OrangeFox_Installer_${Device_Name}.zip
 echo " "
 
 bot_offox
