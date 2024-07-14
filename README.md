@@ -18,7 +18,7 @@ UPDATE DATE 01 Jul 24 :
 RELEASE DATE 29 Jun 24 :
 - Build TWRP Aosp 12.1 / 11 (Tested √)
 - Build TWRP Omni ( WIP )
-- Mengirim notifikasi serta files ke telegram menggunakan chat ID ( Tested √) [ Jika anda menggunakan default token bot maka kalian harus start Bot https://t.me/@KingBabu_bot Agar dapat dikirim ]
+- Mengirim notifikasi serta files ke telegram menggunakan chat ID ( Tested √) [ Jika anda menggunakan default token bot maka kalian harus start Bot https://t.me/KingBabu_bot Agar dapat dikirim ]
 
 -------------------------------------------------------------------------
 
