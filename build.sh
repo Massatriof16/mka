@@ -319,6 +319,7 @@ ReAosp()
 if [ -d "/.workspace/twrp" ]; then
 
 
+sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
 
 # Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
@@ -1275,6 +1276,7 @@ reofox() {
 
 if [ -d "/.workspace/ofox" ]; then
 
+sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
 
 # Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
