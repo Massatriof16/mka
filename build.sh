@@ -1,166 +1,23 @@
-l
-
-###########################################################
-###########################################################
-bot_offox() {
-source ${current_directory}/save_settings.txt
-if [ -z "${id_chat}" ]; then
-echo " "
-echo "id chat belum diatur, Melewati kirim Notifikasi"
-echo " "
-else
-echo " "
-curl -F document=@"${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
-curl -F document=@"${current_directory}/OrangeFox_Installer_${Device_Name}.zip" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
-echo " "
-fi
-
-
-}
-
-
-pix_ofox()
- {
-source ${current_directory}/save_settings.txt
-
-if [ -z "${api}" ]; then
-echo " "
-echo " ApiKey tidak diatur File tidak akan diUpload! "
-echo " "
-else
-echo " "
-echo " Mengupload ke Pixeldrain... "
-echo " "
-chmod a+x ${current_directory}/OrangeFox-Unofficial.img.xz
-curl -T "${current_directory}/OrangeFox-Unofficial.img.xz" -u:${api} https://pixeldrain.com/api/file/
-fi
-}
-
-
-
-
-
-
-
-upload() {
-source ${current_directory}/save_settings.txt
-
-if [ -z "${api}" ]; then
-echo " "
-echo " Kamu Tidak mengatur Api Key pixeldrain, Skip Upload! "
-echo " "
-else
-echo " "
-echo " Mengupload Ke Pixeldrain "
-echo " "
-if [ "${Build_Target}" = "vendorboot" ]; then
-chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-curl -T "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" -u:${api} https://pixeldrain.com/api/file/
-else
-echo " "
-chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
-curl -T "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" -u:${api} https://pixeldrain.com/api/file/
-fi
-fi
-
-}
-
-
-
-
-bot_notif() {
-
-source ${current_directory}/save_settings.txt
-
-if [ -z "${id_chat}" ]; then
-echo " "
-echo " id chat Tidak diatur, Melewati kirim notifikasi !"
-echo " "
-else
-echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..."
-echo " "
-fi
-}
-
-bot_notif2() {
-source ${current_directory}/save_settings.txt
-if [ -z "${id_chat}" ]; then
-echo " "
-echo " id chat Tidak diatur, Melewati kirim notifikasi !"
-echo " "
-else
-echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building ${Build_Status}_${Device_Name}..."
-echo " "
-fi
-}
-
-
-bot_error() {
-source ${current_directory}/save_settings.txt
-
-if [ -z "${id_chat}" ]; then
-echo " "
-echo " id chat Tidak diatur, Melewati kirim notifikasi !"
-echo " "
-else
-echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR BUILD! COBA CEK YANG ERROR!"
-echo " "
-fi
-
-}
-
-bot_file() {
-source ${current_directory}/save_settings.txt
-
-if [ -z "${id_chat}" ]; then
-echo " "
-echo " id chat tidak diatur, Melewati kirim Notifikasi ! "
-echo " "
-else
-if [ "${Build_Target}" = "vendorboot" ]; then
-chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
-echo " "
-curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
-echo " "
-else
-chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
-echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
-echo " "
-curl -F document=@"${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
-echo " "
-fi
-fi
-
-}
-
-##############################################################
-##############################################################
 
 
 
 # Fungsi Main
-
 
 main() {
 
 echo " "
 echo "--------------Builder TWRP by Massatrio16 -----------"
 echo "1. New Build for Aosp (sync minimal manifest)"
-echo "2. Rebuild for Aosp (don't sync minimal manifest)"
+echo "2. Rebuild for Aosp ( No need sync minimal manifest)"
 echo "3. New Build for Omni (sync minimal manifest)"
-echo "4. Rebuild for Omni (don't sync minimal manifest)"
+echo "4. Rebuild for Omni ( No need sync minimal manifest)"
 echo "5. New Build For Ofox (Sync Minimal Manifest) "
-echo "6. Rebuild for ofox (Don't sync Minimal Manifest)"
+echo "6. Rebuild for ofox ( No need sync Minimal Manifest)"
 echo "7. Setting Notification Telegram & Upload File (Recommended)"
 echo "8. Delete All Resources Sync Manifest "
 echo "9. Exit "
 echo " "
-echo "Pilih ( 1 - 9)"
+echo "Pilih ( 1 - 9)"  
 read Main
 
 # Mendeteksi Input pengguna
@@ -190,18 +47,21 @@ elif [ "${Main}" = 9 ]; then ## jika pengguna input 9 $#
 exit 0
 else ## Jika pengguna Memasukkan selain pilihan ##
 echo " "
-echo " Invalid Input !!!!"
+echo " input tidak valid !!!!"
 echo " "
 main
 fi
 }
 
-###########################################################
-###########################################################
 
-# Fungsi Dari Build Aosp
-Aosp()
-{
+###########################################################
+###########################################################
+##############################################################
+##############################################################
+
+
+
+Aosp() {
 
  
 source ${current_directory}/save_settings.txt
@@ -295,41 +155,45 @@ Out=$(basename "$Device_Path")
 sed -i "s|Out=.*|Out=$Out|" ${current_directory}/save_settings.txt
 sleep 1
 
-# menyimpan konfigurasi
+
+
+
+# MENYIMPAN KONFIGURASI KE FILE save_settings.txt
 
 echo " "
 echo "Menyimpan Konfigurasi..."
 echo " "
+
 sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
-
-
-
 sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
- 
 sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
-
-
 sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
-
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
-
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
 sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
-
-
-
 if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
 sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
 sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
 fi
+
+
+
+
+
+
 echo " "
 echo " Tersimpan! "
 
+
+
+# MEMBUAT FOLDER WORKSPACE BUILD TWRP DI GITPOD ( anda bisa ubah direktori ini sesuka hati anda dimana tempat nya )
 cd /.workspace
- mkdir twrp
- cd twrp
+mkdir twrp
+cd twrp
  
-# Menginstall Package yang diperlikan
+ 
+ # Mulai untuk melakukan sync
+ 
 cd ${current_directory}
 bot_notif
 cd /.workspace/twrp
@@ -337,17 +201,12 @@ echo " "
 echo "  Build Environment "
 echo " "
 
-   
-
-
-   # Sync Minimal Manifest
-   
-        git config --global user.name "Nico170420"
-        git config --global user.email "b170420nc@gmail.com"
+  git config --global user.name "Nico170420"
+  git config --global user.email "b170420nc@gmail.com"
         
-        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
+  repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
         
-        repo sync --force-sync
+  repo sync --force-sync
 
 
 
@@ -355,42 +214,42 @@ echo " "
         echo " "
         echo " Cloning Device Tree "
         echo " "
-        
-        
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
         
-        
-
         if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
        git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
-      
-fi
+         
+        fi
+        
+        
+        
+        # Build dimulai
+        
         echo " "
-
-        # Start Building 
         cd ${current_directory}
         bot_notif2
         cd /.workspace/twrp
         clear
         echo " Building Recovery "
         echo " "
-        
         sleep 1
+        
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
 
-        # Menyalin Hasil Build Ke direktori saat ini 
         
-              if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
-       
+        
+        
+        
+        # Pemeriksaan Hasil Build
+         if [ "${Build_Target}" = "vendorboot" ]; then
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then  
          cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
          
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then     
         cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+        
         elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
         cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
-        
-          
          else
          echo " "
          echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
@@ -398,18 +257,19 @@ fi
          bot_error
          main
          fi
-         
-         
-         
+           
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          
+         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
+         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}
+         
+         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
         cp /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+        
         elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
         cp /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
+        
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -418,7 +278,11 @@ fi
             main
             fi   
         fi
-        echo " DONE BUILD!!! "
+        
+        
+        
+        # Memindahkan hasil build dari root dir ke workspace gitpod
+echo " DONE BUILD!!! "
 cd ${current_directory}
 if [ "${Build_Target}" = "vendorboot" ]; then
 mv vendor_boot.img TWRP_${Device_Name}_vendor_boot.img
@@ -439,8 +303,11 @@ upload
 main #kembali ke menu
 }
 
-###########################################################
-###########################################################
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+
 
 #Fungsi Rebuild 
 
@@ -448,8 +315,9 @@ ReAosp()
 {
 
 
-
+# memeriksa workspace
 if [ -d "/.workspace/twrp" ]; then
+
 
 
 # Permintaan Pilihan ke Pengguna
@@ -461,13 +329,16 @@ echo "2. Tidak"
 echo "Pilih (1-2): "
 read settings
 
-# Mendeteksi Pilihan dari Perubahan konfigurasi
 
+# Mendeteksi Pilihan dari Perubahan konfigurasi
 
 if [ "${settings}" = 1 ]; then  # Jika Pilihan 1 dijalan kan #
   
-  # Membuat Masukkan Ulang Konfigurasi
-    
+
+
+#+++++++++++++++++++++++++ AWAL REAOSP PILIHAN 1 ++++++++++++++++++++#
+
+
 
 echo " "
 echo " Link Device Tree TWRP [wajib] : "
@@ -511,8 +382,6 @@ if [ -z "${Lunch}" ]; then
     
 fi
 
-
-
 echo " "
 echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
 read Build_Target
@@ -534,23 +403,24 @@ echo " Device tree common Terisi!, Tetapi Path Common Kosong"
 main
 fi
 
+
+
+
 echo " "
 echo " Mendeteksk Out Target File... "
 Out=$(basename "$Device_Path")
 sed -i "s|Out=.*|Out=$Out|" ${current_directory}/save_settings.txt
 sleep 1
 
+
+
+
+
  sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
- 
 sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
-
-
 sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
-
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
-
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
-
 sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
 
 if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
@@ -558,14 +428,16 @@ sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
 sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
 fi
 
- 
     echo " Diperbarui!"
 sleep 1
 
 
 
+
+
     
     # Menghapus Cloning device tree yang telah ada sebelumnya
+    
    if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 fi
@@ -576,13 +448,15 @@ fi
 if [ -n "${Path_Common}" ]; then   
 rm -rf /.workspace/twrp/${Path_Common}
 fi
-
     rm -rf /.workspace/twrp/${Device_Path}
    rm -rf /.workspace/twrp/out/target/product/${Out}
+   
+   
+
+
+
 # Memanggil Konfigurasi Yang tersimpan
     source ${current_directory}/save_settings.txt
-    
-# Cloning Device tree
 
 cd /.workspace/twrp
 echo " "
@@ -590,16 +464,23 @@ echo " Cloning Device tree "
 echo " "
 
 # Clone device tree
+
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+
         if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
        git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
       
 fi
+
+
+
         sleep 1
         cd ${current_directory}
         bot_notif2
         cd /.workspace/twrp
         clear
+        
+        # BUILD DIMULAI
         echo " "
         echo " BUILDING TWRP "
         echo " "
@@ -607,31 +488,33 @@ fi
         
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
 
-        # Menyalin hasil ke direktori saat ini
-        
-          
-              if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
-         
-        cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
-        
+       
+       
+       
+       
+       
+       
+        # MEMERIKSA FILE LALU MENYALIN FILE KE WORKSPACE 
           
-         else
+         if [ "${Build_Target}" = "vendorboot" ]; then
+            if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
+              cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then  
+           cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
+           cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+              
+       else
          echo " "
          echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
          echo " "
          bot_error
          main
          fi
+                         
+       else
          
-         
-         
-         else
          
          if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
@@ -648,6 +531,14 @@ fi
             main
             fi   
         fi
+        
+        
+        
+        
+        
+        
+        # MENGUBAH NAMA FILE DAN MENGKOMPRESS FILE
+        
         echo " DONE BUILD ! "
         echo " "
 cd ${current_directory}
@@ -667,10 +558,14 @@ echo " "
     bot_file
     upload
    
-   ####### Akhir dari Pilihan 1 #######
+   #---------------------------------------------------- AKHIR AOSP PILIHAN 1 ------------------------------------------#
     
 main
-elif [ "${settings}" = 2 ]; then ## Awal Dari Pilihan 2 ##
+elif [ "${settings}" = 2 ]; then 
+
+   #+++++++++++++++++++++++++++++++++ AWAL AOSP PILIHAN 2 +++++++++++++++++++++++++#
+
+
 
 # Memanggil konfigurasi yang tersimpan
 
@@ -705,6 +600,7 @@ if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
 fi
 
 
+
         
         sleep 1
         cd ${current_directory}
@@ -716,6 +612,10 @@ echo " "
         echo " "
         # start building
          export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
+
+
+
+
 
         # Menyalin Hasil build ke direktori saat ini
         
@@ -776,20 +676,28 @@ echo " "
 fi
 bot_file
 upload
-    ## Akhir Dari pilihan 2 ##
+
+
+    #-------------------------_--------_------------- AKHIR AOSP PILIHAN 2 ---------------------------_-------------------#
 
 
 main  #Kembali Ke menu
 
 
 
-else ## Jika Pengguna Memasukkan Tidak sesuai dengan pilihan ##
+else 
+
+# kondisi jika Tidak memilih selain 2 pilihan tersebut 
+
 echo " "
 echo "Invalid Input!"
 echo " "
 main
 fi
 else
+
+# Kondisi saat pemeriksaan diawal tetapi tidak ditemukan folder manifest
+
 echo " "
 echo "TIDAK DAPAT MENEMUKAN FILE SYNC MANIFEST! APAKAH KAMU SUDAH SYNC MANIFEST?"
 main
@@ -798,8 +706,13 @@ fi
 }
 
 
-###########################################################
-###########################################################
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+
+
+
 #Fungsi Omni
 Omni()
 {
@@ -934,8 +847,10 @@ bot_file
 main
 }
 
-###########################################################
-###########################################################
+##############################################################
+##############################################################
+##############################################################
+##############################################################
 
 # Fungsi Reomni
 ReOmni()
@@ -1116,115 +1031,244 @@ fi
 
 }
 
-###########################################################
-###########################################################
 
-botconfig() {
+
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+
+
+
+Ofox() {
 source ${current_directory}/save_settings.txt
+sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
+echo " "
+echo " OFOX BUILD CONFIGURATION "
+echo "  "
+echo " : CATATAN : "
+echo "[Wajib] = tidak boleh skip"
+echo "Jika terjadi salah kamu bisa ulangi dengan skip(tekan enter) pada Konfigurasi berlabel wajib"
+echo " "
+# Membuat Folder twrp
+ 
 
-echo " ---- Notification / Upload Configuration ---- "
+ # Input Konfigurasi
+ echo "Manifest AOSP Branch AVAILABLE : "
+ echo " 11.0 "
+ echo " 12.1 "
+ echo "Pilih Manifest branch (11 , 12,1) [wajib] : "
+read Manifest_branch
+if [ -z "$Manifest_branch" ]; then
+    echo "Input Manifest branch kosong!."
+    echo " "
+    main
+fi
 echo " "
-echo "Token Bot Telegram Telah diatur default sebagai bot owner script"
-echo "Chat id dan Apikey Pixeldrain blum di Atur!"
-echo "1. Atur Ulang Token"
-echo "2. Atur Chat id"
-echo "3. Atur Apikey "
-echo " Pilih ( 1-3 ) : "
-read setcon
-
-if [ "${setcon}" = 1 ]; then
+echo " Link Device Tree TWRP [wajib] : "
+read Device_tree
+if [ -z "${Device_tree}" ]; then
+    echo "Input Device tree Kosong !"
+    echo " "
+    main
+    fi
 echo " "
-echo "Ketik Token Anda"
-read Token
-if [ -z "${Token}" ]; then
+echo "Branch Device_tree_twrp [wajib]: "
+read Branch_dt_twrp
+if [ -z "${Branch_dt_twrp}" ]; then
+    echo "Input branch device tree Kosong !"
+    echo " "
+    main
+fi
 echo " "
-echo " Token kosong ! "
-main
-else
-sed -i "s|Token=.*|Token=$Token|" ${current_directory}/save_settings.txt
+echo "Device Path [wajib]: "
+read Device_Path
+if [ -z "${Device_Path}" ]; then
+    echo "Input Device path Kosong!"
+    echo " "
+    main
+fi
 echo " "
-echo "Token Telah disimpan!"
+echo "Device Name [wajib]: "
+read Device_Name
+if [ -z "${Device_Name}" ]; then
+    echo "Input Device Name Kosong!"
+    echo " "
+    main
+fi
+echo " "
+echo " Run Lunch target Twrp (Isi nama setelah twrp_ (x657b untuk twrp_x657b)"
+read Lunch
+if [ -z "${Lunch}" ]; then
+    echo "Input Lunch Kosong!"
+    echo " "
+    main
+    
+fi
+echo " "
+echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
+read Build_Target
+ if [ -z "${Build_Target}" ]; then
+    echo "Input Build Target Kosong!"
+    echo " "
+    main
+    
+fi
+echo " "
+echo " Link_Device_Tree_Common "
+read Common
+echo " "
+echo " Device_Path_Common "
+read Path_Common
+if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
+echo " "
+echo " Device tree common Terisi!, Tetapi Path Common Kosong"
 main
 fi
-elif [ "${setcon}" = 2 ]; then
+
+# menyimpan konfigurasi
+
+
+
 echo " "
-echo "Ketik Chat Id anda"
-read id_chat
-if [ -z "${id_chat}" ]; then
+echo "Konfigurasi Tersimpan"
 echo " "
-echo " Id chat kosong ! "
-main
-else
-sed -i "s|id_chat=.*|id_chat=$id_chat|" ${current_directory}/save_settings.txt
-echo " "
-echo " Id chat disimpan!"
-main
-fi
-elif [ "${setcon}" = 3 ]; then
-echo " "
-echo " Ketik Apikey "
-read api
-if [ -z "${api}" ]; then
-echo " "
-echo " Apikey kosong ! "
-main
-else
-sed -i "s|api=.*|api=$api|" ${current_directory}/save_settings.txt
-echo " "
-echo " Apikey disimpan! "
-main
+sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
+sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
+sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
+sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
+sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
+sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
+sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
+if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
+sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
 fi
 
-else
-echo " Invalid Input ! "
-main
-fi
 
+
+
+
+cd /.workspace
+ mkdir ofox
+ cd ofox
+ 
+# Menginstall Package yang diperlikan
+cd ${current_directory}
+bot_notif
+cd /.workspace/ofox
+echo " "
+echo "  Build Environment "
+echo " "
+
+   
+
+
+   # Sync Minimal Manifest
+   
+        git config --global user.name "Nico170420"
+        git config --global user.email "b170420nc@gmail.com"
+        
+        git clone https://gitlab.com/OrangeFox/misc/scripts.git
+        cd scripts
+        sudo bash setup/android_build_env.sh
+        cd /.workspace/ofox
+        
+                
+        
+        
+        
+        git clone https://gitlab.com/OrangeFox/sync.git
+        cd sync
+        ./orangefox_sync.sh --branch ${Manifest_branch}
+        
+cd /.workspace/ofox/sync/fox_${Manifest_branch}
+
+        # Cloning Device tree
+        echo " "
+        echo " Cloning Device Tree "
+        echo " "
+        
+        
+        git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+        
+        
+
+        if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
+      
+fi
+        echo " "
+
+        # Start Building 
+        cd ${current_directory}
+        bot_notif2
+        cd /.workspace/ofox/sync/fox_${Manifest_branch}
+        clear
+        echo " Building Recovery "
+        echo " "
+        
+        sleep 1
+        
+        
+        
+        
+        
+        
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
+
+        # Menyalin Hasil Build Ke direktori saat ini 
+        
+       
+         
+         
+         if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+            
+         elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        
+        elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+           else
+           echo " "
+           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
+           echo " "
+           bot_error
+            main
+            fi   
+        echo " "
+        echo " DONE BUILD!!! "
+cd ${current_directory}
+echo " "
+echo " Kompresi File menjadi lebih kecil ..."
+xz OrangeFox*.img
+mv OrangeFox*.xz OrangeFox-Unofficial_${Device_Name}.img.xz
+mv OrangeFox*.zip OrangeFox_Installer_${Device_Name}.zip
+echo " "
+
+bot_offox
+pix_ofox
+main
 
 
 }
 
-deletesync() {
-echo " "
-echo " Yakin Menghapus sync manifest? "
-echo "Kamu harus melakukan sync manifest ulang jika ingin Rebuild/Reomni!"
-echo "1. Ya"
-echo "2. Tidak"
-echo "pilih (1-2) :"
-read del
-if [ "${del}" = 1 ]; then
-echo " "
-
-if [ -d "/.workspace/twrp" ]; then
-echo "Menghapus Sync Manifest..."
-rm -rf /.workspace/twrp
-echo "Done!"
-main
-elif [ -d "/.workspace/ofox" ]; then
-echo " "
-echo " Menghaous Sync Manifest..."
-rm -rf /.workspace/ofox
-echo "Done!"
-main
-else
-echo "File sync Tidak ada! apakah kamu sudah melakukan sync Manifest?"
-main
-fi
-elif [ "${del}" = 2 ]; then
-main
-else
-echo " "
-echo " Invalid input "
-main
-fi
-
-}
 
 
 
 
-###########################################################
-###########################################################
+
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+
+
 
 
 reofox() {
@@ -1314,19 +1358,16 @@ echo " Device tree common Terisi!, Tetapi Path Common Kosong"
 main
 fi
 
+
+
+
+
  sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
- 
 sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
-
-
 sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
-
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
-
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
-
 sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
-
 if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
 sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
 sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
@@ -1527,234 +1568,288 @@ fi
 }
 
 
-#######################################################################################
 
 
 
-Ofox() {
+
+
+##############################################################
+##############################################################
+##############################################################
+##############################################################
+
+
+
+
+
+
+botconfig() {
 source ${current_directory}/save_settings.txt
-sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
-echo " "
-echo " OFOX BUILD CONFIGURATION "
-echo "  "
-echo " : CATATAN : "
-echo "[Wajib] = tidak boleh skip"
-echo "Jika terjadi salah kamu bisa ulangi dengan skip(tekan enter) pada Konfigurasi berlabel wajib"
-echo " "
-# Membuat Folder twrp
- 
 
- # Input Konfigurasi
- echo "Manifest AOSP Branch AVAILABLE : "
- echo " 11.0 "
- echo " 12.1 "
- echo "Pilih Manifest branch (11 , 12,1) [wajib] : "
-read Manifest_branch
-if [ -z "$Manifest_branch" ]; then
-    echo "Input Manifest branch kosong!."
-    echo " "
-    main
+echo " ---- Notification / Upload Configuration ---- "
+echo " "
+echo "Token Bot Telegram Telah diatur default sebagai bot owner script"
+echo "Chat id dan Apikey Pixeldrain blum di Atur!"
+echo "1. Atur Ulang Token"
+echo "2. Atur Chat id"
+echo "3. Atur Apikey "
+echo " Pilih ( 1-3 ) : "
+read setcon
+
+if [ "${setcon}" = 1 ]; then
+echo " "
+echo "Ketik Token Anda"
+read Token
+if [ -z "${Token}" ]; then
+echo " "
+echo " Token kosong ! "
+main
+else
+sed -i "s|Token=.*|Token=$Token|" ${current_directory}/save_settings.txt
+echo " "
+echo "Token Telah disimpan!"
+main
 fi
+elif [ "${setcon}" = 2 ]; then
 echo " "
-echo " Link Device Tree TWRP [wajib] : "
-read Device_tree
-if [ -z "${Device_tree}" ]; then
-    echo "Input Device tree Kosong !"
-    echo " "
-    main
-    fi
+echo "Ketik Chat Id anda"
+read id_chat
+if [ -z "${id_chat}" ]; then
 echo " "
-echo "Branch Device_tree_twrp [wajib]: "
-read Branch_dt_twrp
-if [ -z "${Branch_dt_twrp}" ]; then
-    echo "Input branch device tree Kosong !"
-    echo " "
-    main
+echo " Id chat kosong ! "
+main
+else
+sed -i "s|id_chat=.*|id_chat=$id_chat|" ${current_directory}/save_settings.txt
+echo " "
+echo " Id chat disimpan!"
+main
 fi
+elif [ "${setcon}" = 3 ]; then
 echo " "
-echo "Device Path [wajib]: "
-read Device_Path
-if [ -z "${Device_Path}" ]; then
-    echo "Input Device path Kosong!"
-    echo " "
-    main
-fi
+echo " Ketik Apikey "
+read api
+if [ -z "${api}" ]; then
 echo " "
-echo "Device Name [wajib]: "
-read Device_Name
-if [ -z "${Device_Name}" ]; then
-    echo "Input Device Name Kosong!"
-    echo " "
-    main
-fi
+echo " Apikey kosong ! "
+main
+else
+sed -i "s|api=.*|api=$api|" ${current_directory}/save_settings.txt
 echo " "
-echo " Run Lunch target Twrp (Isi nama setelah twrp_ (x657b untuk twrp_x657b)"
-read Lunch
-if [ -z "${Lunch}" ]; then
-    echo "Input Lunch Kosong!"
-    echo " "
-    main
-    
-fi
-echo " "
-echo "Build Target ( recovery / boot / vendorboot ) [wajib]: "
-read Build_Target
- if [ -z "${Build_Target}" ]; then
-    echo "Input Build Target Kosong!"
-    echo " "
-    main
-    
-fi
-echo " "
-echo " Link_Device_Tree_Common "
-read Common
-echo " "
-echo " Device_Path_Common "
-read Path_Common
-if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
-echo " "
-echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+echo " Apikey disimpan! "
 main
 fi
 
-# menyimpan konfigurasi
-
-echo " "
-echo "Konfigurasi Tersimpan"
-echo " "
-sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
-
-sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
- 
-sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
-
-
-sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
-
-sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
-
-sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
-sed -i "s|Lunch=.*|Lunch=$Lunch|" ${current_directory}/save_settings.txt
-
-if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
-sed -i "s|Common=.*|Common=$Common|" ${current_directory}/save_settings.txt
-sed -i "s|Path_Common=.*|Path_Common=$Path_Common|" ${current_directory}/save_settings.txt
-fi
-
-
-cd /.workspace
- mkdir ofox
- cd ofox
- 
-# Menginstall Package yang diperlikan
-cd ${current_directory}
-bot_notif
-cd /.workspace/ofox
-echo " "
-echo "  Build Environment "
-echo " "
-
-   
-
-
-   # Sync Minimal Manifest
-   
-        git config --global user.name "Nico170420"
-        git config --global user.email "b170420nc@gmail.com"
-        
-        git clone https://gitlab.com/OrangeFox/misc/scripts.git
-        cd scripts
-        sudo bash setup/android_build_env.sh
-        cd /.workspace/ofox
-        
-                
-        
-        
-        
-        git clone https://gitlab.com/OrangeFox/sync.git
-        cd sync
-        ./orangefox_sync.sh --branch ${Manifest_branch}
-        
-cd /.workspace/ofox/sync/fox_${Manifest_branch}
-
-        # Cloning Device tree
-        echo " "
-        echo " Cloning Device Tree "
-        echo " "
-        
-        
-        git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-        
-        
-
-        if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
-       git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
-      
-fi
-        echo " "
-
-        # Start Building 
-        cd ${current_directory}
-        bot_notif2
-        cd /.workspace/ofox/sync/fox_${Manifest_branch}
-        clear
-        echo " Building Recovery "
-        echo " "
-        
-        sleep 1
-        
-        
-        
-        
-        
-        
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image
-
-        # Menyalin Hasil Build Ke direktori saat ini 
-        
-       
-         
-         
-         if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
-            
-         elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
-         
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
-        
-        elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
-           else
-           echo " "
-           echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
-           echo " "
-           bot_error
-            main
-            fi   
-        echo " "
-        echo " DONE BUILD!!! "
-cd ${current_directory}
-echo " "
-echo " Kompresi File menjadi lebih kecil ..."
-xz OrangeFox*.img
-mv OrangeFox*.xz OrangeFox-Unofficial_${Device_Name}.img.xz
-mv OrangeFox*.zip OrangeFox_Installer_${Device_Name}.zip
-echo " "
-
-bot_offox
-pix_ofox
+else
+echo " Invalid Input ! "
 main
+fi
 
+
+
+}
+
+###########################################################
+###########################################################
+
+
+deletesync() {
+echo " "
+echo " Yakin Menghapus sync manifest? "
+echo "Kamu harus melakukan sync manifest ulang jika ingin Rebuild/Reomni!"
+echo "1. Ya"
+echo "2. Tidak"
+echo "pilih (1-2) :"
+read del
+if [ "${del}" = 1 ]; then
+echo " "
+
+if [ -d "/.workspace/twrp" ]; then
+echo "Menghapus Sync Manifest..."
+rm -rf /.workspace/twrp
+echo "Done!"
+main
+elif [ -d "/.workspace/ofox" ]; then
+echo " "
+echo " Menghaous Sync Manifest..."
+rm -rf /.workspace/ofox
+echo "Done!"
+main
+else
+echo "File sync Tidak ada! apakah kamu sudah melakukan sync Manifest?"
+main
+fi
+elif [ "${del}" = 2 ]; then
+main
+else
+echo " "
+echo " Invalid input "
+main
+fi
+
+}
+
+
+###########################################################
+###########################################################
+
+bot_offox() {
+
+source ${current_directory}/save_settings.txt
+
+
+if [ -z "${id_chat}" ]; then
+echo " "
+echo "id chat belum diatur, Melewati kirim Notifikasi"
+echo " "
+else
+echo " "
+curl -F document=@"${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+curl -F document=@"${current_directory}/OrangeFox_Installer_${Device_Name}.zip" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+echo " "
+fi
+
+
+}
+
+###########################################################
+###########################################################
+
+
+pix_ofox() {
+ 
+source ${current_directory}/save_settings.txt
+
+if [ -z "${api}" ]; then
+echo " "
+echo " ApiKey tidak diatur File tidak akan diUpload! "
+echo " "
+else
+echo " "
+echo " Mengupload ke Pixeldrain... "
+echo " "
+chmod a+x ${current_directory}/OrangeFox-Unofficial.img.xz
+curl -T "${current_directory}/OrangeFox-Unofficial.img.xz" -u:${api} https://pixeldrain.com/api/file/
+fi
 
 }
 
 
 
-#############################################################################
-#############################################################################
+###########################################################
+###########################################################
+
+
+
+upload() {
+
+source ${current_directory}/save_settings.txt
+
+if [ -z "${api}" ]; then
+echo " "
+echo " Kamu Tidak mengatur Api Key pixeldrain, Skip Upload! "
+echo " "
+else
+echo " "
+echo " Mengupload Ke Pixeldrain "
+echo " "
+if [ "${Build_Target}" = "vendorboot" ]; then
+chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
+curl -T "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" -u:${api} https://pixeldrain.com/api/file/
+else
+echo " "
+chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
+curl -T "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" -u:${api} https://pixeldrain.com/api/file/
+fi
+fi
+
+}
+
+###########################################################
+###########################################################
+
+
+bot_notif() {
+
+source ${current_directory}/save_settings.txt
+
+if [ -z "${id_chat}" ]; then
+echo " "
+echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
+else
+echo " "
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..."
+echo " "
+fi
+}
+
+###########################################################
+###########################################################
+
+bot_notif2() {
+source ${current_directory}/save_settings.txt
+if [ -z "${id_chat}" ]; then
+echo " "
+echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
+else
+echo " "
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building ${Build_Status}_${Device_Name}..."
+echo " "
+fi
+}
+
+###########################################################
+###########################################################
+
+bot_error() {
+source ${current_directory}/save_settings.txt
+
+if [ -z "${id_chat}" ]; then
+echo " "
+echo " id chat Tidak diatur, Melewati kirim notifikasi !"
+echo " "
+else
+echo " "
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR BUILD! COBA CEK YANG ERROR!"
+echo " "
+fi
+
+}
+
+###########################################################
+###########################################################
+
+bot_file() {
+source ${current_directory}/save_settings.txt
+
+if [ -z "${id_chat}" ]; then
+echo " "
+echo " id chat tidak diatur, Melewati kirim Notifikasi ! "
+echo " "
+else
+if [ "${Build_Target}" = "vendorboot" ]; then
+chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
+echo " "
+curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+echo " "
+else
+chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
+echo " "
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
+echo " "
+curl -F document=@"${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
+echo " "
+fi
+fi
+
+}
+
+##############################################################
+##############################################################
+
+
 
 
 
@@ -1781,7 +1876,7 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
    sudo apt -y install rsync
   sudo apt -y install repo
   sudo apt -y install openjdk-8-jre
-  sudo apt -y install openjdk-8-jdk
+  sudo apt-get install openjdk-8-jdk
   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java 1
 sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
@@ -1820,7 +1915,6 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export PATH=$JAVA_HOME/bin:$PATH
 " > /etc/profile
 source /etc/profile
-
 sleep 3
   fi
 clear
