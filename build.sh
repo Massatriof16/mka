@@ -1876,7 +1876,7 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
    sudo apt -y install rsync
   sudo apt -y install repo
   sudo apt -y install openjdk-8-jre
-  sudo apt-get install openjdk-8-jdk
+  sudo apt -y install openjdk-8-jdk
   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java 1
 sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
