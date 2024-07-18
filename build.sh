@@ -1883,37 +1883,8 @@ sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/ja
 java -version
 rm -rf /usr/lib/jvm/java-11-openjdk-amd64
 rm -rf /usr/lib/jvm/java-1.11.0-openjdk-amd64
-
-echo "# /etc/profile: system-wide .profile file for the Bourne shell (sh(1))
-# and Bourne compatible shells (bash(1), ksh(1), ash(1), ...).
-
-if [ "${PS1-}" ]; then
-  if [ "${BASH-}" ] && [ "$BASH" != "/bin/sh" ]; then
-    # The file bash.bashrc already sets the default PS1.
-    # PS1='\h:\w\$ '
-    if [ -f /etc/bash.bashrc ]; then
-      . /etc/bash.bashrc
-    fi
-  else
-    if [ "$(id -u)" -eq 0 ]; then
-      PS1='# '
-    else
-      PS1='$ '
-    fi
-  fi
-fi
-
-if [ -d /etc/profile.d ]; then
-  for i in /etc/profile.d/*.sh; do
-    if [ -r $i ]; then
-      . $i
-    fi
-  done
-  unset i
-fi
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export PATH=$JAVA_HOME/bin:$PATH
-" > /etc/profile
+rm -rf /etc/profile
+cp -r profile /etc/
 source /etc/profile
 sleep 3
   fi
