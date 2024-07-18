@@ -1869,14 +1869,15 @@ if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-mult
     echo "Memulai Instalasi..."
     echo " "
     sleep 1
+    sudo apt -y update
     sudo apt -y upgrade
   sudo apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5
 sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd  make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu -y && sudo apt install build-essential -y &&  sudo apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc -y && sudo apt install pigz -y && sudo apt install python2 -y &&  sudo apt install python3 -y && sudo apt install cpio -y && sudo apt install lld -y && sudo  apt install llvm -y && sudo apt install python -y
    sudo apt -y install libncurses5
    sudo apt -y install rsync
   sudo apt -y install repo
-  sudo apt -y install openjdk-8-jre
-  sudo apt -y install openjdk-8-jdk
+  sudo apt-get install openjdk-8-jre -y
+  sudo apt-get install openjdk-8-jdk -y
   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java 1
 sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
