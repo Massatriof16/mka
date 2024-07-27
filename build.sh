@@ -1680,7 +1680,7 @@ echo " Yakin Menghapus sync manifest? "
 echo "Kamu harus melakukan sync manifest ulang jika ingin Rebuild/Reomni!"
 echo "1. Ya"
 echo "2. Tidak"
-read -p "pilih (1-2) :" del
+read -p "pilih (1-2) : " del
 if [ "${del}" = 1 ]; then
 echo " "
 
