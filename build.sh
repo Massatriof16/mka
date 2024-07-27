@@ -17,8 +17,7 @@ echo "7. Setting Notification Telegram & Upload File (Recommended)"
 echo "8. Delete All Resources Sync Manifest "
 echo "9. Exit "
 echo " "
-echo "Pilih ( 1 - 9)"  
-read Main
+read -p "Pilih ( 1 - 9) : " Main
 
 # Mendeteksi Input pengguna
 if [ "${Main}" = 1 ]; then ## Jika Pengguna Input 1 ##
@@ -327,8 +326,7 @@ source ${current_directory}/save_settings.txt
 echo "Ingin ubah konfigurasi tersimpan?"
 echo "1. Ya"
 echo "2. Tidak"
-echo "Pilih (1-2): "
-read settings
+read -p "Pilih (1-2): " settings
 
 
 # Mendeteksi Pilihan dari Perubahan konfigurasi
@@ -1595,13 +1593,11 @@ echo "Chat id dan Apikey Pixeldrain blum di Atur!"
 echo "1. Atur Ulang Token"
 echo "2. Atur Chat id"
 echo "3. Atur Apikey "
-echo " Pilih ( 1-3 ) : "
-read setcon
+read -p " Pilih ( 1-3 ) : " setcon
 
 if [ "${setcon}" = 1 ]; then
 echo " "
-echo "Ketik Token Anda"
-read Token
+read -p "Ketik Token Anda : " Token
 if [ -z "${Token}" ]; then
 echo " "
 echo " Token kosong ! "
@@ -1614,8 +1610,7 @@ main
 fi
 elif [ "${setcon}" = 2 ]; then
 echo " "
-echo "Ketik Chat Id anda"
-read id_chat
+read -p "Ketik Chat Id anda : " id_chat
 if [ -z "${id_chat}" ]; then
 echo " "
 echo " Id chat kosong ! "
@@ -1628,8 +1623,7 @@ main
 fi
 elif [ "${setcon}" = 3 ]; then
 echo " "
-echo " Ketik Apikey "
-read api
+read -p " Ketik Apikey anda : " api
 if [ -z "${api}" ]; then
 echo " "
 echo " Apikey kosong ! "
@@ -1660,8 +1654,7 @@ echo " Yakin Menghapus sync manifest? "
 echo "Kamu harus melakukan sync manifest ulang jika ingin Rebuild/Reomni!"
 echo "1. Ya"
 echo "2. Tidak"
-echo "pilih (1-2) :"
-read del
+read -p "pilih (1-2) :" del
 if [ "${del}" = 1 ]; then
 echo " "
 
