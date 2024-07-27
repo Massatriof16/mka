@@ -134,21 +134,30 @@ read Build_Target
     echo "Input Build Target Kosong!"
     echo " "
     main
-   elif [ "${Build_Target}" != "recovery" ] && [ "${Build_Target}" != "boot" ] && [ "${Build_Target}" != "vendorboot" ]; then
+   
+fi
+ if [ "${Build_Target}" != "recovery" ] && [ "${Build_Target}" != "boot" ] && [ "${Build_Target}" != "vendorboot" ]; then
    echo ""
    echo "Sepertinya  Build Target tidak cocok, yang kamu ketik saat ini adalah ${Build_Target}"
    echo " "
    main
-fi
+   fi
 echo " "
 echo " Link_Device_Tree_Common "
 read Common
 echo " "
 echo " Device_Path_Common "
 read Path_Common
+
 if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
 echo " "
 echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+main
+fi
+
+if [ -z "${Common}" ] && [ -n "${Path_Common}" ]; then
+echo " "
+echo " Patch common Terisi, Tetapi Device tree common kosong "
 main
 fi
 
@@ -392,17 +401,30 @@ read Build_Target
     echo "Input Build Target Kosong!"
     echo " "
     main
-    
+   
 fi
+ if [ "${Build_Target}" != "recovery" ] && [ "${Build_Target}" != "boot" ] && [ "${Build_Target}" != "vendorboot" ]; then
+   echo ""
+   echo "Sepertinya  Build Target tidak cocok, yang kamu ketik saat ini adalah ${Build_Target}"
+   echo " "
+   main
+   fi
 echo " "
-echo " Username_Github/Nama_Repo_DT_commom "
+echo " Link_Device_Tree_Common "
 read Common
 echo " "
 echo " Device_Path_Common "
 read Path_Common
+
 if [ -n "${Common}" ] && [ -z "${Path_Common}" ]; then
 echo " "
 echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+main
+fi
+
+if [ -z "${Common}" ] && [ -n "${Path_Common}" ]; then
+echo " "
+echo " Patch common Terisi, Tetapi Device tree common kosong "
 main
 fi
 
