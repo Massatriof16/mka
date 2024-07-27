@@ -134,7 +134,11 @@ read Build_Target
     echo "Input Build Target Kosong!"
     echo " "
     main
-    
+   elif [ "${Build_Target}" != "recovery" ] && [ "${Build_Target}" != "boot" ] && [ "${Build_Target}" != "vendorboot" ]; then
+   echo ""
+   echo "Sepertinya  Build Target tidak cocok, yang kamu ketik saat ini adalah ${Build_Target}"
+   echo " "
+   main
 fi
 echo " "
 echo " Link_Device_Tree_Common "
