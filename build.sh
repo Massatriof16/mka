@@ -830,10 +830,14 @@ echo " "
         
         repo sync --force-sync
         echo " "
-
+    
         echo " Cloning Device Tree "
         echo " "
         git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
+
+
+        bash ${current_directory}/scripts/convert.sh ${Device_Path}/omni.dependencies
+
         
         sleep 1
         cd ${current_directory}
@@ -844,9 +848,11 @@ echo " "
         echo " Building recovery..."
         echo " "
          export ALLOW_MISSING_DEPENDENCIES=true
+         export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
          source build/envsetup.sh
          cd /.workspace/twrp
          lunch omni_${Device_Name}-eng
+         make clean
          make ${Build_Target}image
        
      
