@@ -849,6 +849,7 @@ echo " "
         echo " "
          export ALLOW_MISSING_DEPENDENCIES=true
          export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+         export PATH=$JAVA_HOME/bin:$PATH
          source build/envsetup.sh
          cd /.workspace/twrp
          lunch omni_${Device_Name}-eng
