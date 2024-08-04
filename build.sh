@@ -2008,6 +2008,8 @@ cp -r profile /etc/
 source /etc/profile
 cd /usr/bin
 sudo ln -sf python2 python
+mkdir /usr/include/asm
+cp -r /usr/include/asm-generic/errno.h /usr/include/asm/
 sleep 3
   fi
 clear
