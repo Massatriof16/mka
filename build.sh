@@ -1178,7 +1178,7 @@ echo " "
  echo "Manifest AOSP Branch AVAILABLE : "
  echo " 11.0 "
  echo " 12.1 "
- echo "Pilih Manifest branch (11 , 12,1) [wajib] : "
+ echo "Pilih Manifest branch (11.0 , 12,1) [wajib] : "
 read Manifest_branch
 if [ -z "$Manifest_branch" ]; then
     echo "Input Manifest branch kosong!."
