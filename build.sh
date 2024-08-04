@@ -328,7 +328,7 @@ ReAosp()
 
 
 # memeriksa workspace
-if [ -d "/.workspace/twrp" ]; then
+
 
 
 sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
@@ -749,14 +749,7 @@ echo "Invalid Input!"
 echo " "
 main
 fi
-else
 
-# Kondisi saat pemeriksaan diawal tetapi tidak ditemukan folder manifest
-
-echo " "
-echo "TIDAK DAPAT MENEMUKAN FILE SYNC MANIFEST! APAKAH KAMU SUDAH SYNC MANIFEST?"
-main
-fi
 
 }
 
@@ -923,7 +916,7 @@ main
 # Fungsi Reomni
 ReOmni()
 {
-if [ -d "/.workspace/twrp" ]; then
+
 
 source ${current_directory}/save_settings.txt
 
@@ -1132,11 +1125,7 @@ echo " "
     echo " "
     main
 fi
-else
-echo " "
-echo "TIDAK DAPAN MENEMUKAN FILE SYNC MANIFEST! APAKAH KAMU SUDAH SYNC MANIFEST?"
-main
-fi
+
 
 }
 
