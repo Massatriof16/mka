@@ -337,7 +337,7 @@ ReAosp()
 # memeriksa workspace
 
 source ${current_directory}/save_settings.txt
-if [ -n ${Manifest_branch} ]; then
+if [ -n ${Manifest_branch} ] || [ "${Build_Status}" = "TWRP" ]; then
 sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
 
 # Permintaan Pilihan ke Pengguna
@@ -759,7 +759,7 @@ fi
 
 else
 echo " "
-echo " KAMU BELUM PERNAH MELAKUKAN SYNC! "
+echo " KAMU BELUM PERNAH MELAKUKAN SYNC TWRP SEBELUMNYA! "
 echo " "
 main
 fi
@@ -1396,7 +1396,8 @@ main
 
 reofox() {
 
-if [ -d "/.workspace/ofox" ]; then
+source ${current_directory}/save_settings.txt
+if [ -n "${Branch_manifest}" ] || [ "${Build_Status}" = "OrangeFox" ]; then
 
 sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
 
@@ -1501,10 +1502,15 @@ fi
     echo " Diperbarui!"
 sleep 1
 
-
-
+echo " "
+echo " Memeriksa Ketersediaan Manifest"
+sleep 1
     
     # Menghapus Cloning device tree yang telah ada sebelumnya
+    if [ -d /.workspace/ofox ]; then
+    echo " "
+    echo " Manifest Tersedia. Menghapus beberapa file... "
+    sleep 1
    if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
     rm -rf ${current_directory}/OrangeFox*.xz
     rm -rf ${current_directory}/OrangeFox*.zip
@@ -1518,8 +1524,27 @@ fi
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}
-   
-   
+   else
+   echo " "
+   echo " Manifest Tidak Tersedia! Melakukan sync..."
+   cd /.workspace
+   mkdir ofox
+   cd ofox
+   git clone https://gitlab.com/OrangeFox/misc/scripts.git
+        cd scripts
+        sudo bash setup/android_build_env.sh
+        cd /.workspace/ofox
+        
+                
+        
+        
+        
+        git clone https://gitlab.com/OrangeFox/sync.git
+        cd sync
+        ./orangefox_sync.sh --branch ${Manifest_branch}
+        
+cd /.workspace/ofox/sync/fox_${Manifest_branch}
+   fi
    
    
 # Memanggil Konfigurasi Yang tersimpan
@@ -1687,6 +1712,11 @@ else
 echo " "
 echo "TIDAK DAPAT MENEMUKAN FILE SYNC MANIFEST! APAKAH KAMU SUDAH SYNC MANIFEST?"
 main
+fi
+else
+echo " "
+echo " KAMU BELUM MELAKUKAN SYNC MANIFEST OFOX SEBELUMNYA! "
+echo " "
 fi
 
 }
