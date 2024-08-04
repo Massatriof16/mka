@@ -86,6 +86,13 @@ if [ -z "$Manifest_branch" ]; then
     echo " "
     main
 fi
+if [ "${Manifest_branch}" != "11" ] && [ "${Manifest_branch}" != "12.1" ]; then
+   echo ""
+   echo "Sepertinya  Minimal Manifest tidak cocok, yang kamu ketik saat ini adalah ${Manifest_branch}"
+   echo " "
+   main
+   fi
+
 echo " "
 echo " Link Device Tree TWRP [wajib] : "
 read Device_tree
@@ -329,8 +336,8 @@ ReAosp()
 
 # memeriksa workspace
 
-
-
+source ${current_directory}/save_settings.txt
+if [ -n ${Manifest_branch} ]; then
 sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
 
 # Permintaan Pilihan ke Pengguna
@@ -750,6 +757,13 @@ echo " "
 main
 fi
 
+else
+echo " "
+echo " KAMU BELUM PERNAH MELAKUKAN SYNC! "
+echo " "
+main
+fi
+
 
 }
 
@@ -785,6 +799,12 @@ if [ -z "$Manifest_branch" ]; then
     echo " "
     main
 fi
+if [ "${Manifest_branch}" != "5.1" ] && [ "${Manifest_branch}" != "6.0" ] && [ "${Manifest_branch}" != "7.1" ] && [ "${Manifest_branch}" != "8.1" ] && [ "${Manifest_branch}" != "9.0" ]; then
+   echo ""
+   echo "Sepertinya  Minimal Manifest tidak cocok, yang kamu ketik saat ini adalah ${Manifest_branch}"
+   echo " "
+   main
+   fi
 echo "Link Device tree twrp : "
 read Device_tree
 if [ -z "${Device_tree}" ]; then
@@ -921,7 +941,7 @@ ReOmni()
 source ${current_directory}/save_settings.txt
 
 echo "Memanggil Konfigurasi yang Tersimpan"
-
+if [ -n ${Manifest_branch} ]; then
 echo "Ingin ubah konfigurasi tersimpan?"
 echo "1. Ya"
 echo "2. Tidak"
@@ -1125,7 +1145,12 @@ echo " "
     echo " "
     main
 fi
-
+else
+echo " "
+echo " KAMU BELUM PERNAH MELAKUKAN SYNC! "
+echo " "
+main
+fi
 
 }
 
