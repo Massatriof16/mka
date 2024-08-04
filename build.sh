@@ -457,12 +457,14 @@ fi
 sleep 1
 
 
-
-
+echo "Memeriksa ketersediaan Manifest..."
+sleep 1
 
     
     # Menghapus Cloning device tree yang telah ada sebelumnya
-    
+    if [ -d "/.workspace/twrp" ]; then
+    echo " "
+    echo "Manifest tersedia Menghapus beberapa file..."
    if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 fi
@@ -475,8 +477,17 @@ rm -rf /.workspace/twrp/${Path_Common}
 fi
     rm -rf /.workspace/twrp/${Device_Path}
    rm -rf /.workspace/twrp/out/target/product/${Out}
-   
-   
+
+   else
+   echo " "
+   echo " Sepertinya Manifest tidak ada Mengulangi sync manifest..."
+   cd /.workspace
+   mkdir twrp
+   cd twrp
+   repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
+        
+  repo sync --force-sync
+  fi
 
 
 
@@ -595,20 +606,39 @@ elif [ "${settings}" = 2 ]; then
 # Memanggil konfigurasi yang tersimpan
 
     source ${current_directory}/save_settings.txt
-if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
+
+    
+echo "Memeriksa ketersediaan Manifest..."
+sleep 1
+
+    
+    # Menghapus Cloning device tree yang telah ada sebelumnya
+    if [ -d "/.workspace/twrp" ]; then
+    echo " "
+    echo "Manifest tersedia Menghapus beberapa file..."
+   if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 fi
 if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; then
 rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi
 
-if [ -n "${Path_Common}" ]; then
+if [ -n "${Path_Common}" ]; then   
 rm -rf /.workspace/twrp/${Path_Common}
 fi
-
-    # Menghapus sumber daya yang telah dibuat 
     rm -rf /.workspace/twrp/${Device_Path}
-    rm -rf /.workspace/twrp/out/target/product/${Out}
+   rm -rf /.workspace/twrp/out/target/product/${Out}
+
+   else
+   echo " "
+   echo " Sepertinya Manifest tidak ada Mengulangi sync manifest..."
+   cd /.workspace
+   mkdir twrp
+   cd twrp
+   repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
+        
+  repo sync --force-sync
+  fi
 
 # Cloning Device tree
 
@@ -797,6 +827,12 @@ read Build_Target
     echo " "
     main
 fi
+if [ "${Build_Target}" != "recovery" ] && [ "${Build_Target}" != "boot" ]; then
+   echo ""
+   echo "Sepertinya  Build Target tidak cocok, yang kamu ketik saat ini adalah ${Build_Target}"
+   echo " "
+   main
+   fi
 sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
 
 sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
@@ -951,7 +987,12 @@ sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save
 echo " Diperbarui!"
 sleep 1
 
-    
+    echo " "
+    echo "Memeriksa Ketersediaan Manifest..."
+    sleep 1
+    if [ -d "/.workspace/twrp" ]; then
+    echo " "
+    echo " Manifest Tersedia menghapus beberapa file..."
 if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 fi
@@ -960,6 +1001,16 @@ rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi 
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+else
+cd /.workspace
+mkdir twrp
+cd twrp
+echo "Manifest Tidak Tersedia Mengulangi sync Manifest.."
+echo " "
+repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
+repo sync --force-sync
+fi
+
 
 source ${current_directory}/save_settings.txt
 cd /.workspace/twrp
@@ -1009,15 +1060,29 @@ main
 
 elif [ "${settings}" = 2 ]; then #Start of 2
     source ${current_directory}/save_settings.txt
-    if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
+    echo " "
+    echo "Memeriksa Ketersediaan Manifest..."
+    sleep 1
+    if [ -d "/.workspace/twrp" ]; then
+    echo " "
+    echo " Manifest Tersedia menghapus beberapa file..."
+if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
     rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 fi
 if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; then
 rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
-fi
+fi 
     rm -rf /.workspace/twrp/${Device_Path}
     rm -rf /.workspace/twrp/out/target/product/${Device_Name}
-
+else
+cd /.workspace
+mkdir twrp
+cd twrp
+echo "Manifest Tidak Tersedia Mengulangi sync Manifest.."
+echo " "
+repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
+repo sync --force-sync
+fi
 
 cd /.workspace/twrp
 echo " "
