@@ -1,6 +1,10 @@
 # TWRP Builder Menggunakan Gitpod
 
-UPDATE DATE 07 JUL
+UPDATE DATE 04 AUG 24 :
+- Memperbarui Kerja ReAosp dan ReOmni sekarang akan melakukan sync otomatis saat tidak ada sync manifest sebagai gantinya akan memeriksa pengaturan minimal manifest apakah sudah diatur sebelumnya.
+- Mengoptimalkan kerja Menyimpan versi minimal manifest yang dimasukkan agar sesuai dengan perubahan Menu ReAosp dan ReOmni sekarang pengguna tidak bisa memasukkan selain yang ada di list versi minimal manifest tersebut.
+
+UPDATE DATE 07 JUL 24 :
 - Menambahkan Dukungan Build OrangeFox Recovery
 
 
