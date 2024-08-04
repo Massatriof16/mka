@@ -977,8 +977,14 @@ echo " "
 sleep 1
 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/twrp ; lunch omni_${Device_Name}-eng; make ${Build_Target}image
-        
+         export ALLOW_MISSING_DEPENDENCIES=true
+         JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+         PATH=$JAVA_HOME/bin:$PATH
+         source build/envsetup.sh
+         cd /.workspace/twrp
+         lunch omni_${Device_Name}-eng
+         make clean
+         make ${Build_Target}image
    
          if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
@@ -1029,8 +1035,14 @@ echo " "
 echo " Building recovery "
 echo " "
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/twrp; lunch omni_${Device_Name}-eng; make ${Build_Target}image
-        
+         export ALLOW_MISSING_DEPENDENCIES=true
+         JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+         PATH=$JAVA_HOME/bin:$PATH
+         source build/envsetup.sh
+         cd /.workspace/twrp
+         lunch omni_${Device_Name}-eng
+         make clean
+         make ${Build_Target}image
    
          if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
