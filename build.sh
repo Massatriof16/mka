@@ -64,7 +64,6 @@ Aosp() {
 
  
 source ${current_directory}/save_settings.txt
-sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
 echo " "
 echo " TWRP BUILD CONFIGURATION "
 echo "  "
@@ -182,7 +181,7 @@ sleep 1
 echo " "
 echo "Menyimpan Konfigurasi..."
 echo " "
-
+sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
 sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
 sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
 sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
@@ -1165,7 +1164,6 @@ fi
 
 Ofox() {
 source ${current_directory}/save_settings.txt
-sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
 echo " "
 echo " OFOX BUILD CONFIGURATION "
 echo "  "
@@ -1187,6 +1185,12 @@ if [ -z "$Manifest_branch" ]; then
     echo " "
     main
 fi
+if [ "${Manifest_branch}" != "11.0" ] && [ "${Manifest_branch}" != "12.1" ]; then
+   echo ""
+   echo "Sepertinya  Minimal Manifest tidak cocok, yang kamu ketik saat ini adalah ${Manifest_branch}"
+   echo " "
+   main
+   fi
 echo " "
 echo " Link Device Tree TWRP [wajib] : "
 read Device_tree
@@ -1237,6 +1241,12 @@ read Build_Target
     main
     
 fi
+if [ "${Build_Target}" != "recovery" ] && [ "${Build_Target}" != "boot" ] && [ "${Build_Target}" != "vendorboot" ]; then
+   echo ""
+   echo "Sepertinya  Build Target tidak cocok, yang kamu ketik saat ini adalah ${Build_Target}"
+   echo " "
+   main
+   fi
 echo " "
 echo " Link_Device_Tree_Common "
 read Common
@@ -1256,6 +1266,7 @@ fi
 echo " "
 echo "Konfigurasi Tersimpan"
 echo " "
+sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
 sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
 sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
 sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
@@ -1398,7 +1409,6 @@ reofox() {
 
 source ${current_directory}/save_settings.txt
 if [ -n "${Branch_manifest}" ] || [ "${Build_Status}" = "OrangeFox" ]; then
-
 sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
 
 # Permintaan Pilihan ke Pengguna
