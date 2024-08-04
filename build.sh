@@ -1915,11 +1915,14 @@ rm -rf /usr/lib/jvm/java-1.11.0-openjdk-amd64
 rm -rf /etc/profile
 cp -r profile /etc/
 source /etc/profile
+cd /usr/bin
+sudo ln -sf python2 python
+cd /usr/include
+mkdir asm
+cp -r errno.h asm/
 sleep 3
   fi
 clear
-cd /usr/bin
-sudo ln -sf python2 python
 cd ${current_directory}
 main
 exit 0
