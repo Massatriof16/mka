@@ -1817,6 +1817,7 @@ read -p "pilih (1-2) : " del
 if [ "${del}" = 1 ]; then
 echo " "
 
+
 if [ -d "/.workspace/twrp" ]; then
 echo "Menghapus Sync Manifest..."
 rm -rf /.workspace/twrp
