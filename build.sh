@@ -2063,5 +2063,7 @@ sleep 3
   fi
 clear
 cd ${current_directory}
+git config --global user.name "Nico170420"
+git config --global user.email "b170420nc@gmail.com"
 main
 exit 0
