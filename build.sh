@@ -1911,7 +1911,6 @@ fi
 upload() {
 
 source ${current_directory}/save_settings.txt
-
 if [ -z "${api}" ]; then
 echo " "
 echo " Kamu Tidak mengatur Api Key pixeldrain, Skip Upload! "
@@ -2047,13 +2046,8 @@ sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libss
   sudo apt-get install openjdk-8-jre -y
   sudo apt-get install openjdk-8-jdk -y
   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java 1
-sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
-java -version
-rm -rf /usr/lib/jvm/java-11-openjdk-amd64
-rm -rf /usr/lib/jvm/java-1.11.0-openjdk-amd64
-rm -rf /etc/profile
-cp -r profile /etc/
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
 source /etc/profile
 cd /usr/bin
 sudo ln -sf python2 python
