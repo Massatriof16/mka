@@ -1752,6 +1752,7 @@ echo "Chat id dan Apikey Pixeldrain blum di Atur!"
 echo "1. Atur Ulang Token"
 echo "2. Atur Chat id"
 echo "3. Atur Apikey "
+echo "4. Atur Topic id(jika grub topic)"
 read -p " Pilih ( 1-3 ) : " setcon
 
 if [ "${setcon}" = 1 ]; then
@@ -1793,7 +1794,19 @@ echo " "
 echo " Apikey disimpan! "
 main
 fi
-
+elif [ "${setcon}" = 4 ]; then
+echo " "
+read -p " Ketik Topic id anda : " Tid
+if [ -z "${Tid}" ]; then
+echo " "
+echo " Topic id kosong ! "
+main
+else
+sed -i "s|Tid=.*|Tid=$Tid|" ${current_directory}/save_settings.txt
+echo " "
+echo " Topic id  disimpan! "
+main
+fi
 else
 echo " Invalid Input ! "
 main
