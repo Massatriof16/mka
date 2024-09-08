@@ -14,4 +14,6 @@ api=
 Manifest_branch=
 Build_Status=
 Tid=
-di_build=${current_directory}/twrp
+
+#For Working Directory {Build Directory}
+di_build=/.workspace/twrp
