@@ -13,3 +13,5 @@ Out=
 api=
 Manifest_branch=
 Build_Status=
+Tid=
+di_build=${current_directory}/twrp
