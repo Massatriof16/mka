@@ -205,16 +205,16 @@ echo " Tersimpan! "
 
 
 # MEMBUAT FOLDER WORKSPACE BUILD TWRP DI GITPOD ( anda bisa ubah direktori ini sesuka hati anda dimana tempat nya )
-cd /.workspace
-mkdir twrp
-cd twrp
+
+mkdir ${di_build}
+cd ${di_build}
  
  
  # Mulai untuk melakukan sync
  
 cd ${current_directory}
 bot_notif
-cd /.workspace/twrp
+cd ${di_build}
 echo " "
 echo "  Build Environment "
 echo " "
@@ -246,13 +246,13 @@ echo " "
         echo " "
         cd ${current_directory}
         bot_notif2
-        cd /.workspace/twrp
+        cd ${di_build}
         clear
         echo " Building Recovery "
         echo " "
         sleep 1
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${di_build}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
 
         
         
@@ -260,14 +260,14 @@ echo " "
         
         # Pemeriksaan Hasil Build
          if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then  
-         cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
+         if [ -e "${di_build}/out/target/product/${Out}/vendor_boot.img" ]; then  
+         cp -r ${di_build}/out/target/product/${Out}/vendor_boot.img ${current_directory}
          
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then     
-        cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+         elif [ -e "${di_build}/out/target/product/${Device_Name}/vendor_boot.img" ]; then     
+        cp ${di_build}/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
         
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+        elif [ -e "${di_build}/out/target/product/${Lunch}/vendor_boot.img" ]; then
+        cp ${di_build}/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
          else
          echo " "
          echo " FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
@@ -279,14 +279,14 @@ echo " "
          else
          
          
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}
+         if [ -e "${di_build}/out/target/product/${Out}/${Build_Target}.img" ]; then
+         cp -r ${di_build}/out/target/product/${Out}/${Build_Target}.img ${current_directory}
          
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+         elif [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
+        cp ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
         
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
+        elif [ -e "${di_build}/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+        cp ${di_build}/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
         
            else
            echo " "
@@ -315,8 +315,13 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 fi
-
+if [ -n "${Tid}" ]; then
+echo " Topic id is True "
+bot_file_T
+else
+echo "Topic id is False"
 bot_file
+fi
 upload
 main #kembali ke menu
 }
@@ -468,7 +473,7 @@ sleep 1
 
     
     # Menghapus Cloning device tree yang telah ada sebelumnya
-    if [ -d "/.workspace/twrp" ]; then
+    if [ -d "${di_build}" ]; then
     echo " "
     echo "Manifest tersedia Menghapus beberapa file..."
    if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
@@ -479,17 +484,17 @@ rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi
 
 if [ -n "${Path_Common}" ]; then   
-rm -rf /.workspace/twrp/${Path_Common}
+rm -rf ${di_build}/${Path_Common}
 fi
-    rm -rf /.workspace/twrp/${Device_Path}
-   rm -rf /.workspace/twrp/out/target/product/${Out}
+    rm -rf ${di_build}/${Device_Path}
+   rm -rf ${di_build}/out/target/product/${Out}
 
    else
    echo " "
    echo " Sepertinya Manifest tidak ada Mengulangi sync manifest..."
-   cd /.workspace
-   mkdir twrp
-   cd twrp
+   
+   mkdir ${di_build}
+   cd ${di_build}
    repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
         
   repo sync --force-sync
@@ -500,7 +505,7 @@ fi
 # Memanggil Konfigurasi Yang tersimpan
     source ${current_directory}/save_settings.txt
 
-cd /.workspace/twrp
+cd ${di_build}
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -519,7 +524,7 @@ fi
         sleep 1
         cd ${current_directory}
         bot_notif2
-        cd /.workspace/twrp
+        cd ${di_build}
         clear
         
         # BUILD DIMULAI
@@ -528,7 +533,7 @@ fi
         echo " "
         # Start Building 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${di_build}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
 
        
        
@@ -540,12 +545,12 @@ fi
         # MEMERIKSA FILE LALU MENYALIN FILE KE WORKSPACE 
           
          if [ "${Build_Target}" = "vendorboot" ]; then
-            if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
-              cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
-        elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then  
-           cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
-           cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+            if [ -e "${di_build}/out/target/product/${Out}/vendor_boot.img" ]; then
+              cp -r ${di_build}/out/target/product/${Out}/vendor_boot.img ${current_directory}
+        elif [ -e "${di_build}/out/target/product/${Device_Name}/vendor_boot.img" ]; then  
+           cp ${di_build}/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+        elif [ -e "${di_build}/out/target/product/${Lunch}/vendor_boot.img" ]; then
+           cp ${di_build}/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
               
        else
          echo " "
@@ -558,13 +563,13 @@ fi
        else
          
          
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
+         if [ -e "${di_build}/out/target/product/${Out}/${Build_Target}.img" ]; then
+         cp -r ${di_build}/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
+         elif [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          
-        cp /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
+        cp ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+        elif [ -e "${di_build}/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+        cp ${di_build}/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -597,7 +602,13 @@ echo " Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
     fi
-    bot_file
+    if [ -n "${Tid}" ]; then
+echo " Topic id is True "
+bot_file_T
+else
+echo "Topic id is False"
+bot_file
+fi
     upload
    
    #---------------------------------------------------- AKHIR AOSP PILIHAN 1 ------------------------------------------#
@@ -619,7 +630,7 @@ sleep 1
 
     
     # Menghapus Cloning device tree yang telah ada sebelumnya
-    if [ -d "/.workspace/twrp" ]; then
+    if [ -d "${di_build}" ]; then
     echo " "
     echo "Manifest tersedia Menghapus beberapa file..."
    if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
@@ -630,17 +641,17 @@ rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi
 
 if [ -n "${Path_Common}" ]; then   
-rm -rf /.workspace/twrp/${Path_Common}
+rm -rf ${di_build}/${Path_Common}
 fi
-    rm -rf /.workspace/twrp/${Device_Path}
-   rm -rf /.workspace/twrp/out/target/product/${Out}
+    rm -rf ${di_build}/${Device_Path}
+   rm -rf ${di_build}/out/target/product/${Out}
 
    else
    echo " "
    echo " Sepertinya Manifest tidak ada Mengulangi sync manifest..."
-   cd /.workspace
-   mkdir twrp
-   cd twrp
+   
+   mkdir ${di_build}
+   cd ${di_build}
    repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
         
   repo sync --force-sync
@@ -648,7 +659,7 @@ fi
 
 # Cloning Device tree
 
-cd /.workspace/twrp
+cd ${di_build}
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -666,13 +677,13 @@ fi
         sleep 1
         cd ${current_directory}
 bot_notif2
-cd /.workspace/twrp
+cd ${di_build}
 clear
 echo " "
         echo " BUILDING TWRP "
         echo " "
         # start building
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd /.workspace/twrp/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${di_build}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
 
 
 
@@ -682,14 +693,14 @@ echo " "
         
        
               if [ "${Build_Target}" = "vendorboot" ]; then
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/vendor_boot.img" ]; then
+         if [ -e "${di_build}/out/target/product/${Out}/vendor_boot.img" ]; then
        
-         cp -r /.workspace/twrp/out/target/product/${Out}/vendor_boot.img ${current_directory}
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img" ]; then
+         cp -r ${di_build}/out/target/product/${Out}/vendor_boot.img ${current_directory}
+         elif [ -e "${di_build}/out/target/product/${Device_Name}/vendor_boot.img" ]; then
          
-        cp /.workspace/twrp/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
+        cp ${di_build}/out/target/product/${Device_Name}/vendor_boot.img ${current_directory}
+        elif [ -e "${di_build}/out/target/product/${Lunch}/vendor_boot.img" ]; then
+        cp ${di_build}/out/target/product/${Lunch}/vendor_boot.img ${current_directory}
         
           
          else
@@ -704,13 +715,13 @@ echo " "
          
          else
          
-         if [ -e "/.workspace/twrp/out/target/product/${Out}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
-         elif [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
+         if [ -e "${di_build}/out/target/product/${Out}/${Build_Target}.img" ]; then
+         cp -r ${di_build}/out/target/product/${Out}/${Build_Target}.img ${current_directory}   
+         elif [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
          
-        cp /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
-        elif [ -e "/.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img" ]; then
-        cp /.workspace/twrp/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
+        cp ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}
+        elif [ -e "${di_build}/out/target/product/${Lunch}/${Build_Target}.img" ]; then
+        cp ${di_build}/out/target/product/${Lunch}/${Build_Target}.img ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -735,7 +746,13 @@ echo "Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 fi
+if [ -n "${Tid}" ]; then
+echo " Topic id is True "
+bot_file_T
+else
+echo "Topic id is False"
 bot_file
+fi
 upload
 
 
@@ -857,13 +874,13 @@ sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_se
 sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
 
 sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
-cd /.workspace
- mkdir twrp
- cd twrp
+
+ mkdir ${di_build}
+ cd ${di_build}
 
 cd ${current_directory}
  bot_notif
- cd /.workspace/twrp
+ cd ${di_build}
 echo " "
 echo " Build Environment... "
 echo " "
@@ -890,7 +907,7 @@ echo " "
         sleep 1
         cd ${current_directory}
         bot_notif2
-        cd /.workspace/twrp
+        cd ${di_build}
         clear
         echo " "
         echo " Building recovery..."
@@ -899,15 +916,15 @@ echo " "
          JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
          PATH=$JAVA_HOME/bin:$PATH
          source build/envsetup.sh
-         cd /.workspace/twrp
+         cd ${di_build}
          lunch omni_${Device_Name}-eng
          make clean
          make ${Build_Target}image
        
      
      
-     if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
+     if [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
+         cp -r ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
         echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
         bot_error
@@ -923,7 +940,13 @@ echo " Mengkompress file menjadi lebih kecil "
 
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
+if [ -n "${Tid}" ]; then
+echo " Topic id is True "
+bot_file_T
+else
+echo "Topic id is False"
 bot_file
+fi
 main
 }
 
@@ -1002,7 +1025,7 @@ sleep 1
     echo " "
     echo "Memeriksa Ketersediaan Manifest..."
     sleep 1
-    if [ -d "/.workspace/twrp" ]; then
+    if [ -d "${di_build}" ]; then
     echo " "
     echo " Manifest Tersedia menghapus beberapa file..."
 if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
@@ -1011,12 +1034,12 @@ fi
 if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; then
 rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi 
-    rm -rf /.workspace/twrp/${Device_Path}
-    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+    rm -rf ${di_build}/${Device_Path}
+    rm -rf ${di_build}/out/target/product/${Device_Name}
 else
-cd /.workspace
-mkdir twrp
-cd twrp
+
+mkdir ${di_build}
+cd ${di_build}
 echo "Manifest Tidak Tersedia Mengulangi sync Manifest.."
 echo " "
 repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
@@ -1025,14 +1048,14 @@ fi
 
 
 source ${current_directory}/save_settings.txt
-cd /.workspace/twrp
+cd ${di_build}
 echo " "
 echo "Cloning Device Tree "
 echo " "
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 cd ${current_directory}
 bot_notif2
-cd /.workspace/twrp
+cd ${di_build}
 clear
 echo " "
 echo " Building recovery "
@@ -1044,13 +1067,13 @@ sleep 1
          JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
          PATH=$JAVA_HOME/bin:$PATH
          source build/envsetup.sh
-         cd /.workspace/twrp
+         cd ${di_build}
          lunch omni_${Device_Name}-eng
          make clean
          make ${Build_Target}image
    
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
+         if [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
+         cp -r ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
         echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
         bot_error
@@ -1064,7 +1087,13 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo " Mengkompress file menjadi lebih kecil "
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
+if [ -n "${Tid}" ]; then
+echo " Topic id is True "
+bot_file_T
+else
+echo "Topic id is False"
 bot_file
+fi
 main
 
 
@@ -1075,7 +1104,7 @@ elif [ "${settings}" = 2 ]; then #Start of 2
     echo " "
     echo "Memeriksa Ketersediaan Manifest..."
     sleep 1
-    if [ -d "/.workspace/twrp" ]; then
+    if [ -d "${di_build}" ]; then
     echo " "
     echo " Manifest Tersedia menghapus beberapa file..."
 if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
@@ -1084,19 +1113,19 @@ fi
 if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; then
 rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 fi 
-    rm -rf /.workspace/twrp/${Device_Path}
-    rm -rf /.workspace/twrp/out/target/product/${Device_Name}
+    rm -rf ${di_build}/${Device_Path}
+    rm -rf ${di_build}/out/target/product/${Device_Name}
 else
-cd /.workspace
-mkdir twrp
-cd twrp
+
+mkdir ${di_build}
+cd ${di_build}
 echo "Manifest Tidak Tersedia Mengulangi sync Manifest.."
 echo " "
 repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
 repo sync --force-sync
 fi
 
-cd /.workspace/twrp
+cd ${di_build}
 echo " "
 echo "Cloning Device Tree "
 echo " "
@@ -1104,7 +1133,7 @@ git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
 
 cd ${current_directory}
 bot_notif2
-cd /.workspace/twrp
+cd ${di_build}
 clear
 echo " "
 sleep 1
@@ -1116,13 +1145,13 @@ echo " "
          JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
          PATH=$JAVA_HOME/bin:$PATH
          source build/envsetup.sh
-         cd /.workspace/twrp
+         cd ${di_build}
          lunch omni_${Device_Name}-eng
          make clean
          make ${Build_Target}image
    
-         if [ -e "/.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r /.workspace/twrp/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
+         if [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
+         cp -r ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
         else
         echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
         bot_error
@@ -1135,7 +1164,13 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo "Mengkompress file menjadi lebih kecil"
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
+if [ -n "${Tid}" ]; then
+echo " Topic id is True "
+bot_file_T
+else
+echo "Topic id is False"
 bot_file
+fi
 main
 #end of 2
 else #else of Reomni
@@ -1831,9 +1866,9 @@ if [ "${del}" = 1 ]; then
 echo " "
 
 
-if [ -d "/.workspace/twrp" ]; then
+if [ -d "${di_build}" ]; then
 echo "Menghapus Sync Manifest..."
-rm -rf /.workspace/twrp
+rm -rf ${di_build}
 echo "Done!"
 main
 elif [ -d "/.workspace/ofox" ]; then
@@ -1944,9 +1979,21 @@ echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
+if [ -n "${Tid}" ]; then
+echo "Topic Grup Is true! "
+
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
+-d "chat_id=${id_chat}" \
+-d "text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..." \
+-d "message_thread_id=${Tid}"
+
+else
+echo " "
+echo "Topic Grup is False "
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..."
 echo " "
+fi
 fi
 }
 
@@ -1960,9 +2007,19 @@ echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
+if [ -n "${Tid}" ]; then
+echo "Topic Grup Is true! "
+
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
+-d "chat_id=${id_chat}" \
+-d "text=Start Building ${Build_Status}_${Device_Name}..." \
+-d "message_thread_id=${Tid}"
+
+else
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building ${Build_Status}_${Device_Name}..."
 echo " "
+fi
 fi
 }
 
@@ -1977,11 +2034,22 @@ echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
+if [ -n "${Tid}" ]; then
+echo "Topic Grup Is true! "
+
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
+-d "chat_id=${id_chat}" \
+-d "text=ERROR BUILD! COBA CEK YANG ERROR!" \
+-d "message_thread_id=${Tid}"
+
+else
+echo " "
+echo "Topic Grup is False"
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR BUILD! COBA CEK YANG ERROR!"
 echo " "
 fi
-
+fi
 }
 
 ###########################################################
@@ -2017,6 +2085,57 @@ fi
 ##############################################################
 
 
+bot_file_T() {
+source ${current_directory}/save_settings.txt
+
+if [ -z "${id_chat}" ]; then
+echo " "
+echo " id chat tidak diatur, Melewati kirim Notifikasi ! "
+echo " "
+else
+if [ "${Build_Target}" = "vendorboot" ]; then
+chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
+
+
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
+-d "chat_id=${id_chat}" \
+-d "text=NEW_BUILD ${Build_Status}_${Device_Name}..." \
+-d "message_thread_id=${Tid}"
+
+
+
+curl -X POST "https://api.telegram.org/bot${Token}/sendDocument" \
+  -F chat_id="${id_chat}" \
+  -F document="${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" \
+  -F message_thread_id="${Tid}"
+  
+
+echo " "
+else
+chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
+-d "chat_id=${id_chat}" \
+-d "text=NEW_BUILD ${Build_Status}_${Device_Name}..." \
+-d "message_thread_id=${Tid}"
+
+
+
+curl -X POST "https://api.telegram.org/bot${Token}/sendDocument" \
+  -F chat_id="${id_chat}" \
+  -F document="${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" \
+  -F message_thread_id="${Tid}"
+
+
+echo " "
+fi
+fi
+
+}
+
+
+
+
+
 
 
 
@@ -2039,7 +2158,7 @@ if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-mult
     sudo apt -y update
     sudo apt -y upgrade
   sudo apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libtinfo5
-sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd  make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu -y && sudo apt install build-essential -y &&  sudo apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc -y && sudo apt install pigz -y && sudo apt install python2 -y &&  sudo apt install python3 -y && sudo apt install cpio -y && sudo apt install lld -y && sudo  apt install llvm -y && sudo apt install python -y
+sudo apt install nano bc bison ca-certificates curl flex gcc git libc6-dev libssl-dev openssl python-is-python3 ssh wget zip zstd  make clang gcc-arm-linux-gnueabi software-properties-common build-essential libarchive-tools gcc-aarch64-linux-gnu -y && sudo apt install build-essential -y &&  sudo apt install libssl-dev libffi-dev libncurses5-dev zlib1g zlib1g-dev libreadline-dev libbz2-dev libsqlite3-dev make gcc -y && sudo apt install pigz -y && sudo apt install python2 -y &&  sudo apt install python3 -y && sudo apt install cpio -y && sudo apt install lld -y && sudo  apt install llvm -y
    sudo apt -y install libncurses5
    sudo apt -y install rsync
   sudo apt -y install repo
