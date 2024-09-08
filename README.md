@@ -1,4 +1,12 @@
-# TWRP Builder Menggunakan Gitpod
+wax# TWRP Builder Menggunakan Gitpod
+
+
+
+UPDATE DATE 08 SEPT 24 :
+- Sekarang Mendukung Mengirim notif ke Grup Topic
+- Anda dapat mengatur folder build twrp
+
+
 
 UPDATE DATE 04 AUG 24 :
 - Memperbarui Kerja ReAosp dan ReOmni sekarang akan melakukan sync otomatis saat tidak ada sync manifest sebagai gantinya akan memeriksa pengaturan minimal manifest apakah sudah diatur sebelumnya.
