@@ -315,13 +315,9 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 fi
-if [ -n "${Tid}" ]; then
-echo " Topic id is True "
-bot_file_T
-else
-echo "Topic id is False"
+
 bot_file
-fi
+
 upload
 main #kembali ke menu
 }
@@ -602,13 +598,9 @@ echo " Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
     fi
-    if [ -n "${Tid}" ]; then
-echo " Topic id is True "
-bot_file_T
-else
-echo "Topic id is False"
+    
 bot_file
-fi
+
     upload
    
    #---------------------------------------------------- AKHIR AOSP PILIHAN 1 ------------------------------------------#
@@ -746,13 +738,9 @@ echo "Mengkompress file menjadi lebih kecil..."
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 fi
-if [ -n "${Tid}" ]; then
-echo " Topic id is True "
-bot_file_T
-else
-echo "Topic id is False"
+
 bot_file
-fi
+
 upload
 
 
@@ -940,13 +928,9 @@ echo " Mengkompress file menjadi lebih kecil "
 
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
-if [ -n "${Tid}" ]; then
-echo " Topic id is True "
-bot_file_T
-else
-echo "Topic id is False"
+
 bot_file
-fi
+
 main
 }
 
@@ -1087,13 +1071,9 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo " Mengkompress file menjadi lebih kecil "
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
-if [ -n "${Tid}" ]; then
-echo " Topic id is True "
-bot_file_T
-else
-echo "Topic id is False"
+
 bot_file
-fi
+
 main
 
 
@@ -1164,13 +1144,9 @@ mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
 echo "Mengkompress file menjadi lebih kecil"
 xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
-if [ -n "${Tid}" ]; then
-echo " Topic id is True "
-bot_file_T
-else
-echo "Topic id is False"
+
 bot_file
-fi
+
 main
 #end of 2
 else #else of Reomni
@@ -1979,22 +1955,13 @@ echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
-if [ -n "${Tid}" ]; then
-echo "Topic Grup Is true! "
 
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
--d "chat_id=${id_chat}" \
--d "text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..." \
--d "message_thread_id=${Tid}"
-
-else
 echo " "
-echo "Topic Grup is False "
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..."
 echo " "
 fi
-fi
+
 }
 
 ###########################################################
@@ -2007,20 +1974,12 @@ echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
-if [ -n "${Tid}" ]; then
-echo "Topic Grup Is true! "
 
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
--d "chat_id=${id_chat}" \
--d "text=Start Building ${Build_Status}_${Device_Name}..." \
--d "message_thread_id=${Tid}"
-
-else
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building ${Build_Status}_${Device_Name}..."
 echo " "
 fi
-fi
+
 }
 
 ###########################################################
@@ -2034,22 +1993,12 @@ echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 else
-if [ -n "${Tid}" ]; then
-echo "Topic Grup Is true! "
 
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
--d "chat_id=${id_chat}" \
--d "text=ERROR BUILD! COBA CEK YANG ERROR!" \
--d "message_thread_id=${Tid}"
-
-else
-echo " "
-echo "Topic Grup is False"
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR BUILD! COBA CEK YANG ERROR!"
 echo " "
 fi
-fi
+
 }
 
 ###########################################################
@@ -2085,52 +2034,7 @@ fi
 ##############################################################
 
 
-bot_file_T() {
-source ${current_directory}/save_settings.txt
 
-if [ -z "${id_chat}" ]; then
-echo " "
-echo " id chat tidak diatur, Melewati kirim Notifikasi ! "
-echo " "
-else
-if [ "${Build_Target}" = "vendorboot" ]; then
-chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-
-
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
--d "chat_id=${id_chat}" \
--d "text=NEW_BUILD ${Build_Status}_${Device_Name}..." \
--d "message_thread_id=${Tid}"
-
-
-
-curl -X POST "https://api.telegram.org/bot${Token}/sendDocument" \
-  -F chat_id="${id_chat}" \
-  -F document="${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" \
-  -F message_thread_id="${Tid}"
-  
-
-echo " "
-else
-chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" \
--d "chat_id=${id_chat}" \
--d "text=NEW_BUILD ${Build_Status}_${Device_Name}..." \
--d "message_thread_id=${Tid}"
-
-
-
-curl -X POST "https://api.telegram.org/bot${Token}/sendDocument" \
-  -F chat_id="${id_chat}" \
-  -F document="${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" \
-  -F message_thread_id="${Tid}"
-
-
-echo " "
-fi
-fi
-
-}
 
 
 
