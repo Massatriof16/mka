@@ -1832,6 +1832,7 @@ fi
 
 
 deletesync() {
+source ${current_directory}/save_settings.txt
 echo " "
 echo " Yakin Menghapus sync manifest? "
 echo "Kamu harus melakukan sync manifest ulang jika ingin Rebuild/Reomni!"
