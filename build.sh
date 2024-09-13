@@ -1421,7 +1421,7 @@ reofox() {
 source ${current_directory}/save_settings.txt
 if [ -n "${Branch_manifest}" ] || [ "${Build_Status}" = "OrangeFox" ]; then
 sed -i "s|Build_Status=.*|Build_Status=OrangeFox|" ${current_directory}/save_settings.txt
-
+fi
 # Permintaan Pilihan ke Pengguna
 echo "Memanggil Konfigurasi yang Tersimpan"
 source ${current_directory}/save_settings.txt
@@ -1638,10 +1638,16 @@ main
 elif [ "${settings}" = 2 ]; then ## Awal Dari Pilihan 2 ##
 
 # Memanggil konfigurasi yang tersimpan
-
-    source ${current_directory}/save_settings.txt
+echo " "
+echo " Memeriksa Ketersediaan Manifest"
+sleep 1
     
-if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
+    # Menghapus Cloning device tree yang telah ada sebelumnya
+    if [ -d /.workspace/ofox ]; then
+    echo " "
+    echo " Manifest Tersedia. Menghapus beberapa file... "
+    sleep 1
+   if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
     rm -rf ${current_directory}/OrangeFox*.xz
     rm -rf ${current_directory}/OrangeFox*.zip
 fi
@@ -1650,12 +1656,36 @@ fi
     if [ -n "${Path_Common}" ]; then
 rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Path_Common}
 fi
-
     rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}
    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}
-
+   else
+   echo " "
+   echo " Manifest Tidak Tersedia! Melakukan sync..."
+   cd /.workspace
+   mkdir ofox
+   cd ofox
+   git clone https://gitlab.com/OrangeFox/misc/scripts.git
+        cd scripts
+        sudo bash setup/android_build_env.sh
+        cd /.workspace/ofox
+        
+                
+        
+        
+        
+        git clone https://gitlab.com/OrangeFox/sync.git
+        cd sync
+        ./orangefox_sync.sh --branch ${Manifest_branch}
+        
+cd /.workspace/ofox/sync/fox_${Manifest_branch}
+   fi
+   
+   
+# Memanggil Konfigurasi Yang tersimpan
+    source ${current_directory}/save_settings.txt
+    
 # Cloning Device tree
 
 cd /.workspace/ofox/sync/fox_${Manifest_branch}
@@ -1663,30 +1693,28 @@ echo " "
 echo " Cloning Device tree "
 echo " "
 
+# Clone device tree
 git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-
-if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
+        if [ -n "${Common}" ] && [ -n "${Path_Common}" ]; then
        git clone ${Common} -b ${Branch_dt_twrp} ${Path_Common}
       
 fi
-
-
-        
         sleep 1
         cd ${current_directory}
-bot_notif2
-cd /.workspace/ofox/sync/fox_${Manifest_branch}
-clear
-echo " "
+        bot_notif2
+        cd /.workspace/ofox/sync/fox_${Manifest_branch}
+        clear
+        echo " "
         echo " BUILDING TWRP "
         echo " "
-        # start building
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
-
-        # Menyalin Hasil build ke direktori saat ini
+        # Start Building 
         
-       
-              if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j16
+
+        # Menyalin hasil ke direktori saat ini
+        
+          
+       if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
          cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
             cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
             
@@ -1729,11 +1757,7 @@ echo "Invalid Input!"
 echo " "
 main
 fi
-else
-echo " "
-echo " KAMU BELUM MELAKUKAN SYNC MANIFEST OFOX SEBELUMNYA! "
-echo " "
-fi
+
 
 }
 
