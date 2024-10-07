@@ -16,4 +16,4 @@ Build_Status=
 Tid=
 
 #For Working Directory {Build Directory}
-di_build=${current_director}/twrp
+di_build=${current_directory}/twrp
