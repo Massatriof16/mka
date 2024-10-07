@@ -1,10 +1,10 @@
 wax# TWRP Builder Menggunakan Gitpod
-
+UPDATE DATE 07 OCT 24 :
+- Menambahkan support Manifest twrp 14
 
 
 UPDATE DATE 08 SEPT 24 :
-- Sekarang Mendukung Mengirim notif ke Grup Topic
-- Anda dapat mengatur folder build twrp
+- Anda dapat mengatur folder build
 
 
 
