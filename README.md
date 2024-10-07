@@ -1,4 +1,8 @@
 wax# TWRP Builder Menggunakan Gitpod
+
+dengan script ini anda dapat melakukan build twrp/ofrp menggunakan gitpod agar lebih cepat dan efisien serta hemat waktu dalam melakukan build apabila terjadi error tidak perlu mengulangi dari awal karena semua yang informasi dari apa yang anda ingin build sebelumnya akan disimpan dan tidak perlu memasukkan ulang melakukan build saat error tidak mengulang sync minimal manifest sehingga langsung menclone ulang device tree dari github anda yang sudah diperbaiki lalu akan langsung melakukan build.
+
+
 UPDATE DATE 07 OCT 24 :
 - Menambahkan support Manifest twrp 14
 
@@ -11,7 +15,7 @@ UPDATE DATE 08 SEPT 24 :
 UPDATE DATE 04 AUG 24 :
 - Memperbarui Kerja ReAosp dan ReOmni sekarang akan melakukan sync otomatis saat tidak ada sync manifest sebagai gantinya akan memeriksa pengaturan minimal manifest apakah sudah diatur sebelumnya.
 - Mengoptimalkan kerja Menyimpan versi minimal manifest yang dimasukkan agar sesuai dengan perubahan Menu ReAosp dan ReOmni sekarang pengguna tidak bisa memasukkan selain yang ada di list versi minimal manifest tersebut.
-- Dengan berat hati menyampaikan bahwa Build Omni tidak dapat bekerja dengan benar pada gitpod apakah harus saya hapus?;) 
+- Omni not support build from gitpod !
 
 
 
