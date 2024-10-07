@@ -78,6 +78,7 @@ echo " "
  echo "Manifest AOSP Branch AVAILABLE : "
  echo " 11 "
  echo " 12.1 "
+ echo "14"
  echo "Pilih Manifest branch (11 , 12,1) [wajib] : "
 read Manifest_branch
 if [ -z "$Manifest_branch" ]; then
@@ -85,9 +86,9 @@ if [ -z "$Manifest_branch" ]; then
     echo " "
     main
 fi
-if [ "${Manifest_branch}" != "11" ] && [ "${Manifest_branch}" != "12.1" ]; then
+if [ "${Manifest_branch}" != "11" ] && [ "${Manifest_branch}" != "12.1" ] && ["${Manifest_branch}" != "14" ]; then
    echo ""
-   echo "Sepertinya  Minimal Manifest tidak cocok, yang kamu ketik saat ini adalah ${Manifest_branch}"
+   echo "sepertinya Minimal Manifest yang dimasukkan tidak tersedia!"
    echo " "
    main
    fi
@@ -805,7 +806,7 @@ if [ -z "$Manifest_branch" ]; then
 fi
 if [ "${Manifest_branch}" != "5.1" ] && [ "${Manifest_branch}" != "6.0" ] && [ "${Manifest_branch}" != "7.1" ] && [ "${Manifest_branch}" != "8.1" ] && [ "${Manifest_branch}" != "9.0" ]; then
    echo ""
-   echo "Sepertinya  Minimal Manifest tidak cocok, yang kamu ketik saat ini adalah ${Manifest_branch}"
+   echo "sepertinya Minimal Manifest yang dimasukkan tidak tersedia!"
    echo " "
    main
    fi
@@ -1198,7 +1199,7 @@ if [ -z "$Manifest_branch" ]; then
 fi
 if [ "${Manifest_branch}" != "11.0" ] && [ "${Manifest_branch}" != "12.1" ]; then
    echo ""
-   echo "Sepertinya  Minimal Manifest tidak cocok, yang kamu ketik saat ini adalah ${Manifest_branch}"
+   echo "sepertinya Minimal Manifest yang dimasukkan tidak tersedia!"
    echo " "
    main
    fi
@@ -1294,14 +1295,15 @@ fi
 
 
 
-cd /.workspace
+mkdir ${di_build}
+cd ${di_build}
  mkdir ofox
- cd ofox
+ cd ${di_build}/ofox
  
 # Menginstall Package yang diperlikan
 cd ${current_directory}
 bot_notif
-cd /.workspace/ofox
+cd ${di_build}/ofox
 echo " "
 echo "  Build Environment "
 echo " "
@@ -1317,7 +1319,7 @@ echo " "
         git clone https://gitlab.com/OrangeFox/misc/scripts.git
         cd scripts
         sudo bash setup/android_build_env.sh
-        cd /.workspace/ofox
+        cd ${di_build}/ofox
         
                 
         
@@ -1327,7 +1329,7 @@ echo " "
         cd sync
         ./orangefox_sync.sh --branch ${Manifest_branch}
         
-cd /.workspace/ofox/sync/fox_${Manifest_branch}
+cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 
         # Cloning Device tree
         echo " "
@@ -1348,7 +1350,7 @@ fi
         # Start Building 
         cd ${current_directory}
         bot_notif2
-        cd /.workspace/ofox/sync/fox_${Manifest_branch}
+        cd ${di_build}/ofox/sync/fox_${Manifest_branch}
         clear
         echo " Building Recovery "
         echo " "
@@ -1360,25 +1362,25 @@ fi
         
         
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
 
         # Menyalin Hasil Build Ke direktori saat ini 
         
        
          
          
-         if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+         if [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
             
-         elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
          
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
         
-        elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+        elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -1528,7 +1530,7 @@ echo " Memeriksa Ketersediaan Manifest"
 sleep 1
     
     # Menghapus Cloning device tree yang telah ada sebelumnya
-    if [ -d /.workspace/ofox ]; then
+    if [ -d ${di_build}/ofox ]; then
     echo " "
     echo " Manifest Tersedia. Menghapus beberapa file... "
     sleep 1
@@ -1539,22 +1541,23 @@ fi
 
 
     if [ -n "${Path_Common}" ]; then
-rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Path_Common}
+rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/${Path_Common}
 fi
-    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}
-   rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}
-   rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}
-   rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}
+    rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}
+   rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}
+   rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}
+   rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}
    else
    echo " "
    echo " Manifest Tidak Tersedia! Melakukan sync..."
-   cd /.workspace
+   mkdir ${di_build}
+   cd ${di_build}
    mkdir ofox
-   cd ofox
+   cd ${di_build}/ofox
    git clone https://gitlab.com/OrangeFox/misc/scripts.git
         cd scripts
         sudo bash setup/android_build_env.sh
-        cd /.workspace/ofox
+        cd ${di_build}/ofox
         
                 
         
@@ -1564,7 +1567,7 @@ fi
         cd sync
         ./orangefox_sync.sh --branch ${Manifest_branch}
         
-cd /.workspace/ofox/sync/fox_${Manifest_branch}
+cd ${di_build}/ofox/sync/fox_${Manifest_branch}
    fi
    
    
@@ -1573,7 +1576,7 @@ cd /.workspace/ofox/sync/fox_${Manifest_branch}
     
 # Cloning Device tree
 
-cd /.workspace/ofox/sync/fox_${Manifest_branch}
+cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -1587,30 +1590,30 @@ fi
         sleep 1
         cd ${current_directory}
         bot_notif2
-        cd /.workspace/ofox/sync/fox_${Manifest_branch}
+        cd ${di_build}/ofox/sync/fox_${Manifest_branch}
         clear
         echo " "
         echo " BUILDING TWRP "
         echo " "
         # Start Building 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j16
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j16
 
         # Menyalin hasil ke direktori saat ini
         
           
-       if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+       if [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
             
-         elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
          
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
         
-        elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+        elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -1643,7 +1646,7 @@ echo " Memeriksa Ketersediaan Manifest"
 sleep 1
     
     # Menghapus Cloning device tree yang telah ada sebelumnya
-    if [ -d /.workspace/ofox ]; then
+    if [ -d ${di_build}/ofox ]; then
     echo " "
     echo " Manifest Tersedia. Menghapus beberapa file... "
     sleep 1
@@ -1654,22 +1657,23 @@ fi
 
 
     if [ -n "${Path_Common}" ]; then
-rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Path_Common}
+rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/${Path_Common}
 fi
-    rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}
-   rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}
-   rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}
-   rm -rf /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}
+    rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}
+   rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}
+   rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}
+   rm -rf ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}
    else
    echo " "
    echo " Manifest Tidak Tersedia! Melakukan sync..."
-   cd /.workspace
+   mkdir ${di_build}
+   cd ${di_build}
    mkdir ofox
-   cd ofox
+   cd ${di_build}ofox
    git clone https://gitlab.com/OrangeFox/misc/scripts.git
         cd scripts
         sudo bash setup/android_build_env.sh
-        cd /.workspace/ofox
+        cd ${di_build}/ofox
         
                 
         
@@ -1679,7 +1683,7 @@ fi
         cd sync
         ./orangefox_sync.sh --branch ${Manifest_branch}
         
-cd /.workspace/ofox/sync/fox_${Manifest_branch}
+cd ${di_build}/ofox/sync/fox_${Manifest_branch}
    fi
    
    
@@ -1688,7 +1692,7 @@ cd /.workspace/ofox/sync/fox_${Manifest_branch}
     
 # Cloning Device tree
 
-cd /.workspace/ofox/sync/fox_${Manifest_branch}
+cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -1702,30 +1706,30 @@ fi
         sleep 1
         cd ${current_directory}
         bot_notif2
-        cd /.workspace/ofox/sync/fox_${Manifest_branch}
+        cd ${di_build}/ofox/sync/fox_${Manifest_branch}
         clear
         echo " "
         echo " BUILDING TWRP "
         echo " "
         # Start Building 
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd /.workspace/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j16
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j16
 
         # Menyalin hasil ke direktori saat ini
         
           
-       if [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+       if [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
+         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
+            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
             
-         elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
          
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
         
-        elif [ -e "/.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp /.workspace/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+        elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -1858,10 +1862,10 @@ echo "Menghapus Sync Manifest..."
 rm -rf ${di_build}
 echo "Done!"
 main
-elif [ -d "/.workspace/ofox" ]; then
+elif [ -d "${di_build}/ofox" ]; then
 echo " "
 echo " Menghaous Sync Manifest..."
-rm -rf /.workspace/ofox
+rm -rf ${di_build}/ofox
 echo "Done!"
 main
 else
