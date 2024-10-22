@@ -13,7 +13,7 @@ Out=
 api=
 Manifest_branch=
 Build_Status=
-Tid=
+id_topic=
 
 #For Working Directory {Build Directory}
 di_build=${current_directory}/twrp
