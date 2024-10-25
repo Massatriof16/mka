@@ -1989,8 +1989,11 @@ if [ -z "${id_chat}" ]; then
 echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
+elif [ -n "${id_topic}" ]; then
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "Start Creat Environment For Building ${Build_Status}_${Device_Name}..."}' \
+  https://api.telegram.org/bot${Token}/sendMessage
 else
-
 echo " "
 echo " "
 curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..."
@@ -2008,10 +2011,14 @@ if [ -z "${id_chat}" ]; then
 echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
+elif [ -n "${id_topic}" ]; then
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "Starting Building ${Build_Status}_${Device_Name}..."}' \
+  https://api.telegram.org/bot${Token}/sendMessage
 else
 
 echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Start Building ${Build_Status}_${Device_Name}..."
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Starting Building ${Build_Status}_${Device_Name}..."
 echo " "
 fi
 
@@ -2027,10 +2034,14 @@ if [ -z "${id_chat}" ]; then
 echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
+elif [ -n "${id_topic}" ]; then
+curl -X POST -H 'Content-Type: application/json' \
+  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "ERROR KETIKA BUILDING ${Build_Status}_${Device_Name} HARAP PERIKSA KEMBALI DAN LIHAT LOG ERROR!"}' \
+  https://api.telegram.org/bot${Token}/sendMessage
 else
 
 echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR BUILD! COBA CEK YANG ERROR!"
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= ERROR KETIKA BUILDING ${Build_Status}_${Device_Name} HARAP PERIKSA KEMBALI DAN LIHAT LOG ERROR!"
 echo " "
 fi
 
