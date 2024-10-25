@@ -317,7 +317,11 @@ xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 fi
 
+if [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
+bot_file_topic
+else
 bot_file
+fi
 
 upload
 main #kembali ke menu
@@ -600,7 +604,12 @@ xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
     fi
     
+if [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
+bot_file_topic
+else
 bot_file
+fi
+
 
     upload
    
@@ -740,7 +749,11 @@ xz TWRP_${Device_Name}_${Build_Target}.img
 echo " "
 fi
 
+if [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
+bot_file_topic
+else
 bot_file
+fi
 
 upload
 
