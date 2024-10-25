@@ -2024,7 +2024,7 @@ if [ -z "${id_chat}" ]; then
 echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
-elif [ -n "${id_topic}" ]; then
+elif [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
 curl -X POST -H 'Content-Type: application/json' \
   -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "Starting Building ${Build_Status}_${Device_Name}..."}' \
   https://api.telegram.org/bot${Token}/sendMessage
