@@ -2101,7 +2101,7 @@ source ${current_directory}/save_settings.txt
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 curl -X POST -H 'Content-Type: application/json' \
-  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "NEW BUILD TWRP_${Device_Name}!"}' \
+  -d '{"message_thread_id": '${id_topic}', "chat_id": '${id_chat}', "text": "NEW BUILD TWRP_${Device_Name}!"}' \
   https://api.telegram.org/bot${Token}/sendMessage
   echo " "
 curl -F "chat_id=${id_chat}" \
@@ -2114,7 +2114,7 @@ else
 chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 echo " "
 curl -X POST -H 'Content-Type: application/json' \
-  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "NEW BUILD TWRP_${Device_Name}!"}' \
+  -d '{"message_thread_id": '${id_topic}', "chat_id": '${id_chat}', "text": "NEW BUILD TWRP_${Device_Name}!"}' \
   https://api.telegram.org/bot${Token}/sendMessage
 echo " "
 curl -F "chat_id=${id_chat}" \
