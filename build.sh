@@ -1802,7 +1802,7 @@ echo " "
 echo "Token Bot Telegram Telah diatur default sebagai bot owner script"
 echo "Chat id dan Apikey Pixeldrain blum di Atur!"
 echo "1. Atur Ulang Token"
-echo "2. Atur Chat id"
+echo "2. Atur Chat id "
 echo "3. Atur Apikey "
 read -p " Pilih ( 1-3 ) : " setcon
 
@@ -1822,7 +1822,7 @@ fi
 elif [ "${setcon}" = 2 ]; then
 echo " "
 read -p "Ketik Chat Id anda : " id_chat
-read -p "ketik topik id anda (jika ditujukan di grup topik) : " id_topic
+read -p "ketik topik id anda (jika pesan bot ditujukan ke grup topik) : " id_topic
 if [ -z "${id_chat}" ]; then
 echo " "
 echo " Id chat kosong ! "
@@ -1880,12 +1880,14 @@ echo " "
 if [ -d "${di_build}" ]; then
 echo "Menghapus Sync Manifest..."
 rm -rf ${di_build}
+rm -rf ${current_directory}/*.xz
 echo "Done!"
 main
 elif [ -d "${di_build}/ofox" ]; then
 echo " "
 echo " Menghaous Sync Manifest..."
 rm -rf ${di_build}/ofox
+rm -rf ${current_directory}/*.xz
 echo "Done!"
 main
 else
