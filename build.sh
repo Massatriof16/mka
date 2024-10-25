@@ -1917,6 +1917,17 @@ if [ -z "${id_chat}" ]; then
 echo " "
 echo "id chat belum diatur, Melewati kirim Notifikasi"
 echo " "
+elif [ -n "${id_topic}" ]; then
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "document=@${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" \
+ https://api.telegram.org/bot${Token}/sendDocument
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "document=@${current_directory}/OrangeFox_Installer_${Device_Name}.zip" \
+ https://api.telegram.org/bot${Token}/sendDocument
+
+
 else
 echo " "
 curl -F document=@"${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
