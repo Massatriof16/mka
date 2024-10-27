@@ -2002,10 +2002,11 @@ if [ -z "${id_chat}" ]; then
 echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
-elif [ -n "${id_topic}" ]; then
-curl -X POST -H 'Content-Type: application/json' \
-  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "Start Creat Environment For Building ${Build_Status}_${Device_Name}..."}' \
-  https://api.telegram.org/bot${Token}/sendMessage
+elif [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "text=Start Creat Environment For Building ${Build_Status}_${Device_Name}" \
+ https://api.telegram.org/bot${Token}/sendMessage
 else
 echo " "
 echo " "
@@ -2025,9 +2026,10 @@ echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
 elif [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
-curl -X POST -H 'Content-Type: application/json' \
-  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "Starting Building ${Build_Status}_${Device_Name}..."}' \
-  https://api.telegram.org/bot${Token}/sendMessage
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "text=Starting Building ${Build_Status}_${Device_Name}" \
+ https://api.telegram.org/bot${Token}/sendMessage
 else
 
 echo " "
@@ -2047,10 +2049,11 @@ if [ -z "${id_chat}" ]; then
 echo " "
 echo " id chat Tidak diatur, Melewati kirim notifikasi !"
 echo " "
-elif [ -n "${id_topic}" ]; then
-curl -X POST -H 'Content-Type: application/json' \
-  -d '{"message_thread_id": "${id_topic}", "chat_id": "${id_chat}", "text": "ERROR KETIKA BUILDING ${Build_Status}_${Device_Name} HARAP PERIKSA KEMBALI DAN LIHAT LOG ERROR!"}' \
-  https://api.telegram.org/bot${Token}/sendMessage
+elif [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "text=ERROR KETIKA BUILDING ${Build_Status}_${Device_Name} HARAP PERIKSA KEMBALI DAN LIHAT LOG ERROR!" \
+ https://api.telegram.org/bot${Token}/sendMessage
 else
 
 echo " "
@@ -2073,14 +2076,14 @@ echo " "
 else
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD ${Build_Status}_${Device_Name}!"
 echo " "
 curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
 echo " "
 else
 chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD TWRP_${Device_Name}!"
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD ${Build_Status}_${Device_Name}!"
 echo " "
 curl -F document=@"${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
 echo " "
@@ -2100,9 +2103,10 @@ source ${current_directory}/save_settings.txt
 
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-curl -X POST -H 'Content-Type: application/json' \
-  -d '{"message_thread_id": '${id_topic}', "chat_id": '${id_chat}', "text": "NEW BUILD TWRP_${Device_Name}!"}' \
-  https://api.telegram.org/bot${Token}/sendMessage
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "text=NEW BUILD ${Build_Status} ${Device_Name}" \
+ https://api.telegram.org/bot${Token}/sendMessage
   echo " "
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
@@ -2113,9 +2117,10 @@ echo " "
 else
 chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 echo " "
-curl -X POST -H 'Content-Type: application/json' \
-  -d '{"message_thread_id": '${id_topic}', "chat_id": '${id_chat}', "text": "NEW BUILD TWRP_${Device_Name}!"}' \
-  https://api.telegram.org/bot${Token}/sendMessage
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "text=NEW BUILD ${Build_Status} ${Device_Name}" \
+ https://api.telegram.org/bot${Token}/sendMessage
 echo " "
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
