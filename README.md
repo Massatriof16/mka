@@ -3,7 +3,7 @@ wax# TWRP Builder Menggunakan Gitpod
 dengan script ini anda dapat melakukan build twrp/ofrp menggunakan gitpod agar lebih cepat dan efisien serta hemat waktu dalam melakukan build. Apabila terjadi error, tidak perlu mengulangi dari awal karena semua yang informasi dari apa yang anda ingin build sebelumnya akan disimpan dan tidak perlu memasukkan ulang melakukan build serta pada saat error, script tidak mengulang sync minimal manifest sehingga melakukan clone ulang device tree dari github anda yang sudah diperbaiki lalu akan segera melakukan build.
 
 UPDATE DATE 27 OCF 24 :
--Sekarang Bot telegram dapat memgirim notifikasi dan file pada grup yang memiliki topik
+- Sekarang Bot telegram dapat memgirim notifikasi dan file pada grup yang memiliki topik
 
 
 UPDATE DATE 07 OCT 24 :
