@@ -78,7 +78,7 @@ echo " "
  echo "Manifest AOSP Branch AVAILABLE : "
  echo " 11 "
  echo " 12.1 "
- echo "14"
+ echo " 14 "
  echo "Pilih Manifest branch (11 , 12,1) [wajib] : "
 read Manifest_branch
 if [ -z "$Manifest_branch" ]; then
