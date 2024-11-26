@@ -1541,13 +1541,13 @@ sleep 1
 echo " "
 echo " Memeriksa Ketersediaan Manifest"
 sleep 1
-    
+    source
     # Menghapus Cloning device tree yang telah ada sebelumnya
     if [ -d ${di_build}/ofox ]; then
     echo " "
     echo " Manifest Tersedia. Menghapus beberapa file... "
     sleep 1
-   if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
+   if  [ -e "${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" ]; then
     rm -rf ${current_directory}/OrangeFox*.xz
     rm -rf ${current_directory}/OrangeFox*.zip
 fi
@@ -1663,7 +1663,7 @@ sleep 1
     echo " "
     echo " Manifest Tersedia. Menghapus beberapa file... "
     sleep 1
-   if  [ -e "${current_directory}/OrangeFox*.xz" ]; then
+   if  [ -e "${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" ]; then
     rm -rf ${current_directory}/OrangeFox*.xz
     rm -rf ${current_directory}/OrangeFox*.zip
 fi
