@@ -1,6 +1,6 @@
 # TWRP Builder Menggunakan Gitpod
 
-dengan script ini anda dapat melakukan build twrp/ofrp menggunakan gitpod agar lebih cepat dan efisien serta hemat waktu dalam melakukan build. Apabila terjadi error, tidak perlu mengulangi dari awal karena semua yang informasi dari apa yang anda ingin build sebelumnya akan disimpan dan tidak perlu memasukkan ulang melakukan build serta pada saat error, script tidak mengulang sync minimal manifest sehingga melakukan clone ulang device tree dari github anda yang sudah diperbaiki lalu akan segera melakukan build.
+Script ini melakukan build otomatis dengan cara menyimpan informasi device yang dibutuhkan untuk melakukan build. Selain itu dengan adanya menyimpan informasi maka script ini akan dapat melakukan Rebuild tanpa memasukkan informasi lagi tetapi anda juga bisa mengupdate nya. Dengan ini anda dapat melakukan Rebuild dengan sedikit lebih cepat tanpa menghapus minimal manifest yang telah disync, dengan kemampuan itu script dapat langsung build dan melakukan replace device tree yang telah anda perbarui di github anda, untuk memeprbaiki error build atau memprbaiki masalah twrp/ofox tanpa memakan waktu yang banyak. script ini juga memiliki kemampuan mengirim notifikasi dan mengirim file hasil build dari Bot Telegram serta juga support Upload ke Pixeldrain.
 
 UPDATE DATE 27 OCF 24 :
 - Sekarang Bot telegram dapat memgirim notifikasi dan file pada grup yang memiliki topik
