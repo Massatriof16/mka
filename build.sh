@@ -1682,7 +1682,7 @@ fi
    mkdir ${di_build}
    cd ${di_build}
    mkdir ofox
-   cd ${di_build}ofox
+   cd ${di_build}/ofox
    git clone https://gitlab.com/OrangeFox/misc/scripts.git
         cd scripts
         sudo bash setup/android_build_env.sh
