@@ -1382,18 +1382,18 @@ fi
        
          
          
-         if [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+         if [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.img ]; then
+         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.img ${current_directory}
+            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.zip ${current_directory}
             
-         elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.img ]; then
          
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.zip ${current_directory}
         
-        elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+        elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ]; then
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.zip ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -1615,18 +1615,18 @@ fi
         # Menyalin hasil ke direktori saat ini
         
           
-       if [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+       if [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.img ]; then
+         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.img ${current_directory}
+            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.zip ${current_directory}
             
-         elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.img ]; then
          
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.zip ${current_directory}
         
-        elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+        elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ]; then
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.zip ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
@@ -1731,18 +1731,18 @@ fi
         # Menyalin hasil ke direktori saat ini
         
           
-       if [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img" ]; then
-         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.img ${current_directory}
-            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox-Unofficial-${Out}.zip ${current_directory}
+       if [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.img ]; then
+         cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.img ${current_directory}
+            cp -r ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Out}/OrangeFox*.zip ${current_directory}
             
-         elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img" ]; then
+         elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.img ]; then
          
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.img ${current_directory}
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox-Unofficial-${Device_Name}.zip ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.zip ${current_directory}
         
-        elif [ -e "${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img" ]; then
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ${current_directory}
-        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.zip ${current_directory}
+        elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ]; then
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.img ${current_directory}
+        cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.zip ${current_directory}
            else
            echo " "
            echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH  "
