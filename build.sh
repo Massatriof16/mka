@@ -9,8 +9,6 @@ echo " "
 echo "--------------Builder TWRP by Massatrio16 -----------"
 echo "1. New Build for Aosp (sync minimal manifest)"
 echo "2. Rebuild for Aosp ( No need sync minimal manifest)"
-echo "3. New Build for Omni (sync minimal manifest)"
-echo "4. Rebuild for Omni ( No need sync minimal manifest)"
 echo "5. New Build For Ofox (Sync Minimal Manifest) "
 echo "6. Rebuild for ofox ( No need sync Minimal Manifest)"
 echo "7. Setting Notification Telegram & Upload File (Recommended)"
@@ -26,23 +24,17 @@ main
 elif [ "${Main}" = 2 ]; then ## Jika Pengguna Input 2 ##
 ReAosp
 main
-elif [ "${Main}" = 3 ]; then ## jika Pengguna Input 3 ##
-Omni
-main
-elif [ "${Main}" = 4 ]; then ## Jika Pengguna input 4 ##
-ReOmni
-main
-elif [ "${Main}" = 5 ]; then ## Jika pengguna input 5 ##
+elif [ "${Main}" = 3 ]; then ## Jika pengguna input 5 ##
 Ofox
 main
-elif [ "${Main}" = 6 ]; then ## Jika pengguna input 6 ##
+elif [ "${Main}" = 4 ]; then ## Jika pengguna input 6 ##
 reofox
 main
-elif [ "${Main}" = 7 ]; then ## Jika pengguna input 7 ##
+elif [ "${Main}" = 5 ]; then ## Jika pengguna input 7 ##
 botconfig
-elif [ "${Main}" = 8 ]; then ## Jika pengguna input 8 ##
+elif [ "${Main}" = 6 ]; then ## Jika pengguna input 8 ##
 deletesync
-elif [ "${Main}" = 9 ]; then ## jika pengguna input 9 $#
+elif [ "${Main}" = 7 ]; then ## jika pengguna input 9 $#
 exit 0
 else ## Jika pengguna Memasukkan selain pilihan ##
 echo " "
@@ -252,8 +244,8 @@ echo " "
         echo " Building Recovery "
         echo " "
         sleep 1
-        
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${di_build}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+        cd ${di_build}
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image 
 
         
         
@@ -533,8 +525,8 @@ fi
         echo " BUILDING TWRP "
         echo " "
         # Start Building 
-        
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${di_build}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+        cd ${di_build}
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
 
        
        
@@ -685,7 +677,8 @@ echo " "
         echo " BUILDING TWRP "
         echo " "
         # start building
-         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; cd ${di_build}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+        cd ${di_build}
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
 
 
 
@@ -782,399 +775,6 @@ echo " "
 main
 fi
 
-
-}
-
-
-##############################################################
-##############################################################
-##############################################################
-##############################################################
-
-
-
-#Fungsi Omni
-Omni()
-{
- 
-source ${current_directory}/save_settings.txt
-
- echo " "
- echo " BUILD CONFIGURATION TWRP "
- echo " "
- 
- 
- echo "Manifest Omni branch AVAILABLE : "
- echo "5.1 "
- echo "6.0 "
- echo "7.1 "
- echo "8.1 "
- echo "9.0 "
- echo "Pilih Manifest branch : "
-read Manifest_branch
-if [ -z "$Manifest_branch" ]; then
-    echo "Input Manifest branch kosong!."
-    echo " "
-    main
-fi
-if [ "${Manifest_branch}" != "5.1" ] && [ "${Manifest_branch}" != "6.0" ] && [ "${Manifest_branch}" != "7.1" ] && [ "${Manifest_branch}" != "8.1" ] && [ "${Manifest_branch}" != "9.0" ]; then
-   echo ""
-   echo "sepertinya Minimal Manifest yang dimasukkan tidak tersedia!"
-   echo " "
-   main
-   fi
-echo "Link Device tree twrp : "
-read Device_tree
-if [ -z "${Device_tree}" ]; then
-    echo "Input Device tree Kosong !"
-    echo " "
-    main
-fi
-echo "Branch Device_tree_twrp : "
-read Branch_dt_twrp
-if [ -z "${Branch_dt_twrp}" ]; then
-    echo "Input branch device tree Kosong !"
-    echo " "
-    main
-fi
-echo "Device Path : "
-read Device_Path
-if [ -z "${Device_Path}" ]; then
-    echo "Input Device path Kosong!"
-    echo " "
-    main
-fi
-echo "Device Name : "
-read Device_Name
-if [ -z "${Device_Name}" ]; then
-    echo "Input Device Name Kosong!"
-    echo " "
-    main
-fi
-echo "Build Target (recovery,boot) : "
-read Build_Target
- if [ -z "${Build_Target}" ]; then
-    echo "Input Build Target Kosong!"
-    echo " "
-    main
-fi
-if [ "${Build_Target}" != "recovery" ] && [ "${Build_Target}" != "boot" ]; then
-   echo ""
-   echo "Sepertinya  Build Target tidak cocok, yang kamu ketik saat ini adalah ${Build_Target}"
-   echo " "
-   main
-   fi
-sed -i "s|Manifest_branch=.*|Manifest_branch=$Manifest_branch|" ${current_directory}/save_settings.txt
-
-sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
- 
-sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
-
-
-sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
-
-sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
-
-sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
-
- mkdir ${di_build}
- cd ${di_build}
-
-cd ${current_directory}
- bot_notif
- cd ${di_build}
-echo " "
-echo " Build Environment... "
-echo " "
-
-  
-   
-   
-        git config --global user.name "Nico170420"
-        git config --global user.email "b170420nc@gmail.com"
-        
-        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
-        
-        repo sync --force-sync
-        echo " "
-    
-        echo " Cloning Device Tree "
-        echo " "
-        git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-
-
-        bash ${current_directory}/scripts/convert.sh ${Device_Path}/omni.dependencies
-
-        
-        sleep 1
-        cd ${current_directory}
-        bot_notif2
-        cd ${di_build}
-        clear
-        echo " "
-        echo " Building recovery..."
-        echo " "
-         export ALLOW_MISSING_DEPENDENCIES=true
-         JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-         PATH=$JAVA_HOME/bin:$PATH
-         source build/envsetup.sh
-         cd ${di_build}
-         lunch omni_${Device_Name}-eng
-         make clean
-         make ${Build_Target}image
-       
-     
-     
-     if [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
-        else
-        echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
-        bot_error
-        main
-        fi
-        
-        echo " DONE BUILD !"
-     echo " "
-cd ${current_directory}
-mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
-echo " "
-echo " Mengkompress file menjadi lebih kecil "
-
-xz TWRP_${Device_Name}_${Build_Target}.img
-echo " "
-
-bot_file
-
-main
-}
-
-##############################################################
-##############################################################
-##############################################################
-##############################################################
-
-# Fungsi Reomni
-ReOmni()
-{
-
-
-source ${current_directory}/save_settings.txt
-
-echo "Memanggil Konfigurasi yang Tersimpan"
-if [ -n ${Manifest_branch} ]; then
-echo "Ingin ubah konfigurasi tersimpan?"
-echo "1. Ya"
-echo "2. Tidak"
-echo "Pilih (1-2): "
-read settings
-
-if [ "${settings}" = 1 ]; then
-    echo "Link Device tree twrp : "
-read Device_tree
-if [ -z "${Device_tree}" ]; then
-    echo "Input Device tree Kosong !"
-    echo " "
-    main
-fi
-echo "Branch Device_tree_twrp : "
-read Branch_dt_twrp
-if [ -z "${Branch_dt_twrp}" ]; then
-    echo "Input branch device tree Kosong !"
-    echo " "
-    main
-fi
-echo "Device Path : "
-read Device_Path
-if [ -z "${Device_Path}" ]; then
-    echo "Input Device path Kosong!"
-    echo " "
-    main
-fi
-echo "Device Name : "
-read Device_Name
-if [ -z "$Device_Name}" ]; then
-    echo "Input Device Name Kosong!"
-    echo " "
-    main
-fi
-echo "Build Target (recovery,boot,vendorboot) : "
-read Build_Target
- if [ -z "${Build_Target}" ]; then
-    echo "Input Build Target Kosong!"
-    echo " "
-    main
-fi
-
-    sed -i "s|Device_tree=.*|Device_tree=$Device_tree|" ${current_directory}/save_settings.txt
- 
-sed -i "s|Branch_dt_twrp=.*|Branch_dt_twrp=$Branch_dt_twrp|" ${current_directory}/save_settings.txt
-
-
-sed -i "s|Device_Path=.*|Device_Path=$Device_Path|" ${current_directory}/save_settings.txt
-
-sed -i "s|Device_Name=.*|Device_Name=$Device_Name|" ${current_directory}/save_settings.txt
-
-sed -i "s|Build_Target=.*|Build_Target=$Build_Target|" ${current_directory}/save_settings.txt
-
-
-echo " Diperbarui!"
-sleep 1
-
-    echo " "
-    echo "Memeriksa Ketersediaan Manifest..."
-    sleep 1
-    if [ -d "${di_build}" ]; then
-    echo " "
-    echo " Manifest Tersedia menghapus beberapa file..."
-if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
-    rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-fi
-if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; then
-rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
-fi 
-    rm -rf ${di_build}/${Device_Path}
-    rm -rf ${di_build}/out/target/product/${Device_Name}
-else
-
-mkdir ${di_build}
-cd ${di_build}
-echo "Manifest Tidak Tersedia Mengulangi sync Manifest.."
-echo " "
-repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
-repo sync --force-sync
-fi
-
-
-source ${current_directory}/save_settings.txt
-cd ${di_build}
-echo " "
-echo "Cloning Device Tree "
-echo " "
-git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-cd ${current_directory}
-bot_notif2
-cd ${di_build}
-clear
-echo " "
-echo " Building recovery "
-echo " "
-sleep 1
-
-        
-         export ALLOW_MISSING_DEPENDENCIES=true
-         JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-         PATH=$JAVA_HOME/bin:$PATH
-         source build/envsetup.sh
-         cd ${di_build}
-         lunch omni_${Device_Name}-eng
-         make clean
-         make ${Build_Target}image
-   
-         if [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
-        else
-        echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
-        bot_error
-        main
-        fi    
-echo " DONE BUILD !"
-   echo " "
-        cd ${current_directory}
-mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
-
-echo " Mengkompress file menjadi lebih kecil "
-xz TWRP_${Device_Name}_${Build_Target}.img
-echo " "
-
-bot_file
-
-main
-
-
-#end of 1
-
-elif [ "${settings}" = 2 ]; then #Start of 2
-    source ${current_directory}/save_settings.txt
-    echo " "
-    echo "Memeriksa Ketersediaan Manifest..."
-    sleep 1
-    if [ -d "${di_build}" ]; then
-    echo " "
-    echo " Manifest Tersedia menghapus beberapa file..."
-if  [ -e "${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" ]; then
-    rm -rf ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-fi
-if [ -e "${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz" ]; then
-rm -rf ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
-fi 
-    rm -rf ${di_build}/${Device_Path}
-    rm -rf ${di_build}/out/target/product/${Device_Name}
-else
-
-mkdir ${di_build}
-cd ${di_build}
-echo "Manifest Tidak Tersedia Mengulangi sync Manifest.."
-echo " "
-repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git -b twrp-${Manifest_branch}
-repo sync --force-sync
-fi
-
-cd ${di_build}
-echo " "
-echo "Cloning Device Tree "
-echo " "
-git clone ${Device_tree} -b ${Branch_dt_twrp} ${Device_Path}
-
-cd ${current_directory}
-bot_notif2
-cd ${di_build}
-clear
-echo " "
-sleep 1
-echo " "
-echo " Building recovery "
-echo " "
-        
-         export ALLOW_MISSING_DEPENDENCIES=true
-         JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-         PATH=$JAVA_HOME/bin:$PATH
-         source build/envsetup.sh
-         cd ${di_build}
-         lunch omni_${Device_Name}-eng
-         make clean
-         make ${Build_Target}image
-   
-         if [ -e "${di_build}/out/target/product/${Device_Name}/${Build_Target}.img" ]; then
-         cp -r ${di_build}/out/target/product/${Device_Name}/${Build_Target}.img ${current_directory}     
-        else
-        echo "FILE HASIL BUILD TIDAK DITEMUKAN SEPERTINYA ADA MASALAH"
-        bot_error
-        main
-        fi  
-echo " DONE BUILD ! "
-   echo " "
-        cd ${current_directory}
-mv ${Build_Target}.img TWRP_${Device_Name}_${Build_Target}.img
-echo "Mengkompress file menjadi lebih kecil"
-xz TWRP_${Device_Name}_${Build_Target}.img
-echo " "
-
-bot_file
-
-main
-#end of 2
-else #else of Reomni
-echo " "
-    echo "Input tidak valid. Perintah dibatalkan."
-    echo " "
-    main
-fi
-else
-echo " "
-echo " KAMU BELUM PERNAH MELAKUKAN SYNC! "
-echo " "
-main
-fi
 
 }
 
@@ -1609,9 +1209,8 @@ fi
         echo " BUILDING TWRP "
         echo " "
         # Start Building 
-        
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j16
-
+        cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
         # Menyalin hasil ke direktori saat ini
         
           
@@ -1725,8 +1324,8 @@ fi
         echo " BUILDING TWRP "
         echo " "
         # Start Building 
-        
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j16
+        cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
 
         # Menyalin hasil ke direktori saat ini
         
@@ -2076,7 +1675,7 @@ echo " "
 else
 if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= NEW BUILD ${Build_Status}_${Device_Name}!"
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= SUKSES BUILD ${Build_Status}_${Device_Name}!"
 echo " "
 curl -F document=@"${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz" https://api.telegram.org/bot${Token}/sendDocument?chat_id=${id_chat}
 echo " "
@@ -2105,7 +1704,7 @@ if [ "${Build_Target}" = "vendorboot" ]; then
 chmod a+x ${current_directory}/TWRP_${Device_Name}_vendor_boot.img.xz
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
-  -F "text=NEW BUILD ${Build_Status} ${Device_Name}" \
+  -F "text=SUKSES BUILD ${Build_Status} ${Device_Name}" \
  https://api.telegram.org/bot${Token}/sendMessage
   echo " "
 curl -F "chat_id=${id_chat}" \
@@ -2119,7 +1718,7 @@ chmod a+x ${current_directory}/TWRP_${Device_Name}_${Build_Target}.img.xz
 echo " "
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
-  -F "text=NEW BUILD ${Build_Status} ${Device_Name}" \
+  -F "text=SUKSES BUILD ${Build_Status} ${Device_Name}" \
  https://api.telegram.org/bot${Token}/sendMessage
 echo " "
 curl -F "chat_id=${id_chat}" \
