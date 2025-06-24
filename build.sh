@@ -208,6 +208,8 @@ cd ${di_build}
 cd ${current_directory}
 bot_notif
 cd ${di_build}
+echo " FIX ATOMIC FAILED "
+cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
 echo " "
 echo "  Build Environment "
 echo " "
@@ -500,6 +502,8 @@ fi
 
 cd ${di_build}
 echo " "
+echo " FIX ATOMIC FAILED "
+cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
 echo " Cloning Device tree "
 echo " "
 
@@ -519,7 +523,6 @@ fi
         bot_notif2
         cd ${di_build}
         clear
-        
         # BUILD DIMULAI
         echo " "
         echo " BUILDING TWRP "
@@ -654,6 +657,8 @@ fi
 # Cloning Device tree
 
 cd ${di_build}
+echo " FIX ATOMIC FAILED "
+cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -964,6 +969,8 @@ fi
         cd ${current_directory}
         bot_notif2
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+        echo " FIX ATOMIC FAILED "
+        cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
         clear
         echo " Building Recovery "
         echo " "
@@ -1190,6 +1197,8 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 # Cloning Device tree
 
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+echo " FIX ATOMIC FAILED "
+cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -1305,6 +1314,8 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 # Cloning Device tree
 
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+echo " FIX ATOMIC FAILED "
+cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -1517,6 +1528,11 @@ echo " "
 echo "id chat belum diatur, Melewati kirim Notifikasi"
 echo " "
 elif [ -n "${id_topic}" ]; then
+curl -F "chat_id=${id_chat}" \
+  -F "message_thread_id=${id_topic}" \
+  -F "text=SUKSES BUILD ${Build_Status} ${Device_Name}" \
+ https://api.telegram.org/bot${Token}/sendMessage
+  echo " "
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
   -F "document=@${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" \
