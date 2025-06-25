@@ -208,8 +208,12 @@ cd ${di_build}
 cd ${current_directory}
 bot_notif
 cd ${di_build}
-echo " FIX ATOMIC FAILED "
+
+if [ "${Manifest_branch}" = 12.1 ]; then
+echo " Terdeteksi manifest 12"
+echo " Memperbaiki ATOMIC FAILED "
 cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+fi
 echo " "
 echo "  Build Environment "
 echo " "
@@ -502,8 +506,11 @@ fi
 
 cd ${di_build}
 echo " "
-echo " FIX ATOMIC FAILED "
+if [ "${Manifest_branch}" = 12.1 ]; then
+echo " Terdeteksi manifest 12"
+echo " Memperbaiki ATOMIC FAILED "
 cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+fi
 echo " Cloning Device tree "
 echo " "
 
@@ -657,8 +664,11 @@ fi
 # Cloning Device tree
 
 cd ${di_build}
-echo " FIX ATOMIC FAILED "
+if [ "${Manifest_branch}" = 12.1 ]; then
+echo " Terdeteksi manifest 12"
+echo " Memperbaiki ATOMIC FAILED "
 cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+fi
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -969,8 +979,11 @@ fi
         cd ${current_directory}
         bot_notif2
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-        echo " FIX ATOMIC FAILED "
+        if [ "${Manifest_branch}" = 12.1 ]; then
+        echo " Terdeteksi manifest 12"
+        echo " Memperbaiki ATOMIC FAILED "
         cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
+        fi
         clear
         echo " Building Recovery "
         echo " "
@@ -1197,8 +1210,11 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 # Cloning Device tree
 
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-echo " FIX ATOMIC FAILED "
+if [ "${Manifest_branch}" = 12.1 ]; then
+echo " Terdeteksi manifest 12"
+echo " Memperbaiki ATOMIC FAILED "
 cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
+        fi
 echo " "
 echo " Cloning Device tree "
 echo " "
@@ -1314,8 +1330,11 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 # Cloning Device tree
 
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-echo " FIX ATOMIC FAILED "
+if [ "${Manifest_branch}" = 12.1 ]; then
+echo " Terdeteksi manifest 12"
+echo " Memperbaiki ATOMIC FAILED "
 cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
+        fi
 echo " "
 echo " Cloning Device tree "
 echo " "
