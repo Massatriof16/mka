@@ -1231,7 +1231,7 @@ fi
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
         clear
         echo " "
-        echo " BUILDING TWRP "
+        echo " BUILDING ORANGE FOX"
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
@@ -1351,7 +1351,7 @@ fi
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
         clear
         echo " "
-        echo " BUILDING TWRP "
+        echo " BUILDING ORANGE FOX"
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
@@ -1639,12 +1639,12 @@ echo " "
 elif [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
-  -F "text=Start Creat Environment For Building ${Build_Status}_${Device_Name}" \
+  -F "text=Melakukan Repo sync Minimal Manifest" \
  https://api.telegram.org/bot${Token}/sendMessage
 else
 echo " "
 echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Start Creat Environment For Building ${Build_Status}_${Device_Name}..."
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text=Melakukan Repo sync Minimal Manifest"
 echo " "
 fi
 
@@ -1662,12 +1662,12 @@ echo " "
 elif [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
-  -F "text=Starting Building ${Build_Status}_${Device_Name}" \
+  -F "text=Membangun ${Build_Status}_${Device_Name}" \
  https://api.telegram.org/bot${Token}/sendMessage
 else
 
 echo " "
-curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Starting Building ${Build_Status}_${Device_Name}..."
+curl -X POST "https://api.telegram.org/bot${Token}/sendMessage" -d "chat_id=${id_chat}&text= Membangun ${Build_Status}_${Device_Name}..."
 echo " "
 fi
 
