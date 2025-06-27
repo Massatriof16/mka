@@ -208,12 +208,6 @@ cd ${di_build}
 cd ${current_directory}
 bot_notif
 cd ${di_build}
-
-if [ "${Manifest_branch}" = 12.1 ]; then
-echo " Terdeteksi manifest 12"
-echo " Memperbaiki ATOMIC FAILED "
-cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
-fi
 echo " "
 echo "  Build Environment "
 echo " "
@@ -246,6 +240,11 @@ echo " "
         cd ${current_directory}
         bot_notif2
         cd ${di_build}
+        if [ "${Manifest_branch}" = 12.1 ]; then
+        echo " Terdeteksi manifest 12"
+        echo " Memperbaiki ATOMIC FAILED "
+        cp -r ${current_directory}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+        fi
         clear
         echo " Building Recovery "
         echo " "
@@ -509,7 +508,7 @@ echo " "
 if [ "${Manifest_branch}" = 12.1 ]; then
 echo " Terdeteksi manifest 12"
 echo " Memperbaiki ATOMIC FAILED "
-cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+cp -r ${current_directory}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
 fi
 echo " Cloning Device tree "
 echo " "
@@ -667,7 +666,7 @@ cd ${di_build}
 if [ "${Manifest_branch}" = 12.1 ]; then
 echo " Terdeteksi manifest 12"
 echo " Memperbaiki ATOMIC FAILED "
-cp -r ${currentdir}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+cp -r ${current_directory}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
 fi
 echo " "
 echo " Cloning Device tree "
@@ -982,7 +981,7 @@ fi
         if [ "${Manifest_branch}" = 12.1 ]; then
         echo " Terdeteksi manifest 12"
         echo " Memperbaiki ATOMIC FAILED "
-        cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
+        cp -r ${current_directory}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
         fi
         clear
         echo " Building Recovery "
@@ -1213,7 +1212,7 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 if [ "${Manifest_branch}" = 12.1 ]; then
 echo " Terdeteksi manifest 12"
 echo " Memperbaiki ATOMIC FAILED "
-cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
+cp -r ${current_directory}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
         fi
 echo " "
 echo " Cloning Device tree "
@@ -1333,7 +1332,7 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 if [ "${Manifest_branch}" = 12.1 ]; then
 echo " Terdeteksi manifest 12"
 echo " Memperbaiki ATOMIC FAILED "
-cp -r ${currentdir}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
+cp -r ${current_directory}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
         fi
 echo " "
 echo " Cloning Device tree "
@@ -1639,7 +1638,7 @@ echo " "
 elif [ -n "${id_chat}" ] && [ -n "${id_topic}" ]; then
 curl -F "chat_id=${id_chat}" \
   -F "message_thread_id=${id_topic}" \
-  -F "text=Melakukan Repo sync Minimal Manifest" \
+  -F "text=Melakukan Repo sync Minimal Manifest ${Build_Status} ${Manifest_branch}" \
  https://api.telegram.org/bot${Token}/sendMessage
 else
 echo " "
