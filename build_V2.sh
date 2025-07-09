@@ -234,20 +234,30 @@ cd ${di_build}
 echo " "
 echo "  Build Environment "
 echo " "
+if [ "${tipe}" = 1 ]; then
+   sed -i "s|Build_Status=.*|Build_Status=TWRP|" ${current_directory}/save_settings.txt
+   Link=https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git
+elif [ "${tipe}" = 2 ]; then 
+   sed -i "s|Build_Status=.*|Build_Status=PBRP|" ${current_directory}/save_settings.txt
+Link=https://github.com/PitchBlackRecoveryProject/manifest_pb
+elif [ "${tipe}" = 3 ]; then 
+   sed -i "s|Build_Status=.*|Build_Status=SHRP|" ${current_directory}/save_settings.txt
+   Link=https://github.com/SHRP-Reborn/manifest.git
+fi
 
   git config --global user.name "Nico170420"
   git config --global user.email "b170420nc@gmail.com"
 
   if [ "${Build_Status}" = TWRP ]; then
-  repo init --depth=1 -u ${Link} -b twrp-${Manifest_branch}
+  repo init --depth=1 -u "${Link}" -b twrp-${Manifest_branch}
   elif [ "${Build_Status}" = PBRP ]; then
-  repo init --depth=1 -u ${Link} -b android-${Manifest_branch}
+  repo init --depth=1 -u "${Link}" -b android-${Manifest_branch}
   elif [ "${Build_Status}" = SHRP ]; then
-  repo init --depth=1 -u ${Link} -b shrp-${Manifest_branch}
+  repo init --depth=1 -u "${Link}" -b shrp-${Manifest_branch}
   else
   echo "$Build_Status Gagal"
   fi
-
+        repo sync -j$(nproc --all)
 
         # Cloning Device tree
         echo " "
@@ -279,7 +289,7 @@ echo " "
         sleep 1
         cd ${di_build}
         
-        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image 
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image -j$(nproc --all)
          
         
         
@@ -533,7 +543,7 @@ fi
   echo "$Build_Status Gagal"
   fi
         
-  repo sync --force-sync
+  repo sync --force-sync -j$(nproc --all)
   fi
 
 
@@ -574,7 +584,7 @@ fi
         # Start Building 
         cd ${di_build}
 
-        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image 
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image -j$(nproc --all)
          
        
        
@@ -708,7 +718,7 @@ fi
   fi
         
         
-  repo sync --force-sync
+  repo sync --force-sync -j$(nproc --all)
   fi
 
 # Cloning Device tree
@@ -743,7 +753,7 @@ echo " "
         echo " "
         # start building
         cd ${di_build}
-        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image 
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image -j$(nproc --all)
          
 
 
@@ -1046,7 +1056,7 @@ fi
         
         
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j$(nproc --all)
 
         # Menyalin Hasil Build Ke direktori saat ini 
         
@@ -1286,7 +1296,7 @@ fi
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image -j$(nproc --all)
         # Menyalin hasil ke direktori saat ini
         
           
@@ -1406,7 +1416,7 @@ fi
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image -j$(nproc --all)
 
         # Menyalin hasil ke direktori saat ini
         
