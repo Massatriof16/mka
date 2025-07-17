@@ -9,11 +9,11 @@ echo " "
 echo "--------------Builder TWRP by Massatrio16 -----------"
 echo "1. New Build for Aosp (sync minimal manifest)"
 echo "2. Rebuild for Aosp ( No need sync minimal manifest)"
-echo "5. New Build For Ofox (Sync Minimal Manifest) "
-echo "6. Rebuild for ofox ( No need sync Minimal Manifest)"
-echo "7. Setting Notification Telegram & Upload File (Recommended)"
-echo "8. Delete All Resources Sync Manifest "
-echo "9. Exit "
+echo "3. New Build For Ofox (Sync Minimal Manifest) "
+echo "4. Rebuild for ofox ( No need sync Minimal Manifest)"
+echo "5. Setting Notification Telegram & Upload File (Recommended)"
+echo "6. Delete All Resources Sync Manifest "
+echo "7. Exit "
 echo " "
 read -p "Pilih ( 1 - 9) : " Main
 
@@ -215,9 +215,9 @@ echo " "
   git config --global user.name "Nico170420"
   git config --global user.email "b170420nc@gmail.com"
         
-  repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
+  repo init --depth=1 -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp -b twrp-${Manifest_branch}
         
-  repo sync --force-sync
+  repo sync -j$(nproc)
 
 
 
@@ -243,9 +243,16 @@ echo " "
         clear
         echo " Building Recovery "
         echo " "
+        if [ ! "${Manifest_branch}" = 11 ]; then
+        echo " Terdeteksi manifest 12+"
+        echo " Memperbaiki ATOMIC FAILED "
+        cp -r ${current_directory}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+        fi
         sleep 1
+        mkdir -p ${di_build}/out/target/product/${Lunch}/system/etc/
+        cp -r ${di_build}/${Device_Path}/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
         cd ${di_build}
-        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image 
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image -j$(nproc) 
 
         
         
@@ -485,12 +492,17 @@ fi
    else
    echo " "
    echo " Sepertinya Manifest tidak ada Mengulangi sync manifest..."
-   
+   if [ ! "${Manifest_branch}" = 11 ]; then
+        echo " Terdeteksi manifest 12+"
+        echo " Memperbaiki ATOMIC FAILED "
+        cp -r ${current_directory}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+        fi
    mkdir ${di_build}
+   
    cd ${di_build}
-   repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
+   repo init --depth=1 -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp -b twrp-${Manifest_branch}
         
-  repo sync --force-sync
+  repo sync -j$(nproc)
   fi
 
 
@@ -524,9 +536,16 @@ fi
         echo " "
         echo " BUILDING TWRP "
         echo " "
+        if [ ! "${Manifest_branch}" = 11 ]; then
+        echo " Terdeteksi manifest 12+"
+        echo " Memperbaiki ATOMIC FAILED "
+        cp -r ${current_directory}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
+        fi
+        mkdir -p ${di_build}/out/target/product/${Lunch}/system/etc/
+        cp -r ${di_build}/${Device_Path}/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
         # Start Building 
         cd ${di_build}
-        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image -j$(nproc)
 
        
        
@@ -646,9 +665,9 @@ fi
    
    mkdir ${di_build}
    cd ${di_build}
-   repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-${Manifest_branch}
+   repo init --depth=1 -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp -b twrp-${Manifest_branch}
         
-  repo sync --force-sync
+  repo sync -j$(nproc)
   fi
 
 # Cloning Device tree
@@ -677,8 +696,10 @@ echo " "
         echo " BUILDING TWRP "
         echo " "
         # start building
+        mkdir -p ${di_build}/out/target/product/${Lunch}/system/etc/
+        cp -r ${di_build}/${Device_Path}/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
         cd ${di_build}
-        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image
+        export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image -j$(nproc)
 
 
 
