@@ -250,7 +250,7 @@ echo " "
         fi
         sleep 1
         mkdir -p ${di_build}/out/target/product/${Lunch}/system/etc/
-        cp -r ${di_build}/${Device_Path}/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
+        cp -r ${di_build}/${Device_Path}/recovery/root/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
         cd ${di_build}
         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image -j$(nproc) 
 
@@ -542,7 +542,8 @@ fi
         cp -r ${current_directory}/graphics_drm.cpp ${di_build}/bootable/recovery/minuitwrp/
         fi
         mkdir -p ${di_build}/out/target/product/${Lunch}/system/etc/
-        cp -r ${di_build}/${Device_Path}/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
+        cp -r ${di_build}/${Device_Path}/recovery/root/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
+        
         # Start Building 
         cd ${di_build}
         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image -j$(nproc)
@@ -697,7 +698,8 @@ echo " "
         echo " "
         # start building
         mkdir -p ${di_build}/out/target/product/${Lunch}/system/etc/
-        cp -r ${di_build}/${Device_Path}/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
+        cp -r ${di_build}/${Device_Path}/recovery/root/system/etc/task_profiles.json ${di_build}/out/target/product/${Lunch}/system/etc
+        cd ${di_build}
         cd ${di_build}
         export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image -j$(nproc)
 
