@@ -994,7 +994,7 @@ fi
         
         
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-ap2a-eng; mka ${Build_Target}image 
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-ap2a-eng; mka adbd ${Build_Target}image 
 
         # Menyalin Hasil Build Ke direktori saat ini 
         
@@ -1234,7 +1234,7 @@ fi
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; mka adbd ${Build_Target}image
         # Menyalin hasil ke direktori saat ini
         
           
@@ -1354,7 +1354,7 @@ fi
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; mka adbd ${Build_Target}image
 
         # Menyalin hasil ke direktori saat ini
         
