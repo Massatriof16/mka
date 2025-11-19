@@ -815,16 +815,16 @@ echo " "
 
  # Input Konfigurasi
  echo "Manifest AOSP Branch AVAILABLE : "
- echo " 11.0 "
+ echo " 14.1 "
  echo " 12.1 "
- echo "Pilih Manifest branch (11.0 , 12,1) [wajib] : "
+ echo "Pilih Manifest branch (14.1 , 12,1) [wajib] : "
 read Manifest_branch
 if [ -z "$Manifest_branch" ]; then
     echo "Input Manifest branch kosong!."
     echo " "
     main
 fi
-if [ "${Manifest_branch}" != "11.0" ] && [ "${Manifest_branch}" != "12.1" ]; then
+if [ "${Manifest_branch}" != "14.1" ] && [ "${Manifest_branch}" != "12.1" ]; then
    echo ""
    echo "sepertinya Minimal Manifest yang dimasukkan tidak tersedia!"
    echo " "
@@ -978,7 +978,7 @@ fi
         cd ${current_directory}
         bot_notif2
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-        if [ "${Manifest_branch}" = 12.1 ]; then
+        if [ "${Manifest_branch}" = 14.1 ]; then
         echo " Terdeteksi manifest 12"
         echo " Memperbaiki ATOMIC FAILED "
         cp -r ${current_directory}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
@@ -1209,7 +1209,7 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 # Cloning Device tree
 
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-if [ "${Manifest_branch}" = 12.1 ]; then
+if [ "${Manifest_branch}" = 14.1 ]; then
 echo " Terdeteksi manifest 12"
 echo " Memperbaiki ATOMIC FAILED "
 cp -r ${current_directory}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
@@ -1329,7 +1329,7 @@ cd ${di_build}/ofox/sync/fox_${Manifest_branch}
 # Cloning Device tree
 
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-if [ "${Manifest_branch}" = 12.1 ]; then
+if [ "${Manifest_branch}" = 14.1 ]; then
 echo " Terdeteksi manifest 12"
 echo " Memperbaiki ATOMIC FAILED "
 cp -r ${current_directory}/graphics_drm.cpp ${di_build}/ofox/sync/fox_${Manifest_branch}/bootable/recovery/minuitwrp/
