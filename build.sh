@@ -994,7 +994,7 @@ fi
         
         
         
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-eng; mka ${Build_Target}image -j8
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; cd ${di_build}/ofox/sync/fox_${Manifest_branch}/${Device_Path}; lunch twrp_${Lunch}-ap2a-eng; mka ${Build_Target}image 
 
         # Menyalin Hasil Build Ke direktori saat ini 
         
@@ -1234,7 +1234,7 @@ fi
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image
         # Menyalin hasil ke direktori saat ini
         
           
@@ -1354,7 +1354,7 @@ fi
         echo " "
         # Start Building 
         cd ${di_build}/ofox/sync/fox_${Manifest_branch}
-         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image
+         export ALLOW_MISSING_DEPENDENCIES=true; source build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image
 
         # Menyalin hasil ke direktori saat ini
         
@@ -1785,7 +1785,7 @@ if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-mult
     sleep 1
     sudo apt -y update
     sudo apt -y upgrade
- sudo apt -y install python2 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libncurses5 python3
+ sudo apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev lib32ncurses5-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libwxgtk3.0-gtk3-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev libncurses5 python3
    sudo apt -y install rsync
   sudo apt -y install repo
  # sudo apt-get install openjdk-8-jre -y
@@ -1794,15 +1794,13 @@ if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-mult
 #export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 #export PATH=$JAVA_HOME/bin:$PATH
 #source /etc/profile
-cd /usr/bin
-sudo ln -sf python2 python
+
 # mkdir /usr/include/asm
 #cp -r /usr/include/asm-generic/errno.h /usr/include/asm/
 sleep 3
   fi
 clear
 cd ${current_directory}
-git config --global user.name "Nico170420"
-git config --global user.email "b170420nc@gmail.com"
+
 main
 exit 0
