@@ -957,6 +957,7 @@ echo " "
         ./orangefox_sync.sh --branch ${Manifest_branch}
         
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+ repo sync external/guava
 
         # Cloning Device tree
         echo " "
@@ -1200,6 +1201,7 @@ fi
         ./orangefox_sync.sh --branch ${Manifest_branch}
         
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+repo sync external/guava
    fi
    
    
