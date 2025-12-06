@@ -957,7 +957,7 @@ echo " "
         ./orangefox_sync.sh --branch ${Manifest_branch}
         
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
- repo sync external/guava
+repo sync external/guava
 
         # Cloning Device tree
         echo " "
@@ -1167,7 +1167,7 @@ sleep 1
     echo " "
     echo " Manifest Tersedia. Menghapus beberapa file... "
     sleep 1
-   if  [ -e "${current_directory}/OrangeFox-Unofficial_${Device_Name}.img.xz" ]; then
+   if  [ -e ${current_directory}/*${Device_Name}.img.xz ]; then
     rm -rf ${current_directory}/OrangeFox*.xz
     rm -rf ${current_directory}/OrangeFox*.zip
 fi
@@ -1249,7 +1249,7 @@ fi
         cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.img ${current_directory}
         cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Device_Name}/OrangeFox*.zip ${current_directory}
         
-        elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox-Unofficial-${Lunch}.img ]; then
+        elif [ -e ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/*${Lunch}.img ]; then
         cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.img ${current_directory}
         cp ${di_build}/ofox/sync/fox_${Manifest_branch}/out/target/product/${Lunch}/OrangeFox*.zip ${current_directory}
            else
@@ -1322,6 +1322,7 @@ fi
         ./orangefox_sync.sh --branch ${Manifest_branch}
         
 cd ${di_build}/ofox/sync/fox_${Manifest_branch}
+repo sync external/guava
    fi
    
    
