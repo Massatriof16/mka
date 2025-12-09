@@ -220,7 +220,7 @@ if [ -n "${common}" ] && [ -n "${path_common}" ]; then
 fi
 
 # BUILD KETIKA BUKAN MINIMAL MANIFEST 14 / 14.1
-if [ "${minimal_manifest}" != 14  ] || [ "${minimal_manifest}" != 14.1  ]; then
+if [ "${minimal_manifest}" != "14"  ] || [ "${minimal_manifest}" != "14.1"  ]; then
     export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-eng; make ${partition}image -j$(nproc --all)
 else
 #BUILD KETIKA MINIMAL MANIFEST 14 / 14.1
