@@ -105,24 +105,7 @@ read -p "Pilih : " pilihan
   esac
   unset pilihan
 
-echo ""
-echo " Masukkan Link Device Tree Common "
-read -p " Link : " common
-echo " "
-echo " Masukkan Device Path Common "
-read -p " Path to common : " path_common
 
-if [ -n "${common}" ] && [ -z "${path_common}" ]; then
-echo " "
-echo " Device tree common Terisi!, Tetapi Path Common Kosong"
-main_menu
-fi
-
-if [ -z "${common}" ] && [ -n "${path_common}" ]; then
-echo " "
-echo " Patch common Terisi, Tetapi Device tree common kosong "
-main_menu
-fi
 
 echo " "
 echo " Mendeteksk Out Target File... "
@@ -238,10 +221,10 @@ fi
 
 # BUILD KETIKA BUKAN MINIMAL MANIFEST 14 / 14.1
 if [ "${minimal_manifest}" != 14  ] || [ "${minimal_manifest}" != 14.1  ]; then
-    export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-eng; make ${Build_Target}image -j$(nproc --all)
+    export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-eng; make ${partition}image -j$(nproc --all)
 else
 #BUILD KETIKA MINIMAL MANIFEST 14 / 14.1
-    export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${Lunch}-ap2a-eng; make ${Build_Target}image -j$(nproc --all)
+    export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-ap2a-eng; make ${partition}image -j$(nproc --all)
 fi
 
 }
@@ -701,6 +684,27 @@ source ${current_directory}/save_settings.txt
     
 }
 
+ask_common() {
+echo ""
+echo " Masukkan Link Device Tree Common "
+read -p " Link : " common
+echo " "
+echo " Masukkan Device Path Common "
+read -p " Path to common : " path_common
+
+if [ -n "${common}" ] && [ -z "${path_common}" ]; then
+echo " "
+echo " Device tree common Terisi!, Tetapi Path Common Kosong"
+main_menu
+fi
+
+if [ -z "${common}" ] && [ -n "${path_common}" ]; then
+echo " "
+echo " Patch common Terisi, Tetapi Device tree common kosong "
+main_menu
+fi
+
+}
 
 
 twrp() {
