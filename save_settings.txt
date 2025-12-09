@@ -1,4 +1,4 @@
-current_directory=
+current_directory=/data/data/com.termux/files/home/mka
 build_dir=$current_directory/build
 minimal_manifest=
 device_tree=
