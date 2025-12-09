@@ -22,7 +22,7 @@ while true; do
     4) reofox ;;
     5) bot_config ;;
     6) delete ;;
-    0) echo "Bye!"; break ;;
+    0) echo "Bye!"; exit 0 ;;
     *) echo "Menu tidak ada!" ;;
   esac
   unset pilihan
