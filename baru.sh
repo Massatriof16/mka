@@ -40,7 +40,7 @@ echo "2. 12.1"
 echo "3. 14"
 echo "4. 14.1"
 
-read -p "minimal manifest branch : " pilihan
+read -p "Pilih minimal manifest branch ( 1 - 4 ) : " pilihan
   case $pilihan in
     1) minimal_manifest=11 ;;
     2) minimal_manifest=12.1 ;;
@@ -96,7 +96,7 @@ echo " Target Partisi Build"
 echo "1. recovery"
 echo "2. boot"
 echo "3. Vendor Boot"
-read -p "Pilih : " pilihan
+read -p "Pilih Partisi ( 1 - 3 ) : " pilihan
   case $pilihan in
     1) partition=recovery ;;
     2) partition=boot ;;
@@ -105,7 +105,14 @@ read -p "Pilih : " pilihan
   esac
   unset pilihan
 
-
+echo ""
+echo " Apakah Kamu Build dengan Common tree?"
+read -p " y/n (default n) : " pilihan
+  case $pilihan in
+    y|Y) ask_common ;;
+    *) echo "Build tanpa common" ;;
+  esac
+  
 
 echo " "
 echo " Mendeteksk Out Target File... "
@@ -125,10 +132,7 @@ sed -i "s|device_path=.*|device_path=$device_path|" ${current_directory}/save_se
 sed -i "s|device_name=.*|device_name=$device_name|" ${current_directory}/save_settings.txt
 sed -i "s|partition=.*|partition=$partition|" ${current_directory}/save_settings.txt
 sed -i "s|lunch=.*|lunch=$lunch|" ${current_directory}/save_settings.txt
-if [ -n "${common}" ] && [ -n "${path_common}" ]; then
-sed -i "s|common=.*|common=$common|" ${current_directory}/save_settings.txt
-sed -i "s|path_common=.*|path_common=$path_common|" ${current_directory}/save_settings.txt
-fi
+
 
 echo " "
 echo " Tersimpan! "
@@ -166,9 +170,7 @@ if [ "${build_status}" != Orangefox ]; then
     
 else
 # BUILD ORANGEFOX
-    git clone https://gitlab.com/OrangeFox/misc/scripts.git
-    cd scripts
-    sudo bash setup/android_build_env.sh
+
     cd ${build_dir}
     git clone https://gitlab.com/OrangeFox/sync.git
     cd sync
@@ -224,6 +226,7 @@ if [ "${minimal_manifest}" != "14"  ] && [ "${minimal_manifest}" != "14.1"  ]; t
     export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-eng; mka ${partition}image -j$(nproc --all)
 else
 #BUILD KETIKA MINIMAL MANIFEST 14 / 14.1
+    repo sync external/guava
     export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-ap2a-eng; mka ${partition}image -j$(nproc --all)
 fi
 
@@ -317,13 +320,13 @@ else
          cp -r ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${out}/OrangeFox*.img ${current_directory}
          cp -r ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${out}/OrangeFox*.zip ${current_directory}       
      
-     elif [ -e ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${device_name}/OrangeFox*.img ]; then
-         cp ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${device_name}/OrangeFox*.img ${current_directory}
-         cp ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${device_name}/OrangeFox*.zip ${current_directory}
+     elif [ -e ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${device_name}/OrangeFox*.img ]; then
+         cp ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${device_name}/OrangeFox*.img ${current_directory}
+         cp ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${device_name}/OrangeFox*.zip ${current_directory}
         
-    elif [ -e ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${lunch}/OrangeFox*${lunch}.img ]; then
-         cp ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${Lunch}/OrangeFox*.img ${current_directory}
-         cp ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${Lunch}/OrangeFox*.zip ${current_directory}
+    elif [ -e ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${lunch}/OrangeFox*${lunch}.img ]; then
+         cp ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${Lunch}/OrangeFox*.img ${current_directory}
+         cp ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${Lunch}/OrangeFox*.zip ${current_directory}
     
     else
           echo " "
@@ -680,8 +683,7 @@ source ${current_directory}/save_settings.txt
            rm -rf ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${out}
            rm -rf ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${device_name}
     fi
-    
-    
+       
 }
 
 ask_common() {
@@ -704,6 +706,10 @@ echo " Patch common Terisi, Tetapi Device tree common kosong "
 main_menu
 fi
 
+sed -i "s|common=.*|common=$common|" ${current_directory}/save_settings.txt
+sed -i "s|path_common=.*|path_common=$path_common|" ${current_directory}/save_settings.txt
+
+
 }
 
 
@@ -717,8 +723,6 @@ source ${current_directory}/save_settings.txt
     check_build
     
  }
-
-
 
 
 retwrp() {
@@ -769,7 +773,9 @@ if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-mult
  sudo apt -y install gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev python3
    sudo apt -y install rsync
    sudo apt -y install repo
-
+   git clone https://gitlab.com/OrangeFox/misc/scripts.git
+   cd scripts
+   sudo bash setup/android_build_env.sh
 
 sleep 3
   fi
