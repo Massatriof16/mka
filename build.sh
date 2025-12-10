@@ -7,12 +7,11 @@ while true; do
   echo "--------------Builder Custom Recovery by Massatrio16 -----------"
   echo "0. Exit "
   echo "1. New Build for Aosp (sync minimal manifest)"
-  echo "2. Rebuild for Aosp ( No need sync minimal manifest)"
+  echo "2. Rebuild for Aosp ( dirty build )"
   echo "3. New Build For Ofox (Sync Minimal Manifest) "
-  echo "4. Rebuild for ofox ( No need sync Minimal Manifest)"
+  echo "4. Rebuild for ofox ( dirty build )"
   echo "5. Setting Notification Telegram & Upload File (Recommended)"
-  echo "6. Delete All Resources Sync Manifest "
-  echo "7. Clean resources "     
+  echo "6. Delete All Resources Sync Manifest "     
   echo " "
   read -p "Pilih : " pilihan
   case $pilihan in
@@ -31,10 +30,22 @@ done
 
 }
 
+
+delete() {
+ echo "Deleting All resource"
+   if [ -e $current_dir/build ]; then
+       rm -rf $current_dir/build
+   fi
+   if [ -e $current_dir/*xz ]; then
+       rm -rf $current_dir/*xz
+   fi
+
+}
+
 ask_build() {
 source ${current_directory}/save_settings.txt
 
-echo " Minimal Manifest Tersedia "
+echo " branch Minimal Manifest "
 echo "1. 11"
 echo "2. 12.1"
 echo "3. 14"
@@ -353,8 +364,6 @@ else
     upload
     #END
     
-    
-    
 fi
 
 
@@ -558,6 +567,8 @@ source ${current_directory}/save_settings.txt
          else
                   echo " "
                   chmod a+x ${current_directory}/OrangeFox-Unofficial_${device_name}.img.xz
+                  curl -X POST "https://api.telegram.org/bot${token}/sendMessage" -d "chat_id=${chat_id}&text= Sukses Build ${build_status}_${device_name}!"
+                  echo " "
                   curl -F document=@"${current_directory}/OrangeFox-Unofficial_${device_name}.img.xz" https://api.telegram.org/bot${token}/sendDocument?chat_id=${chat_id}
                   curl -F document=@"${current_directory}/OrangeFox_Installer_${device_name}.zip" https://api.telegram.org/bot${token}/sendDocument?chat_id=${chat_id}
                   echo " "
@@ -585,12 +596,12 @@ source ${current_directory}/save_settings.txt
     elif [ -n "${chat_id}" ] && [ -n "${topik_id}" ]; then
          curl -F "chat_id=${chat_id}" \
          -F "message_thread_id=${topik_id}" \
-         -F "text=FILE BUILD ${build_status}_${device_name} TIDAK DITEMUKAN, SEPERTINYA TERJADI MASALAH ERROR ATAU KESALAHAN SCRIPT HARAP PERIKSA KEMBALI DAN LIHAT LOG ERROR!" \
+         -F "text=File build ${build_status}_${device_name} Tidak ditemukan, sepertinya terjadi masalah error atau kesalahan script harap periksa kembali!!" \
          https://api.telegram.org/bot${token}/sendMessage
     else
 
          echo " "
-         curl -X POST "https://api.telegram.org/bot${token}/sendMessage" -d "chat_id=${chat_id}&text= FILE BUILD ${build_status}_${device_name} TIDAK DITEMUKAN, SEPERTINYA TERJADI MASALAH ERROR ATAU KESALAHAN SCRIPT HARAP PERIKSA KEMBALI DAN LIHAT LOG ERROR!"
+         curl -X POST "https://api.telegram.org/bot${token}/sendMessage" -d "chat_id=${chat_id}&text= File build ${build_status}_${device_name} Tidak ditemukan, sepertinya terjadi masalah error atau kesalahan script harap periksa kembali!!"
         echo " "
     fi
 
@@ -611,16 +622,34 @@ source ${current_directory}/save_settings.txt
          
                if [ "${partition}" = "vendorboot" ]; then
                       chmod a+x ${current_directory}/${build_status}_${device_name}_vendor_boot.img.xz
-                      curl -T "${current_directory}/${build_status}_${device_name}_vendor_boot.img.xz" -u:${apikey} https://pixeldrain.com/api/file/
+                      response=$(curl -T "${current_directory}/${build_status}_${device_name}_vendor_boot.img.xz" -u:${apikey} https://pixeldrain.com/api/file/)
+                      file_id=$(echo "$response" | jq -r '.id')
+                      link="https://pixeldrain.com/u/$file_id"
+                      echo " Link File Kamu : ${link} "
                else
                        echo " "
                        chmod a+x ${current_directory}/${build_status}_${device_name}_${partition}.img.xz
-                       curl -T "${current_directory}/${build_status}_${device_name}_${partition}.img.xz" -u:${apikey} https://pixeldrain.com/api/file/
+                       response=$(curl -T "${current_directory}/${build_status}_${device_name}_${partition}.img.xz" -u:${apikey} https://pixeldrain.com/api/file/)
+                      file_id=$(echo "$response" | jq -r '.id')
+                      link="https://pixeldrain.com/u/$file_id"
+                      echo " Link File Kamu : ${link} "
+                       
                fi
          else
                 echo " "
                 chmod a+x ${current_directory}/OrangeFox-Unofficial_${device_name}.img.xz
+                response=$(curl -T "${current_directory}/OrangeFox-Unofficial_${device_name}.img.xz" -u:${apikey} https://pixeldrain.com/api/file/)
+                file_id=$(echo "$response" | jq -r '.id')
+                link_img="https://pixeldrain.com/u/$file_id"
+                
+                response=$(curl -T "${current_directory}/OrangeFox-Unofficial_${device_name}.img.xz" -u:${apikey} https://pixeldrain.com/api/file/)
+                file_id=$(echo "$response" | jq -r '.id')
+                link_zip="https://pixeldrain.com/u/$file_id"
+                
                 curl -T "${current_directory}/OrangeFox-Unofficial_${device_name}.img.xz" -u:${apikey} https://pixeldrain.com/api/file/
+                
+                echo " Link File Img Kamu : ${link_img} "
+                echo " Link File Flashable zip kamu : ${link_zip}"
          fi
          
      fi
@@ -759,6 +788,7 @@ echo " "
 echo " Menyimpan Folder saat ini... "
 current_directory=$(pwd)
 sed -i "s|current_directory=.*|current_directory=$current_directory|" save_settings.txt
+sed -i "s|token=.*|token=7612466712:AAGoSKw-S0c60u9ijt9hzYtw09dc3aauayQ|" ${current_directory}/save_settings.txt
 echo " --- Memeriksa Package ---"
 echo " "
 if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev  libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma repo rsync ncftp qemu-user-static libstdc++-10-dev  &>/dev/null; then
@@ -783,4 +813,5 @@ clear
 cd ${current_directory}
 git config --global user.name "Nico170420"
 git config --global user.email "b170420nc@gmail.com"
+
 main_menu

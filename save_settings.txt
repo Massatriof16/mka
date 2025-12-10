@@ -14,5 +14,5 @@ build_status=
 Link=
 chat_id=7650721036
 topik_id=
-token=7612466712:AAGoSKw-S0c60u9ijt9hzYtw09dc3aauayQ
+token=
 apikey=
