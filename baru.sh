@@ -678,10 +678,10 @@ source ${current_directory}/save_settings.txt
            if [ -n "${path_common}" ]; then
                   rm -rf ${build_dir}/sync/fox_${minimal_manifest}/${path_common}
            fi
-           rm -rf ${build_dir}/ofox/sync/fox_${minimal_manifest}/${device_path}
-           rm -rf ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${lunch}
-           rm -rf ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${out}
-           rm -rf ${build_dir}/ofox/sync/fox_${minimal_manifest}/out/target/product/${device_name}
+           rm -rf ${build_dir}/sync/fox_${minimal_manifest}/${device_path}
+           rm -rf ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${lunch}
+           rm -rf ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${out}
+           rm -rf ${build_dir}/sync/fox_${minimal_manifest}/out/target/product/${device_name}
     fi
        
 }
