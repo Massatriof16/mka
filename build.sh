@@ -1,7 +1,5 @@
-
+#!/usr/bin/bash
 main_menu() {
-#!/bin/bash
-
 while true; do
   echo " "
   echo "--------------Builder Custom Recovery by Massatrio16 -----------"
@@ -11,7 +9,8 @@ while true; do
   echo "3. New Build For Ofox (Sync Minimal Manifest) "
   echo "4. Rebuild for ofox ( dirty build )"
   echo "5. Setting Notification Telegram & Upload File (Recommended)"
-  echo "6. Delete All Resources Sync Manifest "     
+  echo "6. Delete All Resources Sync Manifest "
+  echo "7. Clean output Build"     
   echo " "
   read -p "Pilih : " pilihan
   case $pilihan in
@@ -21,6 +20,7 @@ while true; do
     4) reofox ;;
     5) bot_config ;;
     6) delete ;;
+    7) cleann;;
     0) echo "Bye!"; exit 0 ;;
     *) echo "Menu tidak ada!" ;;
   esac
@@ -29,7 +29,6 @@ while true; do
 done
 
 }
-
 
 delete() {
  echo "Deleting All resource"
@@ -42,6 +41,20 @@ delete() {
 
 }
 
+clean() {
+
+if [ "${build_status}" != Orangefox ]; then
+     cd ${build_dir}
+else
+     cd ${build_dir}/sync/fox_${minimal_manifest}
+fi
+
+make clean
+rn -rf $device_path
+
+}
+
+
 ask_build() {
 source ${current_directory}/save_settings.txt
 
@@ -50,7 +63,6 @@ echo "1. 11"
 echo "2. 12.1"
 echo "3. 14"
 echo "4. 14.1"
-
 read -p "Pilih minimal manifest branch ( 1 - 4 ) : " pilihan
   case $pilihan in
     1) minimal_manifest=11 ;;
@@ -143,13 +155,10 @@ sed -i "s|device_path=.*|device_path=$device_path|" ${current_directory}/save_se
 sed -i "s|device_name=.*|device_name=$device_name|" ${current_directory}/save_settings.txt
 sed -i "s|partition=.*|partition=$partition|" ${current_directory}/save_settings.txt
 sed -i "s|lunch=.*|lunch=$lunch|" ${current_directory}/save_settings.txt
-
-
 echo " "
 echo " Tersimpan! "
 
 }
-
 
 sync_minimal_manifest() {
 source ${current_directory}/save_settings.txt
@@ -159,7 +168,6 @@ cd $build_dir
 # KIRIM Notif Kesini
 bot_notif
 # END
-
 echo " "
 echo "  Build Environment "
 echo " "
@@ -186,11 +194,9 @@ else
     git clone https://gitlab.com/OrangeFox/sync.git
     cd sync
     ./orangefox_sync.sh --branch ${minimal_manifest}
-  
 fi
 
 }
-
 
 build_minimal_manifest() {
 source ${current_directory}/save_settings.txt
@@ -201,6 +207,13 @@ if [ "${build_status}" != Orangefox ]; then
 else
      cd ${build_dir}/sync/fox_${minimal_manifest}
 fi
+
+echo "Ingin Mengganti informasi device yang tersimpan?"
+read -p " y / n [default : No(n) ] : " tanya
+    case $tanya in
+        y|Y) ask_build ;;
+        *) echo "Building tanpa mengganti informasi device..." ;;
+    esac
 
 # FIX ATOMIC FAILED UI 12+
 if [ "${minimal_manifest}" != 11 ]; then
@@ -219,7 +232,6 @@ fi
 # KIRIM NOTIF KESINI
 bot_notif_2
 #END
-
 echo " "
 echo " Cloning Device Tree "
 echo " "
@@ -242,7 +254,6 @@ else
 fi
 
 }
-
 
 check_build() {
 source ${current_directory}/save_settings.txt
@@ -317,12 +328,10 @@ if [ "${build_status}" != Orangefox ]; then
        xz ${build_status}_${device_name}_${partition}.img
        echo " "
     fi
-    
     # KIRIM FILE BUILD
     bot_file
     upload
     #END
-
 else
 # JIKA BUILD ORANGEFOX
          
@@ -347,7 +356,6 @@ else
           bot_error
           #END
           main_menu
-      
     fi  
     
     echo " "
@@ -365,8 +373,6 @@ else
     #END
     
 fi
-
-
 
 }
 
@@ -468,7 +474,6 @@ source ${current_directory}/save_settings.txt
     fi
 
 }
-
 
 bot_notif_2() {
 source ${current_directory}/save_settings.txt
@@ -654,9 +659,7 @@ source ${current_directory}/save_settings.txt
          
      fi
              
-     
 }
-
 
 ask_aosp() {
 source ${current_directory}/save_settings.txt
@@ -676,7 +679,6 @@ source ${current_directory}/save_settings.txt
     sed -i "s|Link=.*|Link=$Link|" ${current_directory}/save_settings.txt
 
 }
-
 
 clean_up_file() {
 source ${current_directory}/save_settings.txt
@@ -702,7 +704,6 @@ source ${current_directory}/save_settings.txt
                  rm -rf ${current_directory}/OrangeFox*.xz
                  rm -rf ${current_directory}/OrangeFox*.zip
            fi
-
 
            if [ -n "${path_common}" ]; then
                   rm -rf ${build_dir}/sync/fox_${minimal_manifest}/${path_common}
@@ -734,10 +735,8 @@ echo " "
 echo " Patch common Terisi, Tetapi Device tree common kosong "
 main_menu
 fi
-
 sed -i "s|common=.*|common=$common|" ${current_directory}/save_settings.txt
 sed -i "s|path_common=.*|path_common=$path_common|" ${current_directory}/save_settings.txt
-
 
 }
 
@@ -756,30 +755,29 @@ source ${current_directory}/save_settings.txt
 
 retwrp() {
 source ${current_directory}/save_settings.txt
-cd $build_dir
-
-clean_up_file
-build_minimal_manifest
-check_build
+    cd $build_dir
+    clean_up_file
+    build_minimal_manifest
+    check_build
 
 }
 
 
 ofox() {
 source ${current_directory}/save_settings.txt
-sed -i "s|build_status=.*|build_status=Orangefox|" ${current_directory}/save_settings.txt
-ask_build
-sync_minimal_manifest
-build_minimal_manifest
-check_build
+    sed -i "s|build_status=.*|build_status=Orangefox|" ${current_directory}/save_settings.txt
+    ask_build
+    sync_minimal_manifest
+    build_minimal_manifest
+    check_build
 }
 
 
 reofox() {
 source ${current_directory}/save_settings.txt
-clean_up_file
-build_minimal_manifest
-check_build
+    clean_up_file
+    build_minimal_manifest
+    check_build
 
 }
 
@@ -810,6 +808,7 @@ if ! dpkg -l python3 gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-mult
 sleep 3
   fi
 clear
+
 cd ${current_directory}
 git config --global user.name "Nico170420"
 git config --global user.email "b170420nc@gmail.com"
