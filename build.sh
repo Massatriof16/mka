@@ -48,9 +48,9 @@ if [ "${build_status}" != Orangefox ]; then
 else
      cd ${build_dir}/sync/fox_${minimal_manifest}
 fi
-
+source build/envsetup.sh
 make clean
-rn -rf $device_path
+rm -rf $device_path
 
 }
 
