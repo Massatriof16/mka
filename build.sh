@@ -41,7 +41,7 @@ delete() {
 
 }
 
-clean() {
+cleann() {
 
 if [ "${build_status}" != Orangefox ]; then
      cd ${build_dir}
