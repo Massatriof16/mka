@@ -31,6 +31,7 @@ done
 }
 
 delete() {
+source ${current_directory}/save_settings.txt
  echo "Deleting All resource"
    if [ -e $current_dir/build ]; then
        rm -rf $current_dir/build
@@ -42,7 +43,7 @@ delete() {
 }
 
 cleann() {
-
+source ${current_directory}/save_settings.txt
 if [ "${build_status}" != Orangefox ]; then
      cd ${build_dir}
 else
