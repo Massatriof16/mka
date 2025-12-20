@@ -46,11 +46,13 @@ cleann() {
 source ${current_directory}/save_settings.txt
 if [ "${build_status}" != Orangefox ]; then
      cd ${build_dir}
+     source build/envsetup.sh
+     make clean
 else
      cd ${build_dir}/sync/fox_${minimal_manifest}
+     rm -rf out
 fi
-source build/envsetup.sh
-make clean
+
 rm -rf $device_path
 
 }
@@ -209,12 +211,6 @@ else
      cd ${build_dir}/sync/fox_${minimal_manifest}
 fi
 
-echo "Ingin Mengganti informasi device yang tersimpan?"
-read -p " y / n [default : No(n) ] : " tanya
-    case $tanya in
-        y|Y) ask_build ;;
-        *) echo "Building tanpa mengganti informasi device..." ;;
-    esac
 
 # FIX ATOMIC FAILED UI 12+
 if [ "${minimal_manifest}" != 11 ]; then
@@ -777,6 +773,13 @@ source ${current_directory}/save_settings.txt
 reofox() {
 source ${current_directory}/save_settings.txt
     clean_up_file
+    
+echo "Ingin Mengganti informasi device yang tersimpan?"
+read -p " y / n [default : No(n) ] : " tanya
+    case $tanya in
+        y|Y) ask_build ;;
+        *) echo "Building tanpa mengganti informasi device..." ;;
+    esac
     build_minimal_manifest
     check_build
 
