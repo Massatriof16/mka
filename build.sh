@@ -810,7 +810,6 @@ cd ${current_directory}
 git config --global user.name "Nico170420"
 git config --global user.email "b170420nc@gmail.com"
 if [ ! -e $(pwd)/swapfile ]; then
-git clone https://github.com/Massatriof16/mka
 sudo fallocate -l 16G swapfile && sudo dd if=/dev/zero of=swapfile bs=1M count=16384 && sudo chmod 600 swapfile && sudo mkswap swapfile && sudo swapon swapfile && echo "vm.swappiness=100" | sudo tee -a /etc/sysctl.conf
 fi
 
