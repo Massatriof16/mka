@@ -33,12 +33,8 @@ done
 delete() {
 source ${current_directory}/save_settings.txt
  echo "Deleting All resource"
-   if [ -e $current_dir/build ]; then
        rm -rf $current_dir/build
-   fi
-   if [ -e $current_dir/*xz ]; then
        rm -rf $current_dir/*xz
-   fi
 
 }
 
@@ -682,12 +678,9 @@ source ${current_directory}/save_settings.txt
     
     if [ "${build_status}" != Orangefox ]; then
           echo " Menghapus file lama "
-           if  [ -e "${current_directory}/${build_status}_${device_name}_vendor_boot.img.xz" ]; then
-                 rm -rf ${current_directory}/${build_status}_${device_name}_vendor_boot.img.xz
-           fi
-           if [ -e "${current_directory}/${build_status}_${device_name}_${partition}.img.xz" ]; then
-                 rm -rf ${current_directory}/${build_status}_${device_name}_${partition}.img.xz
-           fi
+
+           rm -rf ${current_directory}/*.xz
+           
 
            if [ -n "${path_common}" ]; then   
                  rm -rf ${build_dir}/${path_common}
@@ -697,10 +690,10 @@ source ${current_directory}/save_settings.txt
            rm -rf ${build_dir}/out/target/product/${lunch}
            rm -rf ${build_dir}/out/target/product/${device_name}
     else
-           if  [ -e ${current_directory}/OrangeFox-Unofficial_${device_name}.img.xz ]; then
-                 rm -rf ${current_directory}/OrangeFox*.xz
-                 rm -rf ${current_directory}/OrangeFox*.zip
-           fi
+
+           rm -rf ${current_directory}/OrangeFox*.xz
+           rm -rf ${current_directory}/OrangeFox*.zip
+           
 
            if [ -n "${path_common}" ]; then
                   rm -rf ${build_dir}/sync/fox_${minimal_manifest}/${path_common}
@@ -816,5 +809,10 @@ clear
 cd ${current_directory}
 git config --global user.name "Nico170420"
 git config --global user.email "b170420nc@gmail.com"
+if [ ! -e $(pwd)/swapfile ]; then
+git clone https://github.com/Massatriof16/mka
+sudo fallocate -l 16G swapfile && sudo dd if=/dev/zero of=swapfile bs=1M count=16384 && sudo chmod 600 swapfile && sudo mkswap swapfile && sudo swapon swapfile && echo "vm.swappiness=100" | sudo tee -a /etc/sysctl.conf
+fi
+
 
 main_menu
