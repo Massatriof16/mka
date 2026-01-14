@@ -73,7 +73,7 @@ read -p "Pilih minimal manifest branch ( 1 - 4 ) : " pilihan
   unset pilihan
   echo ""
 
-echo " Masukkan Link Device tree Anda ! "
+echo " Masukkan Link source custom recovery tree Anda ! "
 read -p " Link : " device_tree
 if [ -z device_tree ]; then 
 echo "Tidak Boleh Kosong!"
@@ -81,7 +81,7 @@ main_menu
 fi
 
 echo ""
-echo " Masukkan Branch Debuce Tree anda ! "
+echo " Masukkan Branch source custom recovery Tree anda ! "
 read -p " Branch DT : " branch_dt
 if [ -z branch_dt ]; then 
 echo "Tidak Boleh Kosong!"
@@ -810,8 +810,9 @@ cd ${current_directory}
 git config --global user.name "Nico170420"
 git config --global user.email "b170420nc@gmail.com"
 if [ ! -e $(pwd)/swapfile ]; then
+echo "creating swapfile...."
 sudo fallocate -l 16G swapfile && sudo dd if=/dev/zero of=swapfile bs=1M count=16384 && sudo chmod 600 swapfile && sudo mkswap swapfile && sudo swapon swapfile && echo "vm.swappiness=100" | sudo tee -a /etc/sysctl.conf
+echo "done"
 fi
-
 
 main_menu
