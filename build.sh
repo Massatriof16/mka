@@ -33,9 +33,9 @@ done
 delete() {
 source ${current_directory}/save_settings.txt
 echo "Deleting All resource"
-cd $current_dir
-rm -rf $current_dir/build
-rm -rf $current_dir/*xz
+cd $current_directory
+rm -rf $current_directory/build
+rm -rf $current_directory/*xz
 
 }
 
