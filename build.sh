@@ -243,7 +243,14 @@ if [ "${minimal_manifest}" != "14"  ] && [ "${minimal_manifest}" != "14.1"  ]; t
     export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-eng; mka adbd ${partition}image -j$(nproc --all)
 else
 #BUILD KETIKA MINIMAL MANIFEST 14 / 14.1
-    repo sync external/guava
+    if ! repo sync external/guava; then
+        if [ ! -d external/guava ]; then
+            git clone https://android.googlesource.com/platform/external/guava -b android14-release external/guava
+        else
+            echo "external/guava sudah ada, clone dilewati"
+        fi
+    fi
+    
     export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-ap2a-eng; mka adbd ${partition}image -j$(nproc --all)
 fi
 
