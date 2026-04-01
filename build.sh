@@ -250,6 +250,8 @@ else
             echo "external/guava sudah ada, clone dilewati"
         fi
     fi
+    mkdir -p out/target/product/${device_name}/system/etc
+    cp -r $device_path/recovery/root/system/etc/task_profiles.json out/target/product/${device_name}/system/etc
     
     export ALLOW_MISSING_DEPENDENCIES=true; . build/envsetup.sh; lunch twrp_${lunch}-ap2a-eng; mka adbd ${partition}image -j$(nproc --all)
 fi
