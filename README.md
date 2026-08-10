@@ -2,6 +2,8 @@
 
 -------------------------------------------------------------------------
 
+update graphic drm from : https://github.com/rtyutechstudio/unisoc-twrp-sourcecode_patch
+
 how to use :
 
 - git clone https://github.com/Massatriof16/mka
